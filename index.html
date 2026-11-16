@@ -6,6 +6,7 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="Simulatie van één burgeromgeving per levensgebied, als alternatief voor nóg een identiteitsapp.">
   <title>Hoe het wél makkelijker kan</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231d5a8c'/%3E%3Cpath d='M12 4.5l6.5 3v5.2c0 4.1-2.9 6.2-6.5 7.5-3.6-1.3-6.5-3.4-6.5-7.5V7.5z' fill='none' stroke='white' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
 
     :root {
@@ -353,6 +354,105 @@
       * { transition: none !important; }
     }
 
+    .terms-page { display: grid; gap: 16px; }
+    .terms-hero {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow-soft); padding: 20px; display: grid; gap: 12px;
+    }
+    .terms-hero h3 { font-size: 18px; letter-spacing: -0.02em; }
+    .terms-hero p { font-size: 14px; color: var(--ink-soft); max-width: 78ch; }
+    .voorbeeld-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--warn); background: var(--warn-bg); border: 1px solid var(--warn-line);
+      border-radius: 999px; padding: 3px 9px;
+    }
+    .terms-hero .lead-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+    .btn-xl {
+      width: 100%; padding: 16px 18px; font-size: 16px; border-radius: 12px;
+      border: 1px solid var(--brand); background: var(--brand); color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-xl:hover { background: var(--brand-hover); }
+    .btn-xl:focus-visible { outline: none; box-shadow: var(--focus); }
+    .terms-org-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+    .terms-org-btn {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 8px; text-align: left;
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 14px; box-shadow: var(--shadow-soft); color: inherit; font-weight: 700; font-size: 15px;
+    }
+    .terms-org-btn:hover { border-color: var(--line-strong); background: var(--bg); }
+    .terms-org-btn:focus-visible { outline: none; box-shadow: var(--focus); }
+    .terms-org-btn .cta { font-size: 13px; font-weight: 600; color: var(--brand); }
+    .terms-sec-label {
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--muted); margin: 8px 0 0;
+    }
+    .terms-report {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow-soft); overflow: hidden;
+    }
+    .terms-report + .terms-report { margin-top: 16px; }
+    .terms-report .panel-h { padding: 16px 18px 12px; }
+    .terms-block { padding: 14px 18px; border-top: 1px solid var(--line); }
+    .terms-block h3 { font-size: 15px; margin-bottom: 8px; }
+    .terms-block h4 { font-size: 13px; margin: 10px 0 6px; color: var(--brand-ink); }
+    .terms-block p, .terms-block li { font-size: 14px; color: var(--ink-soft); }
+    .terms-block ul { margin: 0; padding-left: 18px; }
+    .terms-block li { margin: 4px 0; }
+    .summary-box {
+      background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+    }
+    .summary-box dl { margin: 0; display: grid; grid-template-columns: 160px 1fr; gap: 6px 12px; font-size: 14px; }
+    .summary-box dt { color: var(--muted); font-weight: 650; }
+    .summary-box dd { margin: 0; color: var(--ink); }
+    @media (max-width: 700px) {
+      .summary-box dl { grid-template-columns: 1fr; gap: 2px; }
+      .summary-box dt { margin-top: 8px; }
+      .summary-box dt:first-child { margin-top: 0; }
+    }
+    .tp-list { display: grid; gap: 10px; }
+    .tp-card {
+      border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg);
+    }
+    .tp-card.yes { background: var(--ok-bg); border-color: var(--ok-line); }
+    .tp-card.no { background: var(--off-bg); border-color: var(--line); }
+    .tp-card .tp-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .tp-card .tp-name { font-weight: 700; font-size: 15px; color: var(--ink); }
+    .tp-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: 13px; color: var(--ink-soft); margin-top: 8px; }
+    .tp-meta strong { color: var(--ink); font-weight: 650; }
+    @media (max-width: 700px) { .tp-meta { grid-template-columns: 1fr; } }
+    .proscons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 800px) { .proscons { grid-template-columns: 1fr; } }
+    .proscons h3 { font-size: 15px; margin-bottom: 8px; }
+    .proscons ol { margin: 0; padding-left: 20px; }
+    .proscons li { font-size: 14px; color: var(--ink-soft); margin: 6px 0; }
+    .col-pro { background: var(--ok-bg); border: 1px solid var(--ok-line); border-radius: 12px; padding: 14px 16px; }
+    .col-con { background: var(--danger-bg); border: 1px solid var(--danger-line); border-radius: 12px; padding: 14px 16px; }
+    .col-pro h3 { color: var(--ok); }
+    .col-con h3 { color: var(--danger); }
+    .risk-box { background: #faf7f4; border: 1px solid var(--warn-line); border-radius: 12px; padding: 14px 16px; }
+    .risk-box h3 { color: var(--warn); }
+    .watch-box { background: var(--brand-soft); border: 1px solid #c5ddec; border-radius: 12px; padding: 14px 16px; }
+    .watch-box h3 { color: var(--brand-ink); }
+    .watch-box li { list-style: none; margin: 8px 0; padding-left: 0; }
+    .watch-box ul { padding-left: 0; }
+    .watch-box li::before { content: "☐ "; color: var(--brand); font-weight: 700; }
+    .terms-consent { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; }
+    .terms-consent .toggle-row:first-of-type { border-top: 0; }
+    .toc { display: flex; flex-wrap: wrap; gap: 6px 10px; padding: 0 0 4px; }
+    .toc a, .toc button.toc-link {
+      font-size: 13px; font-weight: 600; color: var(--brand); background: none; border: 0; padding: 2px 0;
+    }
+    .toc button.toc-link:hover { text-decoration: underline; }
+    .header-actions { flex-wrap: wrap; justify-content: flex-end; }
+    @media (min-width: 901px) {
+      .header { height: auto; min-height: var(--header-h); padding-top: 8px; padding-bottom: 8px; }
+    }
+    @media (max-width: 900px) {
+      .bottom-nav button { font-size: 10px; padding: 8px 2px 6px; }
+    }
+
   </style>
 </head>
 <body>
@@ -374,6 +474,7 @@
         <span class="badge-count" data-bind="request-count" hidden>0</span>
       </button>
       <button type="button" class="btn btn-ghost desktop-only" data-action="nav" data-view="log" data-testid="nav-log">Logboek</button>
+      <button type="button" class="btn btn-ghost desktop-only" data-action="nav" data-view="terms" data-testid="nav-terms">Waar heb ik voor getekend?</button>
       <button type="button" class="btn btn-ghost desktop-only" data-action="nav" data-view="settings" data-testid="nav-settings">Instellingen</button>
       <button type="button" class="btn btn-ghost icon-btn mobile-only" data-action="nav" data-view="requests" aria-label="Openstaande aanvragen" data-testid="nav-requests-mobile">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
@@ -394,6 +495,10 @@
     <button type="button" data-action="nav" data-view="consents" data-testid="tab-consents">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
       Toestemmingen
+    </button>
+    <button type="button" data-action="nav" data-view="terms" data-testid="tab-terms" aria-label="Waar heb ik voor getekend?">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></svg>
+      Getekend
     </button>
     <button type="button" data-action="nav" data-view="settings" data-testid="tab-settings">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9c.3.7 1 1.1 1.7 1.1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
@@ -573,8 +678,685 @@
       { id: "geen", label: "Geen contact" }
     ];
 
+    var GENERIC_RISKS = [
+      "Datalek: een inbraak of verloren bestand bij de organisatie of een verwerker legt jouw gegevens bloot.",
+      "Profilering: van losse gegevens ontstaat een beeld van je gedrag, inkomen, gezondheid of bewegingen.",
+      "Doorverkoop of ‘delen met partners’: inzichten of bestanden gaan naar partijen die jij niet zelf hebt gekozen.",
+      "Function creep: wat begon als levering of een wettelijke taak, schuift stilletjes naar marketing, toezicht of scoring.",
+      "Koppeling van datasets: dezelfde identifier of hetzelfde adres koppelt dossiers tot een totaalbeeld.",
+      "Doorgifte buiten de EU, bijvoorbeeld naar de VS, waar een ander rechtsregime geldt.",
+      "Lange bewaartermijnen: data blijft staan ‘voor de administratie’, ook als jij de relatie al hebt beëindigd.",
+      "Onduidelijke onderaannemers: de kleine letters noemen verwerkers die jij niet kent en niet kunt controleren.",
+      "Toestemming die in de praktijk niet te intrekken is — een formulier, een wachtlijn, of ‘neem contact op’.",
+      "Heridentificatie: een ‘pseudoniem’ of sector-ID is alsnog te herleiden als het aan adres, rekening of BSN wordt gekoppeld."
+    ];
+
+    var GENERIC_WATCH = [
+      "Welke derden staan in de voorwaarden, en krijgen zij nú data of niet?",
+      "Wordt data verkocht, of gebruikt voor profilering en gerichte aanbiedingen?",
+      "Waar staat de data — in de EU, of ook in de VS of elders?",
+      "Hoe lang wordt het bewaard, en wat gebeurt er na intrekking?",
+      "Kun je toestemming net zo makkelijk intrekken als geven, zonder drempel?",
+      "Wordt er om een BSN of andere overbodige gegevens gevraagd?",
+      "Staan er vage zinnen als ‘verbetering van de dienst’, ‘partners’ of ‘gerechtvaardigd belang’?",
+      "Mogen ze de voorwaarden stilletjes wijzigen, met ‘gebruik is instemming’?",
+      "Krijg je nóg een app, login of wallet (MyCheck, itsme, NL Wallet) in plaats van dit overzicht?",
+      "Wat wordt er gelogd, en kun je zelf zien wat er wanneer is gedeeld?"
+    ];
+
+    function fillOrg(text, orgName) {
+      return String(text).replace(/\{org\}/g, orgName);
+    }
+
+    var SECTOR_TERMS = {
+      nuts: {
+        terms: [
+          "Verzameld: naam en adres voor de aansluiting, plus — alleen als jij dat aanzet — verbruiksgegevens. Een BSN hoort hier niet bij en blijft uit.",
+          "Doel: levering, storingen, facturatie en wettelijke verplichtingen richting de netbeheerder. Andere doelen (advies, marketing) alleen als jij daarvoor een veld of koppeling aanzet.",
+          "Bewaartermijn (voorbeeld): contract- en factuurgegevens tot 7 jaar (fiscale plicht). Verbruiksreeksen typisch 24 maanden, tenzij jij ze uitzet.",
+          "Intrekken: in deze omgeving met één tik. In veel echte portals moet je bellen of een formulier sturen; dat is precies het probleem.",
+          "Wijziging van voorwaarden: je zou vooraf en duidelijk geïnformeerd moeten worden. Let op zinnen als ‘voortgezet gebruik geldt als instemming’.",
+          "Doorgifte: alleen naar de ketenpartners hieronder, en alleen als de koppeling aan staat én de gevraagde velden aan staan."
+        ],
+        pros: [
+          "Je regelt levering en afrekening zonder nóg een identiteitsapp.",
+          "Geen MyCheck, itsme of NL Wallet om je meter of factuur te kunnen inzien.",
+          "Alleen een Nuts-ID, geen BSN — dat hoort bij een nutsbedrijf niet thuis.",
+          "Verbruiksgegevens staan standaard uit; jij zet ze alleen aan als je dat wilt.",
+          "Storingen en onderhoud komen via het kanaal dat jij kiest — of helemaal niet.",
+          "Intrekken van de koppeling is één tik, geen wachtlijn bij de klantenservice.",
+          "Je ziet meteen welke ketenpartners wél en niet jouw data krijgen.",
+          "Adres delen blijft begrensd tot de aansluiting, als jij het zo zet.",
+          "Contractwijzigingen horen in één omgeving thuis, niet in drie losse apps.",
+          "Elke keer dat je iets deelt of intrekt, staat het met tijdstip in je logboek."
+        ],
+        cons: [
+          "Een leverancier bewaart vaak meer meetdata dan je in een app te zien krijgt.",
+          "‘Partners’ in de voorwaarden kunnen later worden uitgebreid, zonder dat je het merkt.",
+          "Verbruiksdata verraadt wanneer je thuis bent en hoe je leeft.",
+          "Slimme-meterdata is aantrekkelijk voor profilering en gerichte aanbiedingen.",
+          "Een datalek bij een IT-verwerker legt adres en contract bloot.",
+          "Doelverschuiving: eerst levering, later ‘energieadvies’ of marketing.",
+          "Cloudverwerkers kunnen buiten de EU staan, met een ander rechtsregime.",
+          "Na intrekking kunnen wettelijke bewaarplichten data toch vasthouden.",
+          "Koppeling met netbeheerder en meetbedrijf maakt een breder profiel mogelijk.",
+          "Algemene voorwaarden wijzigen soms stil, met ‘gebruik is instemming’."
+        ],
+        risks: [
+          "Verbruikspatronen kunnen worden gebruikt om aanwezigheid of leefgewoonten af te leiden.",
+          "Een ‘slim advies’ is vaak een opstap naar verkoop van extra diensten."
+        ],
+        watch: [
+          "Staat verbruiksdata uit, tenzij jij die bewust nodig hebt?",
+          "Wordt er tóch om een BSN of ID-app gevraagd voor een eenvoudig contract?"
+        ]
+      },
+      overheid: {
+        terms: [
+          "Verzameld: naam en adres, plus een sector-specifiek overheids-pseudoniem. BSN alleen als jij dat uitzonderlijk aanzet.",
+          "Doel: de wettelijke taak van deze instantie (burgerzaken, belastingen, voertuigen). Geen hergebruik voor ‘dienstverlening verbetering’ zonder jouw actie.",
+          "Bewaartermijn (voorbeeld): vaak wettelijk bepaald en lang, soms decennia, ook nádat jij de koppeling intrekt.",
+          "Intrekken: de koppeling in deze omgeving gaat meteen uit. Wettelijke grondslagen kunnen betekenen dat de instantie sommige gegevens toch moet bewaren.",
+          "Wijziging van voorwaarden of grondslag: hoort via een besluit of duidelijke bekendmaking, niet via een vinkje in een nieuwe app.",
+          "Doorgifte: alleen naar de genoemde verwerkers of samenwerkingsverbanden, en alleen als de bijbehorende velden aan staan."
+        ],
+        pros: [
+          "Je spreekt de instantie aan vanuit één omgeving, niet via nóg een rijksloket-app.",
+          "Identificatie via een overheids-pseudoniem in plaats van standaard je BSN.",
+          "BSN staat uit tot jij het zelf aanzet — en je kunt het meteen weer uitzetten.",
+          "Je ziet welke velden nu werkelijk gedeeld worden, in gewone taal.",
+          "Communicatie zet je op e-mail, telefoon, app of ‘geen contact’.",
+          "Aanvragen na een belletje landen hier, niet in een losse mailbox van een nieuwe wallet.",
+          "Intrekken is zichtbaar in het logboek, met tijdstip.",
+          "Geen itsme, MyCheck of NL Wallet als extra poortje voor dezelfde zaak.",
+          "Per instantie kun je anders delen (gemeente wél, RDW niet).",
+          "Je houdt overzicht over derden die wél of niet data krijgen."
+        ],
+        cons: [
+          "Overheidsdata wordt vaak lang bewaard, ook als jij de koppeling uitzet.",
+          "Basisregistraties maken koppeling tussen instanties technisch eenvoudig.",
+          "Een wettelijke grondslag kan toestemming deels omzeilen; lees wat écht verplicht is.",
+          "‘Eenmalig loket’ klinkt prettig, maar kan tot bredere gegevensuitwisseling leiden.",
+          "IT-leveranciers van de overheid zijn zelf een datalek-risico.",
+          "Profilering komt ook bij de overheid voor, bijvoorbeeld bij risico-indicatoren.",
+          "Een fout in een registratie plant zich door naar andere ketens.",
+          "Inspraak over nieuwe verwerkingen is in de praktijk vaak beperkt.",
+          "Een BSN dat je één keer deelt, is moeilijk weer ‘ongedeeld’ in alle systemen.",
+          "Nieuwe ‘digitale identiteiten’ van de overheid stapelen zich op, in plaats van te verdwijnen."
+        ],
+        risks: [
+          "Koppeling van registraties (adres, voertuig, inkomen) tot een overheidsbreed profiel.",
+          "Risicoprofilering of automatische besluitvorming op basis van gekoppelde bronnen."
+        ],
+        watch: [
+          "Is een BSN hier echt wettelijk nodig, of is het gemak voor de instantie?",
+          "Welke andere overheidsdiensten krijgen dezelfde gegevens door?"
+        ]
+      },
+      social: {
+        terms: [
+          "Verzameld: weergavenaam, en e-mail alleen als jij dat aanzet. Geen BSN — dat hoort hier nooit.",
+          "Doel: een account mogelijk maken. Reclame, meting en ‘personalisatie’ horen uit te staan tot jij een relevant veld deelt.",
+          "Bewaartermijn (voorbeeld): accountgegevens zolang het account bestaat, plus een periode daarna (vaak 12–24 maanden) ‘voor beveiliging’.",
+          "Intrekken: koppeling en velden gaan hier meteen uit. Let op of het platform een kopie in reclamenetwerken achterlaat.",
+          "Wijziging van voorwaarden: platforms wijzigen dit vaak eenzijdig. Dat is een reden om te kijken, niet om stil te slikken.",
+          "Doorgifte: reclame- en analysepartners krijgen data alleen als de koppeling aan staat en de gevraagde velden aan staan."
+        ],
+        pros: [
+          "Je kunt een account gebruiken zonder je overheidsidentiteit of BSN eraan te knopen.",
+          "E-mail delen staat standaard uit; het platform hoeft je niet via je inbox te achtervolgen.",
+          "Geen NL Wallet of itsme als ‘bewijs’ dat jij een sociaal account mag hebben.",
+          "Je ziet welke advertentie- of analysepartijen wél en niet data zouden krijgen.",
+          "Intrekken is één tik — in echte apps is ‘account verwijderen’ vaak een doolhof.",
+          "Communicatie kun je op ‘geen contact’ zetten.",
+          "Weergavenaam is genoeg om herkenbaar te zijn, zonder je burgeridentiteit.",
+          "Alles wat je deelt, blijft zichtbaar in dit overzicht, niet verstopt in cookie-schermen.",
+          "Je houdt social media in dezelfde omgeving als zorg of bank, zonder ze te vermengen.",
+          "Het logboek maakt zichtbaar wanneer je iets hebt aangezet of uitgezet."
+        ],
+        cons: [
+          "Het verdienmodel is vaak profilering; ‘gratis’ betekent meestal: jij bent het product.",
+          "Advertentienetwerken kunnen schaduwprofielen bouwen, ook met weinig gegevens.",
+          "Doorgifte naar de VS is bij dit soort diensten eerder regel dan uitzondering.",
+          "Voorwaarden zijn lang, vaag en veranderen vaak.",
+          "Gegevens die je wist, kunnen in back-ups of bij partners blijven hangen.",
+          "Gezicht, stem of gedrag op het platform zelf vallen buiten deze velden — en zijn extra risico.",
+          "‘Personalisatie’ is een containerbegrip voor tracking.",
+          "Accountherstel vraagt soms tóch weer een extra ID-check of app.",
+          "Koppeling met andere diensten (inloggen met…) stapelt macht bij één partij.",
+          "Kinderen of contacten in je netwerk kunnen indirect meegenomen worden in profielen."
+        ],
+        risks: [
+          "Verkoop of ruil van profielen aan adverteerders en datahandelaren.",
+          "Tracking over sites en apps heen, ook als jij denkt alleen een weergavenaam te delen."
+        ],
+        watch: [
+          "Staat je e-mail uit, tenzij je écht een bevestiging nodig hebt?",
+          "Wordt er alsnog een nationale ID-wallet of BSN aan het account gekoppeld?"
+        ]
+      },
+      banken: {
+        terms: [
+          "Verzameld: naam en rekeningnummer, plus BSN alleen als jij dat aanzet omdat een wettelijke identificatieplicht dat vraagt.",
+          "Doel: betalen, identificeren en wettelijke verplichtingen (Wwft, fiscale rapportage). Geen hergebruik voor verzekeringen of marketing zonder jouw actie.",
+          "Bewaartermijn (voorbeeld): transacties en identificatie vaak 5–7 jaar na einde van de relatie, soms langer bij onderzoek.",
+          "Intrekken: de koppeling in deze omgeving stopt het delen vanuit hier. Wettelijke bewaarplichten bij de bank zelf blijven bestaan.",
+          "Wijziging van voorwaarden: materiële wijzigingen horen vooraf, met de mogelijkheid om de relatie te beëindigen.",
+          "Doorgifte: alleen naar genoemde verwerkers (bijvoorbeeld een KYC-dienst of hypotheekketen), als de gevraagde velden aan staan."
+        ],
+        pros: [
+          "Betalen en identificeren via een Bank-ID, niet via nóg een wallet-app.",
+          "BSN staat standaard uit; jij zet het alleen aan als de wet dat écht vraagt.",
+          "Je kunt een hypotheekverstrekker gescheiden houden van je dagelijkse bank.",
+          "Rekeningnummer delen is doelgebonden, en je ziet het hier staan.",
+          "Geen itsme of MyCheck als extra poortje bovenop je bankieren.",
+          "Communicatievoorkeur geldt meteen, inclusief ‘geen contact’.",
+          "Derden (KYC, scoring, ketenpartners) zijn hier zichtbaar als wél of niet.",
+          "Intrekken van extra velden — zoals BSN — is één tik.",
+          "Aanvragen om extra data komen in dit portaal, niet in een losse bijlage.",
+          "Het logboek bewaart wanneer je iets hebt gegeven of ingetrokken."
+        ],
+        cons: [
+          "Financiële data is zeer gevoelig; een lek treft geld én identiteit.",
+          "Fraude- en WWFT-controles leiden tot profilering, ook als jij ‘niets te verbergen’ hebt.",
+          "Krediet- of risicoscores kunnen naar ketenpartners stromen.",
+          "Een BSN bij een bank is een sleutel naar andere registraties.",
+          "Bewaartermijnen zijn lang, ook na het sluiten van een rekening.",
+          "‘Gerechtvaardigd belang’ wordt soms gebruikt voor marketing binnen de groep.",
+          "Externe KYC-leveranciers zien kopieën van je identificatiegegevens.",
+          "Koppeling tussen bank en verzekeraar of hypotheek kan een totaalbeeld opleveren.",
+          "Voorwaarden zijn juridisch en lastig te doorgronden zonder dit soort samenvatting.",
+          "Nieuwe ‘open banking’-partners kunnen later worden toegevoegd."
+        ],
+        risks: [
+          "Kredietscoring of uitsluiting op basis van gekoppelde betaal- en identiteitsdata.",
+          "Doorgifte binnen een financiële groep, verder dan de dienst die jij koos."
+        ],
+        watch: [
+          "Wordt BSN gevraagd voor iets dat ook met een Bank-ID kan?",
+          "Welke partijen in de groep of keten krijgen je rekening- of identiteitsgegevens?"
+        ]
+      },
+      zorg: {
+        terms: [
+          "Verzameld: naam en geboortedatum, plus zorggegevens en BSN alleen als jij die aanzet. Identificatie verder via een Zorg-ID.",
+          "Doel: behandeling, declaratie of verzekering — niet meer. Geen hergebruik voor onderzoek of ‘kwaliteit’ zonder jouw expliciete veld.",
+          "Bewaartermijn (voorbeeld): medische dossiers vaak 20 jaar (Wgbo). Verzekeringsadministratie korter, maar alsnog jaren.",
+          "Intrekken: velden en koppeling gaan hier meteen uit. Een behandelaar kan wettelijk wél een dossier moeten bewaren.",
+          "Wijziging van voorwaarden: bij zorg hoort een duidelijke grondslag; ‘akkoord via de app’ is geen vrijbrief.",
+          "Doorgifte: alleen naar de genoemde partijen (lab, declaratie, EPD-leverancier), als de gevraagde velden aan staan."
+        ],
+        pros: [
+          "Zorgverleners kennen je aan een Zorg-ID, niet standaard aan een BSN.",
+          "Zorggegevens staan uit tot jij ze bewust deelt.",
+          "Je houdt huisarts, ziekenhuis en verzekeraar uit elkaar, tot jij anders kiest.",
+          "Geen extra zorg-identiteitsapp naast DigiD, itsme of NL Wallet.",
+          "Na een belletje met de verzekeraar verschijnt het verzoek hier, onder Openstaande aanvragen.",
+          "Je kiest per veld wat er mee mag, in plaats van ‘akkoord op alles’.",
+          "Communicatie (bijvoorbeeld geen telefoon) zet je zelf, meteen.",
+          "Derden zoals een lab of declaratiehuis zijn zichtbaar als wél of niet.",
+          "Intrekken is direct; je hoeft niet te hopen dat een formulier is aangekomen.",
+          "Het logboek maakt later zichtbaar wat je wanneer hebt toegestaan."
+        ],
+        cons: [
+          "Medische data is de meest gevoelige categorie; de schade bij een lek is groot.",
+          "Verzekeraars hebben een ander belang dan behandelaars; vermenging is riskant.",
+          "EPD- en clouddiensten concentreren dossiers van veel patiënten.",
+          "Onderzoek, kwaliteit of ‘AI-diagnostiek’ kan later als nieuw doel worden toegevoegd.",
+          "Een BSN in de zorg koppelt medische data aan de rest van je overheidsleven.",
+          "Bewaartermijnen zijn lang; intrekking wist het dossier niet altijd.",
+          "Machtigingen in de keten (waarneem, lab, apotheek) zijn moeilijk te overzien.",
+          "Verkeerde koppeling of een verkeerd dossier heeft directe gevolgen voor behandeling.",
+          "Sommige portalen vragen tóch weer een aparte login of app.",
+          "Familie- of gemachtigdenverzoeken maken de toestemmingsgrens vager."
+        ],
+        risks: [
+          "Medisch profiel gekoppeld aan verzekering, werk of overheid (uitsluiting, premie, selectie).",
+          "Ongeautoriseerde inzage in een EPD door iemand met te ruime rechten."
+        ],
+        watch: [
+          "Deel zorggegevens alleen met wie behandelt of declareert, niet ‘voor de zekerheid’.",
+          "Staat BSN uit, tenzij een declaratie dat wettelijk nodig heeft?"
+        ]
+      },
+      werk: {
+        terms: [
+          "Verzameld: naam, plus contractgegevens en BSN alleen als jij die aanzet. Identificatie via een Werk-ID.",
+          "Doel: dienstverband, loon en wettelijke verplichtingen (loonheffing, pensioen). Geen hergebruik voor werving, monitoring of ‘people analytics’ zonder jouw actie.",
+          "Bewaartermijn (voorbeeld): loonadministratie typisch 7 jaar. Sollicitatie- of beoordelingsdossiers korter, tenzij anders afgesproken.",
+          "Intrekken: de koppeling stopt het delen vanuit deze omgeving. Een werkgever kan wettelijk een loonadministratie moeten bewaren.",
+          "Wijziging van voorwaarden of reglement: hoort duidelijk, met inspraak of instemming waar dat past — niet verstopt in een nieuwe HR-app.",
+          "Doorgifte: alleen naar genoemde partijen (salarisverwerker, pensioenuitvoerder), als de gevraagde velden aan staan."
+        ],
+        pros: [
+          "Je deelt met je werkgever via een Werk-ID, niet via nóg een HR-identiteitsapp.",
+          "Contractgegevens staan standaard uit tot jij ze nodig acht.",
+          "BSN voor loonheffing zet je zelf aan, en je kunt het daarna weer uitzetten in dit overzicht.",
+          "Werkgever en pensioenfonds blijven gescheiden tot jij een koppeling zet.",
+          "Geen MyCheck of wallet om te bewijzen dat jij in dienst bent.",
+          "Communicatie over werk zet je zelf, inclusief ‘geen contact’ buiten afgesproken kanalen.",
+          "Je ziet welke verwerkers (salaris, pensioen) wél of niet data krijgen.",
+          "Intrekken van extra velden is direct zichtbaar.",
+          "Aanvragen om extra data komen in het portaal, niet alleen in een HR-portal met andere regels.",
+          "Het logboek houdt bij wat je wanneer hebt getekend."
+        ],
+        cons: [
+          "Werkgevers verzamelen vaak meer (monitoring, beoordeling) dan voor loon nodig is.",
+          "Salarisverwerkers en ‘people analytics’ zijn extra schakels met lek-risico.",
+          "Een BSN op het werk koppelt inkomen aan je overheidsidentiteit.",
+          "Na uitdiensttreding blijft data vaak langer staan dan je verwacht.",
+          "Toestemming op het werk is zelden helemaal vrij: er is een machtsverhouding.",
+          "Pensioen- en verzekeringsketens koppelen gezondheid, leeftijd en inkomen.",
+          "Voorwaarden zitten verspreid over arbeidsovereenkomst, reglement en verwerkers.",
+          "Nieuwe tools (tijdregistratie, badge, laptopbeheer) worden later toegevoegd.",
+          "Internationale concerns slaan HR-data soms buiten de EU op.",
+          "Een fout in de loon- of contractdata heeft directe financiële gevolgen."
+        ],
+        risks: [
+          "Monitoring of scoring van werknemers op basis van gekoppelde HR- en contractdata.",
+          "Doorgifte aan een concern of inkoper die jij niet als werkgever hebt gekozen."
+        ],
+        watch: [
+          "Is een BSN nodig voor loonheffing, of wordt hij ‘voor het dossier’ gevraagd?",
+          "Welke HR- of analyticspartijen staan in de keten, en staan ze aan?"
+        ]
+      },
+      onderwijs: {
+        terms: [
+          "Verzameld: naam, plus diploma’s en BSN alleen als jij die aanzet. Identificatie via een Onderwijs-ID.",
+          "Doel: inschrijving, diplomering of wettelijke taken (bijvoorbeeld studiefinanciering). Geen hergebruik voor werving of ‘leeringichten’ zonder jouw actie.",
+          "Bewaartermijn (voorbeeld): diploma’s vaak lang of blijvend. Inschrijvingsdata korter, maar alsnog jaren. DUO kent wettelijke termijnen.",
+          "Intrekken: de koppeling stopt het delen vanuit hier. Een bewijs van diploma kan wettelijk bewaard moeten blijven.",
+          "Wijziging van voorwaarden: hoort duidelijk, niet als stille update van een campus-app.",
+          "Doorgifte: alleen naar genoemde partijen (administratie, diplomaregister), als de gevraagde velden aan staan."
+        ],
+        pros: [
+          "Studie en diploma’s via een Onderwijs-ID, niet standaard via je BSN.",
+          "Diploma’s deel je alleen als jij dat aanzet, bijvoorbeeld voor een sollicitatie.",
+          "Onderwijsinstelling en DUO blijven gescheiden tot jij een koppeling zet.",
+          "Geen extra onderwijs-wallet naast DigiD, itsme of NL Wallet.",
+          "BSN staat uit tot een wettelijke taak dat écht vraagt, en jij het aanzet.",
+          "Communicatie (geen wervingsmails) zet je zelf.",
+          "Je ziet welke administratie- of registerpartijen wél of niet data krijgen.",
+          "Intrekken van een veld is één tik, zichtbaar in het logboek.",
+          "Aanvragen om extra gegevens verschijnen in dit portaal.",
+          "Je houdt onderwijs in dezelfde omgeving als andere levensgebieden, zonder data te vermengen."
+        ],
+        cons: [
+          "Onderwijsdata (cijfers, begeleiding, zorg) is gevoeliger dan alleen een naam.",
+          "Diploma-registers bewaren lang, soms levenslang.",
+          "Een BSN bij DUO koppelt studie aan inkomen, toeslagen en andere ketens.",
+          "Leermiddelen en clouddiensten (vaak buiten de EU) zien gebruiksdata.",
+          "Werving, alumni en ‘netwerk’ worden makkelijk aan inschrijvingsdata geplakt.",
+          "Minderjarigen of oud-leerlingen hebben extra bescherming nodig, die in de praktijk rammelt.",
+          "Voorwaarden van instelling, uitgever en platform overlappen en zijn lastig te overzien.",
+          "Een fout in een diploma- of inschrijvingsregister is later moeilijk te herstellen.",
+          "Koppeling met werk of uitkering kan tot ongewenste profielen leiden.",
+          "Nieuwe ‘edtech’-partners worden later toegevoegd onder dezelfde instemming."
+        ],
+        risks: [
+          "Koppeling van studieprestaties of zorg op school aan latere werk- of overheidsdossiers.",
+          "Cloud-leermiddelen die gebruiks- en profieldata buiten de EU zetten."
+        ],
+        watch: [
+          "Deel diploma’s gericht, niet ‘standaard open’ voor iedere instantie.",
+          "Is een BSN wettelijk nodig (bijvoorbeeld bij DUO), of is het gemak?"
+        ]
+      }
+    };
+
+    var ORG_THIRD_PARTIES = {
+      "energie-a": [
+        { id: "ea-net", name: "Netkoppelpunt Randstad B.V.", purpose: "Aansluit- en storingsafhandeling op het energienet.", retention: "7 jaar na einde contract", location: "EU (Nederland)", sale: false, profiling: false, requires: ["adres"], requiresLabel: "Adres" },
+        { id: "ea-meter", name: "Meetdata Hub B.V.", purpose: "Analyse van verbruikspatronen voor ‘slimme’ adviezen en netplanning.", retention: "24 maanden na laatste meting", location: "EU (Nederland)", sale: false, profiling: true, requires: ["verbruik"], requiresLabel: "Verbruiksgegevens" },
+        { id: "ea-cloud", name: "CloudFactuur Noord-Europa AB", purpose: "Opstellen en archiveren van facturen.", retention: "7 jaar", location: "EU (Zweden)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Nuts-ID)" },
+        { id: "ea-ads", name: "ReclameNet Energie C.V.", purpose: "Gerichte aanbiedingen van contracten en apparaten.", retention: "12 maanden", location: "EU en VS", sale: true, profiling: true, requires: ["naam", "verbruik"], requiresLabel: "Naam én verbruiksgegevens" }
+      ],
+      "gas-b": [
+        { id: "gb-net", name: "Regionaal Gasnet Beheer B.V.", purpose: "Veiligheid en onderhoud van de gasaansluiting.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["adres"], requiresLabel: "Adres" },
+        { id: "gb-meter", name: "Kalibratie & Meetreeks B.V.", purpose: "Meterstanden verzamelen en controleren.", retention: "24 maanden", location: "EU (Nederland)", sale: false, profiling: false, requires: ["verbruik"], requiresLabel: "Verbruiksgegevens" },
+        { id: "gb-it", name: "KetenCloud Utilities GmbH", purpose: "Klantadministratie in een gedeelde cloud.", retention: "7 jaar", location: "EU (Duitsland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Nuts-ID)" },
+        { id: "gb-markt", name: "AanbodWijzer Energie B.V.", purpose: "Vergelijken en aanbieden van andere contracten.", retention: "18 maanden", location: "EU (Nederland)", sale: false, profiling: true, requires: ["naam"], requiresLabel: "Naam" }
+      ],
+      "water-c": [
+        { id: "wc-leiding", name: "Leidingnet Beheer C B.V.", purpose: "Levering, storingen en werkzaamheden aan de waterleiding.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["adres"], requiresLabel: "Adres" },
+        { id: "wc-kwaliteit", name: "Waterlab Kwaliteit B.V.", purpose: "Monsters en meldingen koppelen aan een adres.", retention: "5 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["adres"], requiresLabel: "Adres" },
+        { id: "wc-meter", name: "Verbruiksgrafiek Diensten B.V.", purpose: "Inzicht in waterverbruik en lekkagesignalering.", retention: "24 maanden", location: "EU (Nederland)", sale: false, profiling: true, requires: ["verbruik"], requiresLabel: "Verbruiksgegevens" },
+        { id: "wc-print", name: "Postprint Overheid & Nuts B.V.", purpose: "Versturen van papieren jaarafrekeningen.", retention: "2 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["naam", "adres"], requiresLabel: "Naam én adres" }
+      ],
+      "gemeente": [
+        { id: "gem-it", name: "Stadsdata Verwerking B.V.", purpose: "Burgerzaken-administratie en zaaksystemen.", retention: "wettelijke termijnen, vaak lang", location: "EU (Nederland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (overheids-pseudoniem)" },
+        { id: "gem-geo", name: "Adreslaag Nederland B.V.", purpose: "Adresverificatie tegen de basisregistratie.", retention: "voor de duur van de zaak, plus archief", location: "EU (Nederland)", sale: false, profiling: false, requires: ["adres"], requiresLabel: "Adres" },
+        { id: "gem-stat", name: "Statistiekbureau Stedelijk B.V.", purpose: "Beleidsstatistiek op wijkniveau; hoort gepseudonimiseerd.", retention: "5 jaar", location: "EU (Nederland)", sale: false, profiling: true, requires: ["adres"], requiresLabel: "Adres" },
+        { id: "gem-id", name: "LoketIdentiteit Diensten B.V.", purpose: "Identiteitsvergelijking wanneer een BSN wordt gedeeld.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "belastingdienst": [
+        { id: "bd-keten", name: "Fiscale Ketenvoorziening B.V.", purpose: "Uitwisseling binnen de fiscale keten.", retention: "wettelijke fiscale termijnen (vaak 7 jaar)", location: "EU (Nederland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (overheids-pseudoniem)" },
+        { id: "bd-risico", name: "Selectie & Risico-analyse B.V.", purpose: "Risico-indicatoren op aangiften.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: true, requires: ["naam"], requiresLabel: "Naam" },
+        { id: "bd-adres", name: "Woonplaatsbevestiging Overheid B.V.", purpose: "Controle van woonadres voor heffingen.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["adres"], requiresLabel: "Adres" },
+        { id: "bd-bsn", name: "Identiteitskoppel Fiscus B.V.", purpose: "Koppelen van dossiers op BSN.", retention: "wettelijke termijnen", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "rdw": [
+        { id: "rdw-reg", name: "Voertuigregister Verwerking B.V.", purpose: "Kenteken- en eigenaarsadministratie.", retention: "voor de levensduur van het voertuig, plus archief", location: "EU (Nederland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (overheids-pseudoniem)" },
+        { id: "rdw-keur", name: "Keuringsketen Noord B.V.", purpose: "Afhandelen van keuringen en terugroepacties.", retention: "10 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["naam"], requiresLabel: "Naam" },
+        { id: "rdw-post", name: "Kentekenpost Distributie B.V.", purpose: "Verzenden van kenteken- en keuringspost.", retention: "2 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["adres"], requiresLabel: "Adres" },
+        { id: "rdw-id", name: "EigenaarIdentiteit Check B.V.", purpose: "Identificatie van de tenaamgestelde bij een BSN.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "sociaal-a": [
+        { id: "sa-ads", name: "BereikNet Advertising Ltd.", purpose: "Gerichte advertenties en meting van bereik.", retention: "13 maanden", location: "VS, met een EU-doorgifteconstructie", sale: true, profiling: true, requires: ["email"], requiresLabel: "E-mailadres" },
+        { id: "sa-ana", name: "Gedragssignaal Analytics Inc.", purpose: "Productanalyse en ‘personalisatie’ van de tijdlijn.", retention: "24 maanden", location: "VS", sale: false, profiling: true, requires: [], requiresLabel: "alleen de koppeling (Social-ID en weergavenaam indien aan)" },
+        { id: "sa-cdn", name: "Edgecache Global Ltd.", purpose: "Opslaan en uitleveren van profiel- en mediabestanden.", retention: "zolang het account bestaat", location: "EU en VS", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Social-ID)" },
+        { id: "sa-mail", name: "Transactiemail Europa B.V.", purpose: "Accountberichten en ‘aanbevolen voor jou’ per mail.", retention: "12 maanden", location: "EU (Ierland)", sale: false, profiling: true, requires: ["email"], requiresLabel: "E-mailadres" }
+      ],
+      "video-b": [
+        { id: "vb-rec", name: "Kijkprofiel Aanbevelingen Ltd.", purpose: "Aanbevelingen op basis van kijkgedrag en account.", retention: "24 maanden", location: "VS", sale: false, profiling: true, requires: [], requiresLabel: "alleen de koppeling (Social-ID)" },
+        { id: "vb-ads", name: "Pre-roll Advertentienet C.V.", purpose: "Gesponsorde video’s en conversiemeting.", retention: "12 maanden", location: "EU en VS", sale: true, profiling: true, requires: ["email"], requiresLabel: "E-mailadres" },
+        { id: "vb-pay", name: "AbonnementIncasso EU B.V.", purpose: "Betalingen voor een eventueel abonnement.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["weergavenaam"], requiresLabel: "Weergavenaam" },
+        { id: "vb-cdn", name: "Streamgrid Hosting Inc.", purpose: "Video opslaan en streamen.", retention: "zolang de content of het account bestaat", location: "VS en EU", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Social-ID)" }
+      ],
+      "bank-a": [
+        { id: "ba-kyc", name: "KYC-Bureau Laag Dichtheid B.V.", purpose: "Identificatie en cliëntenonderzoek (Wwft).", retention: "5 jaar na einde relatie", location: "EU (Nederland)", sale: false, profiling: false, requires: ["naam"], requiresLabel: "Naam" },
+        { id: "ba-trans", name: "Betaalrails Verwerking B.V.", purpose: "Verwerken van overboekingen.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["iban"], requiresLabel: "Rekeningnummer" },
+        { id: "ba-fraud", name: "FraudeSignaal Netwerk B.V.", purpose: "Fraudedetectie en transactiemonitoring.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: true, requires: ["iban"], requiresLabel: "Rekeningnummer" },
+        { id: "ba-bsn", name: "Identiteitsregister Financieel B.V.", purpose: "Wettelijke identificatie wanneer een BSN wordt gedeeld.", retention: "7 jaar na einde relatie", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "hypotheek-b": [
+        { id: "hb-keten", name: "Hypotheekketen Dossier B.V.", purpose: "Aanvraag, taxatie en passeren van de hypotheek.", retention: "looptijd plus 7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["naam"], requiresLabel: "Naam" },
+        { id: "hb-inkomen", name: "Inkomenscheck Partners B.V.", purpose: "Controle van inkomen en lastencapaciteit.", retention: "5 jaar na afwijzing of passeren", location: "EU (Nederland)", sale: false, profiling: true, requires: ["iban"], requiresLabel: "Rekeningnummer" },
+        { id: "hb-nhg", name: "Waarborgadministratie Voorbeeld B.V.", purpose: "Administratie van een eventuele garantie of verzekering.", retention: "looptijd plus 7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Bank-ID)" },
+        { id: "hb-bsn", name: "Kadasterkoppel Identiteit B.V.", purpose: "Tenaamstelling en identificatie bij een BSN.", retention: "looptijd plus wettelijke archieftermijn", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "zorgverz-a": [
+        { id: "za-decl", name: "Declaratiehuis Zorgkader B.V.", purpose: "Controle en uitbetaling van declaraties.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["naam"], requiresLabel: "Naam" },
+        { id: "za-macht", name: "Machtigingen & Indicatie B.V.", purpose: "Beoordelen van machtigingen voor zorg.", retention: "15 jaar", location: "EU (Nederland)", sale: false, profiling: true, requires: ["zorggegevens"], requiresLabel: "Zorggegevens" },
+        { id: "za-it", name: "Polisadministratie Cloud B.V.", purpose: "Polis- en klantadministratie.", retention: "7 jaar na einde polis", location: "EU (Nederland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Zorg-ID)" },
+        { id: "za-bsn", name: "VECOZO-achtige Koppeling B.V.", purpose: "Identificatie en declaratieketen wanneer een BSN wordt gedeeld.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "huisarts": [
+        { id: "ha-epd", name: "Praktijkdossier Software B.V.", purpose: "Huisartsinformatiesysteem (dossier en agenda).", retention: "20 jaar na laatste behandeling (voorbeeld Wgbo)", location: "EU (Nederland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Zorg-ID)" },
+        { id: "ha-lab", name: "Streeklaboratorium Noord B.V.", purpose: "Bloed- en andere onderzoeken koppelen aan jou.", retention: "15 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["zorggegevens"], requiresLabel: "Zorggegevens" },
+        { id: "ha-waar", name: "Waarneemdienst Regio B.V.", purpose: "Waarneming buiten kantooruren.", retention: "20 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["naam", "geboortedatum"], requiresLabel: "Naam én geboortedatum" },
+        { id: "ha-bsn", name: "Zorgidentiteit Koppelpunt B.V.", purpose: "Declaratie en identificatie bij een BSN.", retention: "7 jaar (declaratie) / dossiertermijn", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "ziekenhuis-b": [
+        { id: "zb-epd", name: "Ziekenhuis-EPD Leverancier B.V.", purpose: "Elektronisch patiëntendossier en planning.", retention: "20 jaar na einde behandeling", location: "EU (Nederland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Zorg-ID)" },
+        { id: "zb-beeld", name: "Beeldarchief Radiologie B.V.", purpose: "Opslaan van scans en foto’s.", retention: "20 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["zorggegevens"], requiresLabel: "Zorggegevens" },
+        { id: "zb-kwal", name: "Kwaliteitsregistratie Voorbeeld B.V.", purpose: "Kwaliteits- en uitkomstregistratie.", retention: "15 jaar", location: "EU (Nederland)", sale: false, profiling: true, requires: ["zorggegevens"], requiresLabel: "Zorggegevens" },
+        { id: "zb-bsn", name: "Ziekenhuisidentiteit Keten B.V.", purpose: "Identificatie en DBC-declaratie bij een BSN.", retention: "7 jaar (declaratie) / dossiertermijn", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "werkgever": [
+        { id: "wg-payroll", name: "Salarisstraat Verwerking B.V.", purpose: "Loonadministratie, loonstroken en aangiften.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["naam"], requiresLabel: "Naam" },
+        { id: "wg-hr", name: "HR-dossier Cloud B.V.", purpose: "Contract- en personeelsdossier.", retention: "7 jaar na uitdiensttreding", location: "EU (Nederland)", sale: false, profiling: false, requires: ["contract"], requiresLabel: "Contractgegevens" },
+        { id: "wg-ana", name: "People Insights C.V.", purpose: "Personeelsrapportages en ‘people analytics’.", retention: "3 jaar", location: "EU en VS", sale: false, profiling: true, requires: ["contract"], requiresLabel: "Contractgegevens" },
+        { id: "wg-bsn", name: "Loonheffing Koppeling B.V.", purpose: "Fiscale identificatie wanneer een BSN wordt gedeeld.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "pensioen": [
+        { id: "pn-uit", name: "Pensioenuitvoering Administratie B.V.", purpose: "Opbouw, waardeoverdracht en uitkering.", retention: "tot einde uitkering, plus wettelijk archief", location: "EU (Nederland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Werk-ID)" },
+        { id: "pn-werk", name: "Werkgeversportal Koppel B.V.", purpose: "Premie en dienstverband doorgeven.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: false, requires: ["contract"], requiresLabel: "Contractgegevens" },
+        { id: "pn-adv", name: "Pensioeninzicht Advies B.V.", purpose: "Persoonlijke prognoses en keuzes.", retention: "5 jaar", location: "EU (Nederland)", sale: false, profiling: true, requires: ["naam"], requiresLabel: "Naam" },
+        { id: "pn-bsn", name: "Uitkeringsidentiteit B.V.", purpose: "Fiscale en wettelijke identificatie bij een BSN.", retention: "wettelijke termijn na einde uitkering", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "school": [
+        { id: "sc-sis", name: "Inschrijvingsadministratie Campus B.V.", purpose: "Inschrijving, rooster en resultatenadministratie.", retention: "2 jaar na uitschrijving, diploma’s langer", location: "EU (Nederland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Onderwijs-ID)" },
+        { id: "sc-dip", name: "Diplomaregister Voorbeeld B.V.", purpose: "Registreren en verifiëren van diploma’s.", retention: "blijvend (voorbeeld)", location: "EU (Nederland)", sale: false, profiling: false, requires: ["diplomas"], requiresLabel: "Diploma’s" },
+        { id: "sc-lms", name: "Leercloud EdTech Ltd.", purpose: "Digitale leermiddelen en voortgangsmeting.", retention: "24 maanden na afloop van de cursus", location: "VS, met EU-opslagclaim", sale: false, profiling: true, requires: ["naam"], requiresLabel: "Naam" },
+        { id: "sc-bsn", name: "Onderwijsidentiteit Keten B.V.", purpose: "Wettelijke identificatie wanneer een BSN wordt gedeeld.", retention: "wettelijke termijn", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ],
+      "duo": [
+        { id: "duo-fin", name: "Studiefinanciering Verwerking B.V.", purpose: "Aanvraag en uitbetaling van financiering (voorbeeldketen).", retention: "wettelijke termijnen, vaak lang", location: "EU (Nederland)", sale: false, profiling: false, requires: [], requiresLabel: "alleen de koppeling (Onderwijs-ID)" },
+        { id: "duo-dip", name: "Diplomaregister Keten B.V.", purpose: "Controleren van behaalde diploma’s.", retention: "blijvend (voorbeeld)", location: "EU (Nederland)", sale: false, profiling: false, requires: ["diplomas"], requiresLabel: "Diploma’s" },
+        { id: "duo-ink", name: "Inkomenskoppel Voorbeeld B.V.", purpose: "Inkomensgegevens voor terugbetaling of toeslag.", retention: "7 jaar", location: "EU (Nederland)", sale: false, profiling: true, requires: ["naam"], requiresLabel: "Naam" },
+        { id: "duo-bsn", name: "Onderwijsketen Identiteit B.V.", purpose: "Wettelijke identificatie bij een BSN.", retention: "wettelijke termijn", location: "EU (Nederland)", sale: false, profiling: false, requires: ["bsn"], requiresLabel: "BSN" }
+      ]
+    };
+
+    function isThirdPartyShared(orgId, tp) {
+      var st = state.orgs[orgId];
+      if (!st || !st.active) return false;
+      if (tp.requires && tp.requires.length) {
+        for (var i = 0; i < tp.requires.length; i++) {
+          if (!st.fields[tp.requires[i]]) return false;
+        }
+      }
+      return true;
+    }
+
+    function fieldLabelsOn(orgId) {
+      var org = orgById(orgId);
+      var sec = sectorById(org.sector);
+      var st = state.orgs[orgId];
+      var on = [], off = [];
+      var fields = sec.fields.slice();
+      var hasBsn = false;
+      for (var i = 0; i < fields.length; i++) if (fields[i].id === "bsn") hasBsn = true;
+      if (!hasBsn) fields.push({ id: "bsn", label: "BSN", isBsn: true });
+      for (var j = 0; j < fields.length; j++) {
+        var f = fields[j];
+        var locked = (f.isBsn || f.id === "bsn") && sec.bsnPolicy === "never";
+        if (locked || !st.fields[f.id]) off.push(f.label);
+        else on.push(f.label);
+      }
+      return { on: on, off: off };
+    }
+
+    function yesNo(v) { return v ? "ja" : "nee"; }
+
+    function renderTermsLanding() {
+      var html = '<div class="terms-page" data-testid="terms-landing">';
+      html += '<section class="terms-hero">';
+      html += '<div class="lead-row"><span class="voorbeeld-tag" data-testid="voorbeelddata">Voorbeelddata</span>';
+      html += '<span style="font-size:13px;color:var(--muted)">Fictieve organisaties, derden en voorwaarden. De risico’s zijn echt, de namen niet.</span></div>';
+      html += '<h3>In échte ID-apps zit dit verstopt in veertig pagina’s kleine letters.</h3>';
+      html += '<p>MyCheck, itsme, de NL Wallet, nóg een DigiD-variant: overal teken je, bijna nergens zie je in één oogopslag waarvoor. Hier is het één druk op de knop. Je leest wat je deelt, met welke derden, wat er in de voorwaarden staat, en wat de voordelen, nadelen en gevaren zijn. En je trekt het hier net zo direct in als je het afgeeft.</p>';
+      html += '<p class="principle" style="margin:0">De burger trekt altijd alles in, of geeft het af. Direct. <span>Ook vanuit dit overzicht. Geen drempel, geen “neem contact op”.</span></p>';
+      html += '</section>';
+      html += '<button type="button" class="btn btn-xl" data-action="terms-focus" data-id="all" data-testid="terms-all">Alles in één overzicht</button>';
+      for (var s = 0; s < SECTORS.length; s++) {
+        var sec = SECTORS[s];
+        var list = orgsInSector(sec.id);
+        html += '<div class="terms-sec-label">' + esc(sec.name) + '</div>';
+        html += '<div class="terms-org-grid">';
+        for (var i = 0; i < list.length; i++) {
+          var o = list[i];
+          var st = state.orgs[o.id];
+          html += '<button type="button" class="terms-org-btn" data-action="terms-focus" data-id="' + esc(o.id) +
+            '" data-testid="terms-org-' + esc(o.id) + '">';
+          html += '<span>' + esc(o.name) + '</span>';
+          html += st.active ? '<span class="badge badge-ok">Actief</span>' : '<span class="badge badge-off">Niet gekoppeld</span>';
+          html += '<span class="cta">Bekijk waar je voor getekend hebt</span></button>';
+        }
+        html += '</div>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderThirdParties(orgId) {
+      var list = ORG_THIRD_PARTIES[orgId] || [];
+      var yes = [], no = [];
+      for (var i = 0; i < list.length; i++) {
+        if (isThirdPartyShared(orgId, list[i])) yes.push(list[i]);
+        else no.push(list[i]);
+      }
+      var html = '<div class="terms-block" data-testid="third-parties-' + esc(orgId) + '">';
+      html += '<h3>Derden: met wie data wél of niet is gedeeld</h3>';
+      html += '<p>Dit volgt jouw huidige toestemmingen. Zet een veld of de koppeling uit, en de doorstroming naar de betreffende partij stopt in deze simulatie meteen. Alle namen hieronder zijn voorbeelddata.</p>';
+      function tpCard(tp, shared) {
+        var card = '<article class="tp-card ' + (shared ? "yes" : "no") + '">';
+        card += '<div class="tp-top"><span class="tp-name">' + esc(tp.name) + '</span>';
+        card += shared
+          ? '<span class="badge badge-ok">Wél data gedeeld</span>'
+          : '<span class="badge badge-off">Niet gedeeld</span>';
+        card += '</div>';
+        card += '<p>' + esc(tp.purpose) + '</p>';
+        card += '<div class="tp-meta">';
+        card += '<div><strong>Bewaartermijn:</strong> ' + esc(tp.retention) + '</div>';
+        card += '<div><strong>Locatie:</strong> ' + esc(tp.location) + '</div>';
+        card += '<div><strong>Verkoop van data:</strong> ' + yesNo(tp.sale) + '</div>';
+        card += '<div><strong>Profilering:</strong> ' + yesNo(tp.profiling) + '</div>';
+        card += '<div style="grid-column:1/-1"><strong>Voorwaarde in deze simulatie:</strong> ' + esc(tp.requiresLabel) + '</div>';
+        card += '</div></article>';
+        return card;
+      }
+      html += '<h4>Wél gedeeld (' + yes.length + ')</h4>';
+      if (!yes.length) html += '<p>Op dit moment krijgt geen van de genoemde derden data van jou via deze organisatie.</p>';
+      else {
+        html += '<div class="tp-list">';
+        for (var y = 0; y < yes.length; y++) html += tpCard(yes[y], true);
+        html += '</div>';
+      }
+      html += '<h4>Niet gedeeld (' + no.length + ')</h4>';
+      if (!no.length) html += '<p>Alle genoemde derden krijgen nu data, volgens de velden die jij aan hebt staan.</p>';
+      else {
+        html += '<div class="tp-list">';
+        for (var n = 0; n < no.length; n++) html += tpCard(no[n], false);
+        html += '</div>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderTermsConsent(orgId) {
+      var org = orgById(orgId);
+      var sec = sectorById(org.sector);
+      var st = state.orgs[orgId];
+      var html = '<div class="terms-block" data-testid="terms-consent-' + esc(orgId) + '">';
+      html += '<h3>Toestemming hier geven of intrekken</h3>';
+      html += '<p>Eén tik is genoeg. Het is meteen van kracht en komt in het logboek. Geen “weet u het zeker?”, geen opslaan.</p>';
+      html += '<div class="terms-consent">';
+      html += '<div class="link-actions" style="padding:12px 16px">';
+      if (st.active) {
+        html += '<span style="font-size:13px;color:var(--muted)">Koppeling staat aan. Intrekken werkt meteen.</span>';
+        html += '<button type="button" class="btn-text danger" data-action="revoke" data-id="' + esc(org.id) +
+          '" data-testid="terms-revoke-' + esc(org.id) + '">Koppeling intrekken</button>';
+      } else {
+        html += '<span style="font-size:13px;color:var(--muted)">Nog niet gekoppeld. Er wordt niets gedeeld.</span>';
+        html += '<button type="button" class="btn btn-primary" data-action="link" data-id="' + esc(org.id) +
+          '" data-testid="terms-link-' + esc(org.id) + '">Koppelen en toestemming geven</button>';
+      }
+      html += '</div>';
+      var fields = sec.fields.slice();
+      var hasBsnField = false;
+      for (var i = 0; i < fields.length; i++) if (fields[i].id === "bsn") hasBsnField = true;
+      if (!hasBsnField) fields.push({ id: "bsn", label: "BSN", isBsn: true, defaultOn: false });
+      for (var j = 0; j < fields.length; j++) {
+        var f = fields[j];
+        var isBsn = !!f.isBsn || f.id === "bsn";
+        var locked = isBsn && sec.bsnPolicy === "never";
+        var on = locked ? false : !!st.fields[f.id];
+        html += '<div class="toggle-row' + (isBsn ? " bsn" : "") + '">';
+        html += '<div class="lab">' + esc(f.label) + '</div><div class="switch-wrap">';
+        if (locked) {
+          html += '<span class="slbl off-emph">nooit delen</span>';
+        } else {
+          html += '<span class="slbl' + (on ? "" : " off-emph") + '">' + (on ? "" : "mag niet") + '</span>';
+          html += renderSwitch(org.id, f.id, on, "terms-toggle-" + org.id + "-" + f.id);
+          html += '<span class="slbl' + (on ? " on" : "") + '">' + (on ? "mag wel" : "") + '</span>';
+        }
+        html += '</div></div>';
+      }
+      html += '</div></div>';
+      return html;
+    }
+
+    function renderOrgReport(orgId, compactNav) {
+      var org = orgById(orgId);
+      var sec = sectorById(org.sector);
+      var st = state.orgs[orgId];
+      var pack = SECTOR_TERMS[sec.id];
+      var fields = fieldLabelsOn(orgId);
+      var tps = ORG_THIRD_PARTIES[orgId] || [];
+      var yesNames = [], noNames = [];
+      for (var i = 0; i < tps.length; i++) {
+        if (isThirdPartyShared(orgId, tps[i])) yesNames.push(tps[i].name);
+        else noNames.push(tps[i].name);
+      }
+      var html = '<article class="terms-report" id="rapport-' + esc(orgId) + '" data-testid="terms-report-' + esc(orgId) + '">';
+      html += '<div class="panel-h"><div class="title-row"><h2 class="org-name">' + esc(org.name) + '</h2>';
+      html += st.active ? '<span class="badge badge-ok">Actief</span>' : '<span class="badge badge-off">Niet gekoppeld</span>';
+      html += '</div><p>' + esc(sec.name) + ' · <span class="voorbeeld-tag">Voorbeelddata</span></p></div>';
+
+      html += '<div class="terms-block"><h3>Samenvatting — waar je nu voor getekend hebt</h3>';
+      html += '<div class="summary-box"><dl>';
+      html += '<dt>Koppeling</dt><dd>' + (st.active ? "Actief — de sector-specifieke identifier wordt gedeeld." : "Niet gekoppeld — je hebt hier nu niets getekend. Er wordt niets gedeeld.") + '</dd>';
+      html += '<dt>' + esc(sec.idLabel) + '</dt><dd class="mono" style="font-family:var(--mono)">' + esc(sec.idValue) +
+        (st.active ? " (wordt gedeeld)" : " (wordt niet gedeeld)") + '</dd>';
+      html += '<dt>Je deelt wél</dt><dd>' + (st.active
+        ? esc(fields.on.length ? fields.on.join(", ") : "alleen de sector-specifieke identifier")
+        : "niets") + '</dd>';
+      html += '<dt>Je deelt niet</dt><dd>' + esc(fields.off.length ? fields.off.join(", ") : "—") + '</dd>';
+      html += '<dt>Communicatie</dt><dd>' + esc(prefLabel(st.pref)) + '</dd>';
+      html += '<dt>Derden mét data</dt><dd>' + (yesNames.length ? esc(yesNames.join("; ")) : "geen") + '</dd>';
+      html += '<dt>Derden zónder data</dt><dd>' + (noNames.length ? esc(noNames.join("; ")) : "geen") + '</dd>';
+      html += '</dl></div></div>';
+
+      html += renderTermsConsent(orgId);
+      html += renderThirdParties(orgId);
+
+      html += '<div class="terms-block"><h3>Wat staat er in de voorwaarden</h3>';
+      html += '<p>In gewone taal, over jouw data en toestemming. Dit is een voorbeeldweergave, geen echt contract van ' + esc(org.name) + '.</p><ul>';
+      for (var t = 0; t < pack.terms.length; t++) html += '<li>' + esc(fillOrg(pack.terms[t], org.name)) + '</li>';
+      html += '</ul></div>';
+
+      html += '<div class="terms-block"><div class="proscons">';
+      html += '<div class="col-pro"><h3>Top 10 voordelen van instemmen</h3><ol>';
+      for (var p = 0; p < pack.pros.length; p++) html += '<li>' + esc(fillOrg(pack.pros[p], org.name)) + '</li>';
+      html += '</ol></div>';
+      html += '<div class="col-con"><h3>Top 10 nadelen van instemmen</h3><ol>';
+      for (var c = 0; c < pack.cons.length; c++) html += '<li>' + esc(fillOrg(pack.cons[c], org.name)) + '</li>';
+      html += '</ol></div></div></div>';
+
+      html += '<div class="terms-block"><div class="risk-box"><h3>Mogelijke gevaren</h3><ul>';
+      var risks = GENERIC_RISKS.concat(pack.risks || []);
+      for (var r = 0; r < risks.length; r++) html += '<li>' + esc(fillOrg(risks[r], org.name)) + '</li>';
+      html += '</ul></div></div>';
+
+      html += '<div class="terms-block"><div class="watch-box"><h3>Waar moet je op letten</h3><ul>';
+      var watch = GENERIC_WATCH.concat(pack.watch || []);
+      for (var w = 0; w < watch.length; w++) html += '<li>' + esc(fillOrg(watch[w], org.name)) + '</li>';
+      html += '</ul></div></div>';
+
+      if (compactNav) {
+        html += '<div class="terms-block"><button type="button" class="btn-text" data-action="terms-back">← Alle organisaties</button></div>';
+      }
+      html += '</article>';
+      return html;
+    }
+
+    function renderTermsAll() {
+      var html = '<div class="terms-page" data-testid="terms-all-view">';
+      html += '<div class="backbar"><button type="button" class="btn btn-ghost" data-action="terms-back" data-testid="terms-back">← Alle organisaties</button></div>';
+      html += '<section class="terms-hero"><div class="lead-row"><span class="voorbeeld-tag">Voorbeelddata</span></div>';
+      html += '<h3>Alles in één overzicht</h3>';
+      html += '<p>Per organisatie: wat je nu deelt, met welke derden, de voorwaarden in gewone taal, tien voordelen, tien nadelen, de gevaren en een checklist. Toestemming geef of trek je hier direct in. Dit vervangt veertig pagina’s kleine letters — en nóg een identiteitsapp.</p></section>';
+      html += '<nav class="toc" aria-label="Organisaties in dit overzicht">';
+      for (var i = 0; i < ORGS.length; i++) {
+        html += '<a href="#rapport-' + esc(ORGS[i].id) + '">' + esc(ORGS[i].name) + '</a>';
+      }
+      html += '</nav>';
+      for (var j = 0; j < ORGS.length; j++) html += renderOrgReport(ORGS[j].id, false);
+      html += '</div>';
+      return html;
+    }
+
+    function renderTermsOne(orgId) {
+      var html = '<div class="terms-page" data-testid="terms-one-view">';
+      html += '<div class="backbar"><button type="button" class="btn btn-ghost" data-action="terms-back" data-testid="terms-back">← Alle organisaties</button></div>';
+      html += renderOrgReport(orgId, false);
+      html += '</div>';
+      return html;
+    }
+
+    function renderTerms() {
+      var focus = state.termsFocus;
+      if (focus === "all") return renderTermsAll();
+      if (focus) return renderTermsOne(focus);
+      return renderTermsLanding();
+    }
+
     var state;
     var toastTimer = null;
+    var lastRenderedView = null;
 
     function esc(s) {
       return String(s)
@@ -621,6 +1403,7 @@
         selectedSector: "nuts",
         selectedOrg: "energie-a",
         view: "home",
+        termsFocus: null,
         orgs: orgs,
         requests: [],
         log: [{
@@ -643,6 +1426,7 @@
         base.selectedSector = data.selectedSector || "nuts";
         base.selectedOrg = data.selectedOrg || "energie-a";
         base.view = data.view || "home";
+        base.termsFocus = data.termsFocus || null;
         base.requests = Array.isArray(data.requests) ? data.requests : [];
         base.log = Array.isArray(data.log) ? data.log : base.log;
         for (var id in base.orgs) {
@@ -1034,6 +1818,10 @@
       }
       html += '</div>';
       html += '<p style="font-size:12px;color:var(--muted);padding:8px 16px 0">E-mail, telefoon, app of helemaal geen contact. Een tik is genoeg; er is niets om op te slaan.</p>';
+      html += '<div class="link-actions" style="padding-top:16px;padding-bottom:4px">';
+      html += '<button type="button" class="btn btn-ghost" data-action="open-terms" data-id="' + esc(org.id) +
+        '" data-testid="open-terms-' + esc(org.id) + '">Waar heb ik hier voor getekend?</button>';
+      html += '</div>';
       html += '</div>';
       return html;
     }
@@ -1225,8 +2013,9 @@
       var view = state.view;
       var tabView = "home";
       if (view === "consents" || view === "log") tabView = "consents";
-      if (view === "settings") tabView = "settings";
-      if (view === "home" || view === "sector" || view === "org" || view === "requests") tabView = "home";
+      else if (view === "settings") tabView = "settings";
+      else if (view === "terms") tabView = "terms";
+      else tabView = "home";
       for (var t = 0; t < tabs.length; t++) {
         tabs[t].classList.toggle("active", tabs[t].getAttribute("data-view") === tabView);
       }
@@ -1241,6 +2030,7 @@
         if (view === "log") html += renderOverlayChrome("Logboek", renderLog());
         else if (view === "settings") html += renderOverlayChrome("Instellingen", renderSettings());
         else if (view === "requests") html += renderOverlayChrome("Openstaande aanvragen", renderRequestsBlock(true) + renderSimulate());
+        else if (view === "terms") html += renderOverlayChrome("Waar heb ik voor getekend?", renderTerms());
         else {
           html += renderIntro();
           html += renderRequestsBlock(false);
@@ -1255,10 +2045,16 @@
         else if (view === "log") html += '<div class="backbar"><button type="button" class="btn btn-ghost" data-action="nav" data-view="consents">← Toestemmingen</button></div>' + renderLog();
         else if (view === "settings") html += renderSettings();
         else if (view === "requests") html += '<div class="backbar"><button type="button" class="btn btn-ghost" data-action="nav" data-view="home">← Home</button></div>' + renderRequestsBlock(true) + renderSimulate();
+        else if (view === "terms") html += renderTerms();
         else html += renderMobileHome();
       }
+      var keepScroll = lastRenderedView === view;
+      var y = keepScroll ? window.scrollY : 0;
       root.innerHTML = html;
+      lastRenderedView = view;
       updateChrome();
+      if (keepScroll) window.scrollTo(0, y);
+      else window.scrollTo(0, 0);
     }
 
     function onClick(e) {
@@ -1293,6 +2089,19 @@
         declineRequest(t.getAttribute("data-id"));
       } else if (action === "nav") {
         state.view = t.getAttribute("data-view");
+        if (state.view === "terms") state.termsFocus = null;
+        saveState(); render();
+      } else if (action === "terms-focus") {
+        state.view = "terms";
+        state.termsFocus = t.getAttribute("data-id");
+        saveState(); render();
+      } else if (action === "terms-back") {
+        state.view = "terms";
+        state.termsFocus = null;
+        saveState(); render();
+      } else if (action === "open-terms") {
+        state.view = "terms";
+        state.termsFocus = t.getAttribute("data-id");
         saveState(); render();
       } else if (action === "go-home") {
         state.view = "home";
