@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Simulatie van één burgeromgeving per levensgebied, als alternatief voor nóg een identiteitsapp.">
+  <title>Hoe het wél makkelijker kan</title>
+  <style>
+
+    :root {
+      --bg: #f3f6fb;
+      --bg-tint: #e8eef6;
+      --surface: #ffffff;
+      --ink: #152033;
+      --ink-soft: #3d4a5c;
+      --muted: #5c6b80;
+      --line: #d8e0eb;
+      --line-strong: #bec9d9;
+      --brand: #1d5a8c;
+      --brand-hover: #15486f;
+      --brand-ink: #0f3a5c;
+      --brand-soft: #e6f1f8;
+      --brand-mid: #2a7ab0;
+      --ok: #0b6b50;
+      --ok-bg: #e4f5ee;
+      --ok-line: #b7e0cc;
+      --off: #5c6b80;
+      --off-bg: #eef1f5;
+      --warn: #8a4b12;
+      --warn-bg: #f8efe4;
+      --warn-line: #ecd4b5;
+      --danger: #922b2b;
+      --danger-bg: #fdeeee;
+      --danger-line: #f0c7c7;
+      --shadow: 0 1px 2px rgba(21, 32, 51, 0.05), 0 8px 24px rgba(21, 32, 51, 0.06);
+      --shadow-soft: 0 1px 2px rgba(21, 32, 51, 0.04);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --header-h: 64px;
+      --nav-h: 64px;
+      --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+      --mono: "ui-monospace", "SFMono-Regular", "Segoe UI Mono", Menlo, Consolas, monospace;
+      --focus: 0 0 0 3px rgba(29, 90, 140, 0.35);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { height: 100%; }
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+      min-height: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input { font-family: inherit; }
+    button { cursor: pointer; }
+    h1, h2, h3, p { margin: 0; }
+    a { color: var(--brand); }
+    .skip {
+      position: absolute; left: -999px; top: 0;
+      background: var(--brand); color: #fff; padding: 8px 12px; z-index: 100;
+    }
+    .skip:focus { left: 8px; top: 8px; }
+    .header {
+      position: sticky; top: 0; z-index: 40; height: var(--header-h);
+      display: flex; align-items: center; gap: 16px; padding: 0 20px;
+      background: var(--surface); border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px; min-width: 0;
+      background: none; border: 0; padding: 0; color: inherit; text-align: left;
+    }
+    .logo {
+      flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px;
+      background: var(--brand); color: #fff; display: grid; place-items: center;
+    }
+    .brand-text { min-width: 0; }
+    .brand-title {
+      font-size: 16px; font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .brand-sub { font-size: 12px; color: var(--muted); white-space: nowrap; }
+    .header-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .sim-tag {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--brand); background: var(--brand-soft); border: 1px solid #c5ddec;
+      border-radius: 999px; padding: 3px 8px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border-radius: 10px; border: 1px solid transparent; padding: 8px 12px;
+      font-size: 14px; font-weight: 600; line-height: 1.2;
+      background: var(--surface); color: var(--ink);
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .btn:focus-visible { outline: none; box-shadow: var(--focus); }
+    .btn-ghost { background: transparent; border-color: var(--line); color: var(--ink-soft); }
+    .btn-ghost:hover { background: var(--bg-tint); border-color: var(--line-strong); }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-primary:hover { background: var(--brand-hover); }
+    .btn-ok { background: var(--ok); color: #fff; }
+    .btn-ok:hover { filter: brightness(0.95); }
+    .btn-danger { background: transparent; border-color: var(--danger-line); color: var(--danger); }
+    .btn-danger:hover { background: var(--danger-bg); }
+    .btn-text { background: none; border: 0; color: var(--brand); padding: 4px 0; font-weight: 600; font-size: 14px; }
+    .btn-text:hover { text-decoration: underline; }
+    .btn-text.danger { color: var(--danger); }
+    .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px; border-radius: 999px;
+      padding: 3px 9px; font-size: 12px; font-weight: 650; line-height: 1.3;
+    }
+    .badge-ok { background: var(--ok-bg); color: var(--ok); }
+    .badge-off { background: var(--off-bg); color: var(--off); }
+    .badge-warn { background: var(--warn-bg); color: var(--warn); }
+    .badge-count {
+      min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px;
+      background: var(--danger); color: #fff; font-size: 11px; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .icon-btn { position: relative; }
+    .icon-btn .badge-count { position: absolute; top: -4px; right: -4px; }
+    .page { max-width: 1280px; margin: 0 auto; padding: 20px 20px 40px; }
+    @media (min-width: 901px) { .page { padding-bottom: 48px; } }
+    @media (max-width: 900px) {
+      .page { padding: 16px 16px calc(var(--nav-h) + 24px + env(safe-area-inset-bottom, 0px)); }
+      .header { padding: 0 14px; }
+      .brand-sub { display: none; }
+      .sim-tag { display: none; }
+    }
+    .intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow-soft); padding: 20px; position: relative;
+    }
+    .intro-lead {
+      grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 16px; align-items: flex-start;
+    }
+    .intro-lead h2 { font-size: 20px; letter-spacing: -0.03em; margin-bottom: 6px; }
+    .intro-lead p { color: var(--ink-soft); max-width: 70ch; }
+    .intro-card { border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--line); }
+    .intro-card.against { background: #faf7f4; border-color: var(--warn-line); }
+    .intro-card.for { background: var(--brand-soft); border-color: #c5ddec; }
+    .intro-card h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+    .intro-card.against h3 { color: var(--warn); }
+    .intro-card.for h3 { color: var(--brand-ink); }
+    .intro-card p, .intro-card li { font-size: 14px; color: var(--ink-soft); }
+    .intro-card ul { margin: 0; padding-left: 18px; }
+    .intro-card li { margin: 4px 0; }
+    .principle {
+      grid-column: 1 / -1; background: var(--ink); color: #fff; border-radius: var(--radius-sm);
+      padding: 12px 16px; font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    }
+    .principle span { font-weight: 500; opacity: 0.85; }
+    .requests-wrap { margin-bottom: 20px; }
+    .section-title {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 10px;
+    }
+    .section-title h2 { font-size: 15px; font-weight: 700; }
+    .section-title p { font-size: 13px; color: var(--muted); }
+    .request-list { display: grid; gap: 12px; }
+    .request-card {
+      background: var(--surface); border: 1px solid var(--warn-line); border-left: 4px solid #c57a2a;
+      border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-soft);
+    }
+    .request-card h3 { font-size: 16px; margin-bottom: 4px; }
+    .request-card .meta { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+    .request-card p.body { font-size: 14px; color: var(--ink-soft); margin-bottom: 12px; }
+    .field-picks { display: grid; gap: 6px; margin: 0 0 14px; }
+    .field-pick {
+      display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px;
+      background: var(--bg); border: 1px solid var(--line); font-size: 14px;
+    }
+    .field-pick input { width: 16px; height: 16px; accent-color: var(--brand); }
+    .field-pick .hint { margin-left: auto; font-size: 12px; color: var(--muted); }
+    .request-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .empty-note {
+      font-size: 14px; color: var(--muted); background: var(--surface);
+      border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); padding: 14px 16px;
+    }
+    .simulate { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
+    .shell {
+      display: grid; grid-template-columns: 240px minmax(0, 1fr) 360px; gap: 16px;
+      align-items: start; min-height: 520px;
+    }
+    .panel {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow-soft); overflow: hidden;
+    }
+    .panel-h { padding: 14px 16px 10px; border-bottom: 1px solid var(--line); }
+    .panel-h h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700; }
+    .panel-h p { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .panel-h .title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .panel-h .org-name { font-size: 18px; letter-spacing: -0.02em; text-transform: none; color: var(--ink); font-weight: 700; }
+    .sector-list { display: flex; flex-direction: column; padding: 8px; }
+    .sector-btn {
+      display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+      background: none; border: 0; border-radius: 10px; padding: 10px; color: var(--ink);
+      font-size: 14px; font-weight: 600;
+    }
+    .sector-btn:hover { background: var(--bg); }
+    .sector-btn:focus-visible { outline: none; box-shadow: var(--focus); }
+    .sector-btn.active { background: var(--brand-soft); color: var(--brand-ink); }
+    .sector-ico {
+      width: 28px; height: 28px; border-radius: 8px; background: var(--bg-tint); color: var(--brand);
+      display: grid; place-items: center; flex: 0 0 auto;
+    }
+    .sector-btn.active .sector-ico { background: #fff; }
+    .sector-btn .count {
+      margin-left: auto; font-size: 12px; font-weight: 700; color: var(--muted);
+      background: var(--bg); border-radius: 999px; min-width: 22px; height: 22px;
+      display: inline-flex; align-items: center; justify-content: center; padding: 0 6px;
+    }
+    .sector-btn.active .count { background: #fff; color: var(--brand); }
+    .org-list { display: flex; flex-direction: column; }
+    .org-row {
+      display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+      background: none; border: 0; border-bottom: 1px solid var(--line); padding: 14px 16px; color: inherit;
+    }
+    .org-row:last-child { border-bottom: 0; }
+    .org-row:hover { background: var(--bg); }
+    .org-row:focus-visible { outline: none; box-shadow: inset var(--focus); }
+    .org-row.active { background: var(--brand-soft); }
+    .org-row .grow { flex: 1; min-width: 0; }
+    .org-row .name { font-weight: 700; font-size: 15px; }
+    .org-row .cta { font-size: 13px; color: var(--brand); font-weight: 600; white-space: nowrap; }
+    .detail { padding: 0 0 16px; }
+    .id-box {
+      margin: 12px 16px; padding: 10px 12px; background: var(--bg); border-radius: 10px;
+      border: 1px solid var(--line); font-size: 13px;
+    }
+    .id-box .lbl { color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .id-box .val { font-family: var(--mono); font-weight: 700; font-size: 14px; letter-spacing: 0.02em; margin-top: 2px; }
+    .notice {
+      margin: 0 16px 12px; padding: 10px 12px; background: var(--brand-soft);
+      border-radius: 10px; color: var(--brand-ink); font-size: 13px;
+    }
+    .subhead {
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--muted); padding: 8px 16px 6px;
+    }
+    .toggle-row {
+      display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: center;
+      padding: 10px 16px; border-top: 1px solid var(--line);
+    }
+    .toggle-row .lab { font-size: 15px; font-weight: 650; }
+    .toggle-row .hint { grid-column: 1 / -1; font-size: 12px; color: var(--muted); line-height: 1.45; }
+    .toggle-row.bsn { background: var(--warn-bg); }
+    .switch-wrap { display: flex; align-items: center; gap: 8px; }
+    .switch-wrap .slbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
+    .switch-wrap .slbl.on { color: var(--ok); }
+    .switch-wrap .slbl.off-emph { color: var(--danger); }
+    .switch {
+      position: relative; width: 44px; height: 26px; border-radius: 999px; border: 0;
+      background: #c5cdd8; padding: 0; flex: 0 0 auto;
+    }
+    .switch::after {
+      content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px;
+      border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.2);
+      transition: transform .16s ease;
+    }
+    .switch[aria-checked="true"] { background: var(--ok); }
+    .switch[aria-checked="true"]::after { transform: translateX(18px); }
+    .switch[disabled] { opacity: 0.55; cursor: not-allowed; }
+    .switch:focus-visible { outline: none; box-shadow: var(--focus); }
+    .pref-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 16px 4px; }
+    .pref-btn {
+      border: 1px solid var(--line); background: var(--surface); border-radius: 10px;
+      padding: 10px 8px; font-size: 13px; font-weight: 650; color: var(--ink-soft);
+    }
+    .pref-btn:hover { border-color: var(--line-strong); background: var(--bg); }
+    .pref-btn:focus-visible { outline: none; box-shadow: var(--focus); }
+    .pref-btn.active { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-ink); }
+    .pref-btn.active.none { border-color: var(--ink); background: var(--ink); color: #fff; }
+    .link-actions { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 16px 0; }
+    .card-grid { display: grid; gap: 10px; }
+    .cat-card {
+      display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 14px; box-shadow: var(--shadow-soft); color: inherit;
+    }
+    .cat-card:hover { border-color: var(--line-strong); }
+    .cat-card:focus-visible { outline: none; box-shadow: var(--focus); }
+    .cat-card .grow { flex: 1; min-width: 0; }
+    .cat-card .name { font-weight: 700; font-size: 16px; display: block; }
+    .cat-card .meta { font-size: 13px; color: var(--muted); display: block; }
+    .chev { color: var(--muted); }
+    .backbar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .log-list { display: flex; flex-direction: column; }
+    .log-item {
+      display: grid; grid-template-columns: 16px 1fr; gap: 10px; padding: 12px 16px;
+      border-bottom: 1px solid var(--line); font-size: 14px;
+    }
+    .log-item:last-child { border-bottom: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 6px; background: var(--brand-mid); }
+    .dot.revoke { background: var(--danger); }
+    .dot.give { background: var(--ok); }
+    .dot.pref { background: var(--ink-soft); }
+    .log-item time { display: block; color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+    .settings { display: grid; gap: 16px; }
+    .settings .panel { padding-bottom: 8px; }
+    .id-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .id-table th, .id-table td { padding: 10px 16px; text-align: left; border-top: 1px solid var(--line); vertical-align: top; }
+    .id-table th { color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border-top: 0; }
+    .id-table .mono { font-family: var(--mono); font-weight: 650; font-size: 13px; }
+    .bottom-nav {
+      display: none; position: fixed; left: 0; right: 0; bottom: 0;
+      height: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      background: var(--surface); border-top: 1px solid var(--line); z-index: 40;
+    }
+    .bottom-nav button {
+      flex: 1; border: 0; background: none; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 650;
+      color: var(--muted); padding: 8px 4px 6px;
+    }
+    .bottom-nav button.active { color: var(--brand); }
+    .bottom-nav button:focus-visible { outline: none; box-shadow: inset var(--focus); }
+    @media (max-width: 900px) {
+      .bottom-nav { display: flex; }
+      .desktop-only { display: none !important; }
+      .shell { display: none; }
+    }
+    @media (min-width: 901px) {
+      .mobile-only { display: none !important; }
+      .bottom-nav { display: none !important; }
+    }
+    @media (max-width: 700px) {
+      .intro { grid-template-columns: 1fr; padding: 16px; }
+    }
+    .overlay { display: none; }
+    .overlay.open { display: block; }
+    @media (min-width: 901px) {
+      .overlay.open + .shell { display: none; }
+      .overlay.open { margin-bottom: 20px; }
+    }
+    .toast {
+      position: fixed; left: 50%; bottom: 24px;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--ink); color: #fff; padding: 12px 16px; border-radius: 12px;
+      font-size: 14px; font-weight: 600; box-shadow: var(--shadow);
+      opacity: 0; pointer-events: none; z-index: 80;
+      max-width: min(520px, calc(100vw - 24px)); text-align: center;
+      transition: opacity .2s, transform .2s;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    @media (max-width: 900px) {
+      .toast { bottom: calc(var(--nav-h) + 16px + env(safe-area-inset-bottom, 0px)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+
+  </style>
+</head>
+<body>
+  <a class="skip" href="#hoofdinhoud">Naar inhoud</a>
+  <header class="header">
+    <button type="button" class="brand" data-action="go-home" aria-label="Naar overzicht">
+      <span class="logo" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"/></svg>
+      </span>
+      <span class="brand-text">
+        <span class="brand-title">Hoe het wél makkelijker kan</span>
+        <span class="brand-sub">Eén omgeving. Geen nóg-een-app.</span>
+      </span>
+    </button>
+    <div class="header-actions">
+      <span class="sim-tag">Simulatie</span>
+      <button type="button" class="btn btn-ghost icon-btn desktop-only" data-action="nav" data-view="requests" data-testid="nav-requests">
+        Aanvragen
+        <span class="badge-count" data-bind="request-count" hidden>0</span>
+      </button>
+      <button type="button" class="btn btn-ghost desktop-only" data-action="nav" data-view="log" data-testid="nav-log">Logboek</button>
+      <button type="button" class="btn btn-ghost desktop-only" data-action="nav" data-view="settings" data-testid="nav-settings">Instellingen</button>
+      <button type="button" class="btn btn-ghost icon-btn mobile-only" data-action="nav" data-view="requests" aria-label="Openstaande aanvragen" data-testid="nav-requests-mobile">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="badge-count" data-bind="request-count" hidden>0</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="hoofdinhoud" class="page">
+    <div id="app"></div>
+  </main>
+
+  <nav class="bottom-nav mobile-only" aria-label="Hoofdnavigatie">
+    <button type="button" data-action="nav" data-view="home" data-testid="tab-home">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+      Home
+    </button>
+    <button type="button" data-action="nav" data-view="consents" data-testid="tab-consents">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+      Toestemmingen
+    </button>
+    <button type="button" data-action="nav" data-view="settings" data-testid="tab-settings">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9c.3.7 1 1.1 1.7 1.1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      Instellingen
+    </button>
+  </nav>
+
+  <div class="toast" data-testid="toast" role="status" aria-live="polite"></div>
+
+  <script>
+
+  (function () {
+    "use strict";
+
+    var STORAGE_KEY = "hoe-het-wel-makkelijker-kan-v1";
+    var CITIZEN = "Sam Jansen";
+
+    var ICONS = {
+      nuts: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
+      overheid: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg>',
+      social: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+      banken: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6M4 10v10h16V10M12 14v3"/></svg>',
+      zorg: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>',
+      werk: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>',
+      onderwijs: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V7l8-4 8 4v12"/><path d="M4 11l8 4 8-4"/><path d="M12 15v6"/></svg>'
+    };
+
+    var SECTORS = [
+      {
+        id: "nuts",
+        name: "Nutsvoorzieningen",
+        idLabel: "Nuts-ID",
+        idValue: "NUTS-4K2M-8QX1",
+        bsnPolicy: "never",
+        bsnNote: "Een nutsbedrijf heeft jouw BSN niet nodig. Delen staat uit en blijft uit.",
+        notice: "Alleen een sector-specifieke identifier, geen BSN.",
+        fields: [
+          { id: "naam", label: "Naam", defaultOn: true },
+          { id: "adres", label: "Adres", defaultOn: true },
+          { id: "verbruik", label: "Verbruiksgegevens", defaultOn: false }
+        ]
+      },
+      {
+        id: "overheid",
+        name: "Overheid",
+        idLabel: "Overheids-pseudoniem",
+        idValue: "OVH-91C4-2L7P",
+        bsnPolicy: "legal",
+        bsnNote: "Sommige overheidsdiensten mogen wettelijk om een BSN vragen. Dat staat standaard uit. Jij zet het zelf aan — en kunt het met één tik weer uitzetten.",
+        notice: "Identificatie via een sector-specifiek pseudoniem. BSN alleen als jij dat uitzonderlijk toestaat.",
+        fields: [
+          { id: "naam", label: "Naam", defaultOn: true },
+          { id: "adres", label: "Adres", defaultOn: true },
+          { id: "bsn", label: "BSN", defaultOn: false, isBsn: true }
+        ]
+      },
+      {
+        id: "social",
+        name: "Social Media",
+        idLabel: "Social-ID",
+        idValue: "SOC-3H8R-6T2A",
+        bsnPolicy: "never",
+        bsnNote: "Een socialmediaplatform heeft jouw BSN niet nodig. Delen staat uit en blijft uit.",
+        notice: "Alleen een sector-specifieke identifier, geen BSN — en verder alleen wat jij aanzet.",
+        fields: [
+          { id: "weergavenaam", label: "Weergavenaam", defaultOn: true },
+          { id: "email", label: "E-mailadres", defaultOn: false }
+        ]
+      },
+      {
+        id: "banken",
+        name: "Banken",
+        idLabel: "Bank-ID",
+        idValue: "FIN-7Q2N-5D9C",
+        bsnPolicy: "legal",
+        bsnNote: "Een BSN is hier alleen nodig als de wet dat eist, bijvoorbeeld bij sommige identificatieplichten. Standaard uit. Jij bepaalt of het aan gaat — en trekt het net zo direct weer in.",
+        notice: "Betalen en identificeren via een bank-specifiek ID. Geen BSN, tenzij jij dat bewust deelt.",
+        fields: [
+          { id: "naam", label: "Naam", defaultOn: true },
+          { id: "iban", label: "Rekeningnummer", defaultOn: true },
+          { id: "bsn", label: "BSN", defaultOn: false, isBsn: true }
+        ]
+      },
+      {
+        id: "zorg",
+        name: "Zorg",
+        idLabel: "Zorg-ID",
+        idValue: "ZG-7F2A-91C4",
+        bsnPolicy: "legal",
+        bsnNote: "Voor zorgdeclaraties kan een BSN wettelijk nodig zijn. Dat staat standaard uit. Jij zet het zelf aan — en kunt het meteen weer uitzetten. Verder identificeert deze sector je met een Zorg-ID.",
+        notice: "Zorgverleners kennen je aan een Zorg-ID, niet standaard aan een BSN.",
+        fields: [
+          { id: "naam", label: "Naam", defaultOn: true },
+          { id: "geboortedatum", label: "Geboortedatum", defaultOn: true },
+          { id: "zorggegevens", label: "Zorggegevens", defaultOn: false },
+          { id: "bsn", label: "BSN", defaultOn: false, isBsn: true }
+        ]
+      },
+      {
+        id: "werk",
+        name: "Werk",
+        idLabel: "Werk-ID",
+        idValue: "WRK-2M9L-4P8E",
+        bsnPolicy: "legal",
+        bsnNote: "Voor loonheffing kan een BSN wettelijk nodig zijn. Standaard uit. Jij zet het aan als het moet — en trekt het daarna weer in, zonder te bellen.",
+        notice: "Identificatie via een Werk-ID. BSN alleen als jij dat deelt omdat de wet het vraagt.",
+        fields: [
+          { id: "naam", label: "Naam", defaultOn: true },
+          { id: "contract", label: "Contractgegevens", defaultOn: false },
+          { id: "bsn", label: "BSN", defaultOn: false, isBsn: true }
+        ]
+      },
+      {
+        id: "onderwijs",
+        name: "Onderwijs",
+        idLabel: "Onderwijs-ID",
+        idValue: "OND-5C1K-8W3B",
+        bsnPolicy: "legal",
+        bsnNote: "Instellingen als DUO mogen in sommige gevallen wettelijk om een BSN vragen. Dat staat standaard uit. Eén tik aan, één tik weer uit.",
+        notice: "Studie en diploma’s via een Onderwijs-ID. BSN niet standaard, alleen als jij dat toestaat.",
+        fields: [
+          { id: "naam", label: "Naam", defaultOn: true },
+          { id: "diplomas", label: "Diploma’s", defaultOn: false },
+          { id: "bsn", label: "BSN", defaultOn: false, isBsn: true }
+        ]
+      }
+    ];
+
+    var ORGS = [
+      { id: "energie-a", sector: "nuts", name: "Energieleverancier A", defaultActive: true },
+      { id: "gas-b", sector: "nuts", name: "Gasbedrijf B", defaultActive: true },
+      { id: "water-c", sector: "nuts", name: "Waterbedrijf C", defaultActive: true },
+      { id: "gemeente", sector: "overheid", name: "Gemeente", defaultActive: true },
+      { id: "belastingdienst", sector: "overheid", name: "Belastingdienst", defaultActive: false },
+      { id: "rdw", sector: "overheid", name: "RDW", defaultActive: false },
+      { id: "sociaal-a", sector: "social", name: "Sociaal platform A", defaultActive: false },
+      { id: "video-b", sector: "social", name: "Videodienst B", defaultActive: false },
+      { id: "bank-a", sector: "banken", name: "Bank A", defaultActive: true },
+      { id: "hypotheek-b", sector: "banken", name: "Hypotheekverstrekker B", defaultActive: false },
+      { id: "zorgverz-a", sector: "zorg", name: "Zorgverzekeraar A", defaultActive: false },
+      { id: "huisarts", sector: "zorg", name: "Huisartsenpraktijk", defaultActive: true },
+      { id: "ziekenhuis-b", sector: "zorg", name: "Ziekenhuis B", defaultActive: false },
+      { id: "werkgever", sector: "werk", name: "Werkgever", defaultActive: true },
+      { id: "pensioen", sector: "werk", name: "Pensioenfonds", defaultActive: false },
+      { id: "school", sector: "onderwijs", name: "Onderwijsinstelling", defaultActive: false },
+      { id: "duo", sector: "onderwijs", name: "DUO", defaultActive: false }
+    ];
+
+    var SCENARIOS = [
+      {
+        id: "bel-zorgverzekeraar",
+        button: "Simuleer: je belde je zorgverzekeraar",
+        orgId: "zorgverz-a",
+        title: "Zorgverzekeraar A vraagt toegang",
+        body: "Na je telefoontje wil Zorgverzekeraar A gegevens inzien om je vraag af te handelen. Kies wat je deelt, of weiger. Het effect is meteen — zonder terugbellen, zonder extra app."
+      },
+      {
+        id: "energie-contract",
+        button: "Simuleer: je vroeg een energiecontract aan",
+        orgId: "energie-a",
+        title: "Energieleverancier A vraagt extra gegevens",
+        body: "Voor het nieuwe contract wil Energieleverancier A je adres en verbruiksgegevens. Jij vinkt aan wat mag. BSN hoort hier niet bij."
+      },
+      {
+        id: "gemeente-terugbel",
+        button: "Simuleer: de gemeente belde terug",
+        orgId: "gemeente",
+        title: "Gemeente vraagt aanvullende gegevens",
+        body: "Na het gesprek wil de gemeente je adres bevestigen en vraagt daarbij ook om een BSN. Dat veld staat uit. Alleen jij kunt het aanzetten."
+      }
+    ];
+
+    var PREFS = [
+      { id: "email", label: "E-mail" },
+      { id: "telefoon", label: "Telefoon" },
+      { id: "app", label: "App" },
+      { id: "geen", label: "Geen contact" }
+    ];
+
+    var state;
+    var toastTimer = null;
+
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function sectorById(id) {
+      for (var i = 0; i < SECTORS.length; i++) if (SECTORS[i].id === id) return SECTORS[i];
+      return SECTORS[0];
+    }
+
+    function orgById(id) {
+      for (var i = 0; i < ORGS.length; i++) if (ORGS[i].id === id) return ORGS[i];
+      return ORGS[0];
+    }
+
+    function fieldById(sector, fieldId) {
+      for (var i = 0; i < sector.fields.length; i++) if (sector.fields[i].id === fieldId) return sector.fields[i];
+      if (fieldId === "bsn") return { id: "bsn", label: "BSN", isBsn: true, defaultOn: false };
+      return { id: fieldId, label: fieldId, defaultOn: false };
+    }
+
+    function defaultFields(sector) {
+      var f = {};
+      for (var i = 0; i < sector.fields.length; i++) f[sector.fields[i].id] = !!sector.fields[i].defaultOn;
+      if (sector.bsnPolicy === "never") f.bsn = false;
+      return f;
+    }
+
+    function defaultState() {
+      var orgs = {};
+      for (var i = 0; i < ORGS.length; i++) {
+        var o = ORGS[i];
+        var sec = sectorById(o.sector);
+        orgs[o.id] = { active: !!o.defaultActive, fields: defaultFields(sec), pref: "email" };
+      }
+      return {
+        version: 1,
+        introDismissed: false,
+        selectedSector: "nuts",
+        selectedOrg: "energie-a",
+        view: "home",
+        orgs: orgs,
+        requests: [],
+        log: [{
+          id: "start",
+          at: Date.now(),
+          kind: "info",
+          text: "Simulatie gestart voor " + CITIZEN + ". Bestaande koppelingen staan klaar; jij kunt ze meteen intrekken."
+        }]
+      };
+    }
+
+    function loadState() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return defaultState();
+        var data = JSON.parse(raw);
+        if (!data || data.version !== 1 || !data.orgs) return defaultState();
+        var base = defaultState();
+        base.introDismissed = !!data.introDismissed;
+        base.selectedSector = data.selectedSector || "nuts";
+        base.selectedOrg = data.selectedOrg || "energie-a";
+        base.view = data.view || "home";
+        base.requests = Array.isArray(data.requests) ? data.requests : [];
+        base.log = Array.isArray(data.log) ? data.log : base.log;
+        for (var id in base.orgs) {
+          if (data.orgs[id]) {
+            base.orgs[id].active = !!data.orgs[id].active;
+            base.orgs[id].pref = data.orgs[id].pref || "email";
+            var fields = data.orgs[id].fields || {};
+            for (var k in base.orgs[id].fields) {
+              if (Object.prototype.hasOwnProperty.call(fields, k)) base.orgs[id].fields[k] = !!fields[k];
+            }
+            var sec = sectorById(orgById(id).sector);
+            if (sec.bsnPolicy === "never") base.orgs[id].fields.bsn = false;
+          }
+        }
+        return base;
+      } catch (e) {
+        return defaultState();
+      }
+    }
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+      catch (e) { /* private mode or quota — simulatie blijft werken tot herladen */ }
+    }
+
+    function formatTime(ts) {
+      try {
+        return new Intl.DateTimeFormat("nl-NL", {
+          timeZone: "Europe/Amsterdam",
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }).format(new Date(ts));
+      } catch (e) {
+        return new Date(ts).toLocaleString("nl-NL");
+      }
+    }
+
+    function addLog(kind, text) {
+      state.log.unshift({
+        id: "l" + Date.now() + Math.random().toString(16).slice(2),
+        at: Date.now(),
+        kind: kind,
+        text: text
+      });
+      if (state.log.length > 200) state.log.length = 200;
+    }
+
+    function showToast(msg) {
+      var el = document.querySelector("[data-testid='toast']");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { el.classList.remove("show"); }, 2800);
+    }
+
+    function isDesktop() {
+      return window.matchMedia("(min-width: 901px)").matches;
+    }
+
+    function activeCount(sectorId) {
+      var n = 0;
+      for (var i = 0; i < ORGS.length; i++) {
+        if (ORGS[i].sector === sectorId && state.orgs[ORGS[i].id].active) n++;
+      }
+      return n;
+    }
+
+    function orgsInSector(sectorId) {
+      var list = [];
+      for (var i = 0; i < ORGS.length; i++) if (ORGS[i].sector === sectorId) list.push(ORGS[i]);
+      return list;
+    }
+
+    function pendingCount() {
+      return state.requests.length;
+    }
+
+    function prefLabel(id) {
+      for (var i = 0; i < PREFS.length; i++) if (PREFS[i].id === id) return PREFS[i].label;
+      return id;
+    }
+
+    function toggleField(orgId, fieldId) {
+      var org = orgById(orgId);
+      var sec = sectorById(org.sector);
+      var st = state.orgs[orgId];
+      if (fieldId === "bsn" && sec.bsnPolicy === "never") return;
+      var next = !st.fields[fieldId];
+      st.fields[fieldId] = next;
+      var field = fieldById(sec, fieldId);
+      if (next && !st.active) {
+        st.active = true;
+        addLog("give", "Je koppelde " + org.name + " en gaf toestemming voor " + field.label.toLowerCase() + ".");
+        showToast("Gekoppeld en toestemming gegeven voor " + field.label.toLowerCase() + " — direct van kracht.");
+      } else if (next) {
+        addLog("give", "Je gaf " + org.name + " toestemming voor " + field.label.toLowerCase() + ".");
+        showToast("Toestemming voor " + field.label.toLowerCase() + " gegeven — direct van kracht.");
+      } else {
+        addLog("revoke", "Je trok bij " + org.name + " de toestemming voor " + field.label.toLowerCase() + " in.");
+        showToast("Toestemming voor " + field.label.toLowerCase() + " ingetrokken — direct van kracht.");
+      }
+      saveState();
+      render();
+    }
+
+    function setPref(orgId, pref) {
+      var org = orgById(orgId);
+      state.orgs[orgId].pref = pref;
+      addLog("pref", "Communicatievoorkeur voor " + org.name + ": " + prefLabel(pref).toLowerCase() + ".");
+      showToast("Voorkeur ingesteld: " + prefLabel(pref).toLowerCase() + " — direct van kracht.");
+      saveState();
+      render();
+    }
+
+    function setActive(orgId, active) {
+      var org = orgById(orgId);
+      state.orgs[orgId].active = active;
+      if (active) {
+        addLog("give", "Je koppelde " + org.name + ". De sector-specifieke identifier wordt gedeeld; verdere velden alleen als jij ze aanzet.");
+        showToast("Koppeling met " + org.name + " actief — direct van kracht.");
+      } else {
+        addLog("revoke", "Je trok de koppeling met " + org.name + " in. Er wordt niets meer gedeeld.");
+        showToast("Koppeling met " + org.name + " ingetrokken — direct van kracht.");
+      }
+      saveState();
+      render();
+    }
+
+    function simulate(scenarioId) {
+      var sc = null;
+      for (var i = 0; i < SCENARIOS.length; i++) if (SCENARIOS[i].id === scenarioId) sc = SCENARIOS[i];
+      if (!sc) return;
+      for (var j = 0; j < state.requests.length; j++) {
+        if (state.requests[j].scenarioId === scenarioId) {
+          showToast("Die aanvraag staat al onder Openstaande aanvragen.");
+          state.view = "requests";
+          saveState();
+          render();
+          return;
+        }
+      }
+      var org = orgById(sc.orgId);
+      var sec = sectorById(org.sector);
+      var selected = {};
+      for (var k = 0; k < sec.fields.length; k++) {
+        var f = sec.fields[k];
+        selected[f.id] = f.isBsn ? false : !!f.defaultOn;
+      }
+      state.requests.unshift({
+        id: "r" + Date.now(),
+        scenarioId: sc.id,
+        orgId: sc.orgId,
+        title: sc.title,
+        body: sc.body,
+        at: Date.now(),
+        selected: selected
+      });
+      addLog("info", "Nieuwe aanvraag van " + org.name + " verschenen onder Openstaande aanvragen.");
+      showToast("Aanvraag van " + org.name + " staat klaar onder Openstaande aanvragen.");
+      state.view = "requests";
+      saveState();
+      render();
+    }
+
+    function toggleRequestField(reqId, fieldId) {
+      for (var i = 0; i < state.requests.length; i++) {
+        if (state.requests[i].id === reqId) {
+          var org = orgById(state.requests[i].orgId);
+          var sec = sectorById(org.sector);
+          if (fieldId === "bsn" && sec.bsnPolicy === "never") return;
+          state.requests[i].selected[fieldId] = !state.requests[i].selected[fieldId];
+          saveState();
+          render();
+          return;
+        }
+      }
+    }
+
+    function approveRequest(reqId) {
+      var req = null, idx = -1;
+      for (var i = 0; i < state.requests.length; i++) if (state.requests[i].id === reqId) { req = state.requests[i]; idx = i; }
+      if (!req) return;
+      var org = orgById(req.orgId);
+      var sec = sectorById(org.sector);
+      var st = state.orgs[req.orgId];
+      st.active = true;
+      var given = [];
+      for (var k in req.selected) {
+        if (k === "bsn" && sec.bsnPolicy === "never") { st.fields.bsn = false; continue; }
+        st.fields[k] = !!req.selected[k];
+        if (req.selected[k]) given.push(fieldById(sec, k).label.toLowerCase());
+      }
+      state.requests.splice(idx, 1);
+      var what = given.length ? given.join(", ") : "alleen de sector-specifieke identifier";
+      addLog("give", "Je willigde de aanvraag van " + org.name + " in en deelde: " + what + ".");
+      showToast("Aanvraag ingewilligd — direct van kracht.");
+      state.selectedSector = org.sector;
+      state.selectedOrg = org.id;
+      state.view = "home";
+      saveState();
+      render();
+    }
+
+    function declineRequest(reqId) {
+      var req = null, idx = -1;
+      for (var i = 0; i < state.requests.length; i++) if (state.requests[i].id === reqId) { req = state.requests[i]; idx = i; }
+      if (!req) return;
+      var org = orgById(req.orgId);
+      state.requests.splice(idx, 1);
+      addLog("revoke", "Je weigerde de aanvraag van " + org.name + ". Er is niets extra gedeeld.");
+      showToast("Aanvraag geweigerd — er is niets extra gedeeld.");
+      saveState();
+      render();
+    }
+
+    function resetSim() {
+      state = defaultState();
+      saveState();
+      showToast("Simulatie teruggezet naar de beginsituatie.");
+      render();
+    }
+
+    function icon(id) { return ICONS[id] || ""; }
+
+    function renderIntro() {
+      if (state.introDismissed) return "";
+      return (
+        '<section class="intro" data-testid="intro">' +
+          '<div class="intro-lead">' +
+            '<div>' +
+              '<h2>Nóg een identiteitsapp was het plan. Dat is het probleem.</h2>' +
+              '<p>Eerst DigiD. Toen itsme. Toen de NL Wallet. Toen MyCheck. En vast nog een variant, in een eigen winkel, met een eigen uitleg. Alsof de burger het overzicht verliest zodat de instelling het wint.</p>' +
+            '</div>' +
+            '<button type="button" class="btn btn-ghost" data-action="dismiss-intro" data-testid="dismiss-intro">Sluiten</button>' +
+          '</div>' +
+          '<div class="intro-card against">' +
+            '<h3>Het gebruikelijke recept</h3>' +
+            '<ul>' +
+              '<li>Elke club zijn poortje: MyCheck, itsme, NL Wallet, weer een DigiD-variant.</li>' +
+              '<li>Toestemming intrekken? Eerst een formulier, een wachtlijn, of “neem contact op”.</li>' +
+              '<li>Meer data dan nodig, vaak inclusief een BSN dat er niet hoort.</li>' +
+            '</ul>' +
+          '</div>' +
+          '<div class="intro-card for">' +
+            '<h3>Dit voorstel</h3>' +
+            '<ul>' +
+              '<li>Geen nieuwe app. Eén omgeving, geordend naar levensgebied.</li>' +
+              '<li>Jij geeft af of trekt in — één tik, meteen van kracht. Geen drempel.</li>' +
+              '<li>Per sector een eigen identifier. BSN alleen als de wet het eist, en dan nog standaard uit.</li>' +
+            '</ul>' +
+          '</div>' +
+          '<p class="principle">De burger trekt altijd alles in, of geeft het af. Direct. <span>Zonder “weet u het zeker?”, zonder bellen, zonder wachten.</span></p>' +
+        '</section>'
+      );
+    }
+
+    function renderSimulate() {
+      var html = '<div class="simulate" data-testid="simulate-row">';
+      for (var i = 0; i < SCENARIOS.length; i++) {
+        html += '<button type="button" class="btn btn-ghost" data-action="simulate" data-id="' +
+          esc(SCENARIOS[i].id) + '" data-testid="simulate-' + esc(SCENARIOS[i].id) + '">' +
+          esc(SCENARIOS[i].button) + '</button>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderRequestCard(req) {
+      var org = orgById(req.orgId);
+      var sec = sectorById(org.sector);
+      var html = '<article class="request-card" data-testid="request-' + esc(req.id) + '">';
+      html += '<h3>' + esc(req.title) + '</h3>';
+      html += '<div class="meta">' + esc(sec.name) + ' · binnengekomen ' + esc(formatTime(req.at)) + '</div>';
+      html += '<p class="body">' + esc(req.body) + '</p>';
+      html += '<div class="field-picks">';
+      html += '<div class="field-pick"><strong style="font-size:13px">' + esc(sec.idLabel) +
+        '</strong><span style="font-family:var(--mono);font-size:12px">' + esc(sec.idValue) +
+        '</span><span class="hint">gaat mee bij toestaan</span></div>';
+      for (var i = 0; i < sec.fields.length; i++) {
+        var f = sec.fields[i];
+        var checked = !!req.selected[f.id];
+        var locked = f.isBsn && sec.bsnPolicy === "never";
+        html += '<label class="field-pick">';
+        html += '<input type="checkbox" data-action="toggle-req-field" data-req="' + esc(req.id) +
+          '" data-field="' + esc(f.id) + '"' + (checked ? " checked" : "") + (locked ? " disabled" : "") + '>';
+        html += '<span>' + esc(f.label) + '</span>';
+        if (f.isBsn) {
+          html += '<span class="hint">' +
+            (sec.bsnPolicy === "never" ? "hoort hier niet, blijft uit" : "standaard uit — alleen aanzetten als het moet") +
+            '</span>';
+        }
+        html += '</label>';
+      }
+      html += '</div>';
+      html += '<div class="request-actions">';
+      html += '<button type="button" class="btn btn-ok" data-action="approve" data-id="' + esc(req.id) +
+        '" data-testid="approve-' + esc(req.orgId) + '">Toestaan</button>';
+      html += '<button type="button" class="btn btn-danger" data-action="decline" data-id="' + esc(req.id) +
+        '" data-testid="decline-' + esc(req.orgId) + '">Weigeren</button>';
+      html += '</div></article>';
+      return html;
+    }
+
+    function renderRequestsBlock(full) {
+      var html = '<section class="requests-wrap" data-testid="openstaande-aanvragen">';
+      html += '<div class="section-title"><h2>Openstaande aanvragen</h2>';
+      if (!full && state.requests.length) {
+        html += '<button type="button" class="btn-text" data-action="nav" data-view="requests">Alle bekijken</button>';
+      }
+      html += '</div>';
+      if (!state.requests.length) {
+        html += '<p class="empty-note">Geen openstaande aanvragen. Als een organisatie je belt of iets van je wil, verschijnt hun verzoek hier — niet in nóg een app.</p>';
+      } else {
+        html += '<div class="request-list">';
+        var max = full ? state.requests.length : Math.min(state.requests.length, isDesktop() ? 2 : 1);
+        for (var i = 0; i < max; i++) html += renderRequestCard(state.requests[i]);
+        html += '</div>';
+      }
+      html += '</section>';
+      return html;
+    }
+
+    function renderSwitch(orgId, fieldId, on, testid) {
+      return (
+        '<button type="button" class="switch" role="switch" aria-checked="' + (on ? "true" : "false") + '"' +
+        ' data-action="toggle-field" data-org="' + esc(orgId) + '" data-field="' + esc(fieldId) + '"' +
+        ' data-testid="' + esc(testid) + '"></button>'
+      );
+    }
+
+    function renderDetail(orgId) {
+      var org = orgById(orgId);
+      var sec = sectorById(org.sector);
+      var st = state.orgs[orgId];
+      var html = '<div class="detail" data-testid="detail-panel">';
+      html += '<div class="panel-h"><div class="title-row"><h2 class="org-name">' + esc(org.name) + '</h2>' +
+        (st.active ? '<span class="badge badge-ok">Actief</span>' : '<span class="badge badge-off">Niet gekoppeld</span>') +
+        '</div><p>' + esc(sec.name) + '</p></div>';
+      html += '<div class="id-box"><div class="lbl">' + esc(sec.idLabel) + '</div><div class="val">' + esc(sec.idValue) + '</div></div>';
+      html += '<p class="notice">' + esc(sec.notice) + '</p>';
+      html += '<div class="link-actions">';
+      if (st.active) {
+        html += '<span style="font-size:13px;color:var(--muted)">Koppeling staat aan. Intrekken werkt meteen.</span>';
+        html += '<button type="button" class="btn-text danger" data-action="revoke" data-id="' + esc(org.id) +
+          '" data-testid="revoke-' + esc(org.id) + '">Koppeling intrekken</button>';
+      } else {
+        html += '<span style="font-size:13px;color:var(--muted)">Nog niet gekoppeld.</span>';
+        html += '<button type="button" class="btn btn-primary" data-action="link" data-id="' + esc(org.id) +
+          '" data-testid="link-' + esc(org.id) + '">Koppelen</button>';
+      }
+      html += '</div>';
+      html += '<div class="subhead">Gegevens delen</div>';
+      var fields = sec.fields.slice();
+      var hasBsnField = false;
+      for (var i = 0; i < fields.length; i++) if (fields[i].id === "bsn") hasBsnField = true;
+      if (!hasBsnField) fields.push({ id: "bsn", label: "BSN", isBsn: true, defaultOn: false });
+      for (var j = 0; j < fields.length; j++) {
+        var f = fields[j];
+        var isBsn = !!f.isBsn || f.id === "bsn";
+        var locked = isBsn && sec.bsnPolicy === "never";
+        var on = locked ? false : !!st.fields[f.id];
+        html += '<div class="toggle-row' + (isBsn ? " bsn" : "") + '">';
+        html += '<div class="lab">' + esc(f.label);
+        if (isBsn) html += ' <span class="badge badge-warn">nooit delen, tenzij jij het wilt</span>';
+        html += '</div><div class="switch-wrap">';
+        if (locked) {
+          html += '<span class="slbl off-emph">nooit delen</span>';
+        } else {
+          html += '<span class="slbl' + (on ? "" : " off-emph") + '">' + (on ? "" : "mag niet") + '</span>';
+          html += renderSwitch(org.id, f.id, on, "toggle-" + org.id + "-" + f.id);
+          html += '<span class="slbl' + (on ? " on" : "") + '">' + (on ? "mag wel" : "") + '</span>';
+        }
+        html += '</div>';
+        if (isBsn) html += '<div class="hint">' + esc(sec.bsnNote) + '</div>';
+        html += '</div>';
+      }
+      html += '<div class="subhead">Communicatievoorkeur</div>';
+      html += '<div class="pref-row">';
+      for (var p = 0; p < PREFS.length; p++) {
+        var pref = PREFS[p];
+        var active = st.pref === pref.id;
+        html += '<button type="button" class="pref-btn' + (active ? " active" : "") +
+          (pref.id === "geen" && active ? " none" : "") +
+          '" data-action="set-pref" data-org="' + esc(org.id) + '" data-pref="' + esc(pref.id) +
+          '" data-testid="pref-' + esc(org.id) + '-' + esc(pref.id) + '">' + esc(pref.label) + '</button>';
+      }
+      html += '</div>';
+      html += '<p style="font-size:12px;color:var(--muted);padding:8px 16px 0">E-mail, telefoon, app of helemaal geen contact. Een tik is genoeg; er is niets om op te slaan.</p>';
+      html += '</div>';
+      return html;
+    }
+
+    function renderShell() {
+      var sec = sectorById(state.selectedSector);
+      var html = '<div class="shell desktop-only" data-testid="desktop-shell">';
+      html += '<aside class="panel"><div class="panel-h"><h2>Sectoren</h2><p>Eén omgeving, per levensgebied.</p></div><div class="sector-list">';
+      for (var i = 0; i < SECTORS.length; i++) {
+        var s = SECTORS[i];
+        var n = activeCount(s.id);
+        html += '<button type="button" class="sector-btn' + (s.id === state.selectedSector ? " active" : "") +
+          '" data-action="select-sector" data-id="' + esc(s.id) + '" data-testid="sector-' + esc(s.id) + '">';
+        html += '<span class="sector-ico">' + icon(s.id) + '</span><span>' + esc(s.name) + '</span>';
+        html += '<span class="count" title="Actieve koppelingen">' + n + '</span></button>';
+      }
+      html += '</div></aside>';
+      html += '<section class="panel"><div class="panel-h"><h2>' + esc(sec.name) + '</h2><p>' + esc(sec.notice) + '</p></div><div class="org-list">';
+      var list = orgsInSector(sec.id);
+      for (var j = 0; j < list.length; j++) {
+        var o = list[j];
+        var st = state.orgs[o.id];
+        html += '<button type="button" class="org-row' + (state.selectedOrg === o.id ? " active" : "") +
+          '" data-action="select-org" data-id="' + esc(o.id) + '" data-testid="org-' + esc(o.id) + '">';
+        html += '<div class="grow"><div class="name">' + esc(o.name) + '</div></div>';
+        html += st.active ? '<span class="badge badge-ok">Actief</span>' : '<span class="badge badge-off">Niet gekoppeld</span>';
+        html += '<span class="cta">Toestemmingen bekijken</span></button>';
+      }
+      html += '</div></section>';
+      html += '<aside class="panel">' + renderDetail(state.selectedOrg) + '</aside>';
+      html += '</div>';
+      return html;
+    }
+
+    function renderLog() {
+      var html = '<section class="panel" data-testid="consent-log">';
+      html += '<div class="panel-h"><div class="title-row"><h2 style="text-transform:none;font-size:18px;color:var(--ink)">Toestemmingenlogboek</h2></div>';
+      html += '<p>Elke keer dat je iets deelt of intrekt, staat het hier, met tijdstip. Geen verborgen actie, geen vertraging.</p></div>';
+      html += '<div class="log-list">';
+      if (!state.log.length) {
+        html += '<p class="empty-note" style="margin:16px">Nog geen acties.</p>';
+      } else {
+        for (var i = 0; i < state.log.length; i++) {
+          var item = state.log[i];
+          var cls = item.kind === "revoke" ? "revoke" : item.kind === "give" ? "give" : item.kind === "pref" ? "pref" : "";
+          html += '<div class="log-item"><span class="dot ' + cls + '"></span><div><time datetime="' +
+            esc(new Date(item.at).toISOString()) + '">' + esc(formatTime(item.at)) + '</time>' + esc(item.text) + '</div></div>';
+        }
+      }
+      html += '</div></section>';
+      return html;
+    }
+
+    function renderSettings() {
+      var html = '<div class="settings" data-testid="settings">';
+      html += '<section class="panel"><div class="panel-h"><h2 style="text-transform:none;font-size:18px;color:var(--ink)">Jouw identifiers</h2>';
+      html += '<p>Simulatieburger: ' + esc(CITIZEN) + '. Per sector een eigen kenmerk. Geen overbodige BSN.</p></div>';
+      html += '<table class="id-table"><thead><tr><th>Sector</th><th>Identifier</th></tr></thead><tbody>';
+      for (var i = 0; i < SECTORS.length; i++) {
+        html += '<tr><td>' + esc(SECTORS[i].name) + '<div style="color:var(--muted);font-size:12px">' +
+          esc(SECTORS[i].idLabel) + '</div></td><td class="mono">' + esc(SECTORS[i].idValue) + '</td></tr>';
+      }
+      html += '</tbody></table></section>';
+      html += '<section class="panel"><div class="panel-h"><h2 style="text-transform:none;font-size:18px;color:var(--ink)">Communicatie per organisatie</h2>';
+      html += '<p>Pas het hier of bij de organisatie zelf aan. Het is meteen van kracht.</p></div>';
+      for (var s = 0; s < SECTORS.length; s++) {
+        var list = orgsInSector(SECTORS[s].id);
+        html += '<div class="subhead">' + esc(SECTORS[s].name) + '</div>';
+        for (var j = 0; j < list.length; j++) {
+          var o = list[j];
+          var st = state.orgs[o.id];
+          html += '<div class="toggle-row"><div class="lab">' + esc(o.name) + '</div>';
+          html += '<div style="font-size:13px;color:var(--muted)">' + (st.active ? "actief" : "niet gekoppeld") + '</div>';
+          html += '<div class="hint"><div class="pref-row" style="padding:8px 0 0">';
+          for (var p = 0; p < PREFS.length; p++) {
+            var pref = PREFS[p];
+            var active = st.pref === pref.id;
+            html += '<button type="button" class="pref-btn' + (active ? " active" : "") +
+              (pref.id === "geen" && active ? " none" : "") +
+              '" data-action="set-pref" data-org="' + esc(o.id) + '" data-pref="' + esc(pref.id) + '">' +
+              esc(pref.label) + '</button>';
+          }
+          html += '</div></div></div>';
+        }
+      }
+      html += '</section>';
+      html += '<section class="panel" style="padding:16px"><h2 style="font-size:18px;margin-bottom:8px">Simulatie</h2>';
+      html += '<p style="font-size:14px;color:var(--ink-soft);margin-bottom:12px">Dit is een lokale demo. Niets gaat naar een echte organisatie. Met resetten verdwijnen jouw oefenacties uit deze browser.</p>';
+      html += '<button type="button" class="btn btn-danger" data-action="reset" data-testid="reset">Simulatie resetten</button></section>';
+      html += '</div>';
+      return html;
+    }
+
+    function renderMobileHome() {
+      var html = "";
+      html += renderIntro();
+      html += renderRequestsBlock(false);
+      html += renderSimulate();
+      html += '<div class="section-title"><h2>Jouw omgevingen</h2><p>Tik een sector aan</p></div>';
+      html += '<div class="card-grid" data-testid="mobile-cards">';
+      for (var i = 0; i < SECTORS.length; i++) {
+        var s = SECTORS[i];
+        var n = activeCount(s.id);
+        var label = n === 1 ? "1 koppeling actief" : n + " koppelingen actief";
+        html += '<button type="button" class="cat-card" data-action="select-sector" data-id="' + esc(s.id) +
+          '" data-testid="card-' + esc(s.id) + '">';
+        html += '<span class="sector-ico">' + icon(s.id) + '</span>';
+        html += '<span class="grow"><span class="name">' + esc(s.name) + '</span><span class="meta">' + esc(label) + '</span></span>';
+        html += '<span class="chev" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></button>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderMobileSector() {
+      var sec = sectorById(state.selectedSector);
+      var html = '<div class="backbar"><button type="button" class="btn btn-ghost" data-action="nav" data-view="home">← Overzicht</button></div>';
+      html += '<div class="section-title"><h2>' + esc(sec.name) + '</h2></div>';
+      html += '<p class="notice" style="margin:0 0 12px">' + esc(sec.notice) + '</p>';
+      html += '<div class="card-grid">';
+      var list = orgsInSector(sec.id);
+      for (var i = 0; i < list.length; i++) {
+        var o = list[i];
+        var st = state.orgs[o.id];
+        html += '<button type="button" class="cat-card" data-action="select-org" data-id="' + esc(o.id) +
+          '" data-testid="m-org-' + esc(o.id) + '">';
+        html += '<span class="grow"><span class="name">' + esc(o.name) + '</span><span class="meta">Toestemmingen bekijken</span></span>';
+        html += st.active ? '<span class="badge badge-ok">Actief</span>' : '<span class="badge badge-off">Niet gekoppeld</span>';
+        html += '</button>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderMobileOrg() {
+      var html = '<div class="backbar"><button type="button" class="btn btn-ghost" data-action="nav" data-view="sector">← ' +
+        esc(sectorById(orgById(state.selectedOrg).sector).name) + '</button></div>';
+      html += '<div class="panel">' + renderDetail(state.selectedOrg) + '</div>';
+      return html;
+    }
+
+    function renderMobileConsents() {
+      var html = '<div class="section-title"><h2>Toestemmingen</h2><button type="button" class="btn-text" data-action="nav" data-view="log">Logboek</button></div>';
+      html += '<p style="font-size:14px;color:var(--ink-soft);margin-bottom:12px">Alles wat nu gedeeld wordt, per organisatie. Intrekken is één tik.</p>';
+      var any = false;
+      for (var s = 0; s < SECTORS.length; s++) {
+        var list = orgsInSector(SECTORS[s].id);
+        var block = "";
+        for (var j = 0; j < list.length; j++) {
+          if (!state.orgs[list[j].id].active) continue;
+          any = true;
+          var o = list[j];
+          var st = state.orgs[o.id];
+          var parts = [];
+          var sec = SECTORS[s];
+          for (var k = 0; k < sec.fields.length; k++) {
+            if (st.fields[sec.fields[k].id]) parts.push(sec.fields[k].label);
+          }
+          block += '<button type="button" class="cat-card" data-action="select-org" data-id="' + esc(o.id) + '">';
+          block += '<span class="grow"><span class="name">' + esc(o.name) + '</span><span class="meta">' +
+            esc(parts.length ? parts.join(" · ") : "alleen " + sec.idLabel) + '</span></span>';
+          block += '<span class="badge badge-ok">Actief</span></button>';
+        }
+        if (block) {
+          html += '<div class="section-title" style="margin-top:8px"><h2>' + esc(SECTORS[s].name) + '</h2></div>';
+          html += '<div class="card-grid" style="margin-bottom:12px">' + block + '</div>';
+        }
+      }
+      if (!any) html += '<p class="empty-note">Je deelt nu niets. Koppel een organisatie vanuit Home, of willig een aanvraag in.</p>';
+      return html;
+    }
+
+    function renderOverlayChrome(title, inner) {
+      var back = isDesktop()
+        ? '<button type="button" class="btn btn-ghost" data-action="nav" data-view="home">← Terug naar omgevingen</button>'
+        : '<button type="button" class="btn btn-ghost" data-action="nav" data-view="home">← Home</button>';
+      return '<div class="overlay open" data-testid="overlay"><div class="backbar">' + back +
+        '</div><div class="section-title"><h2>' + esc(title) + '</h2></div>' + inner + '</div>';
+    }
+
+    function updateChrome() {
+      var n = pendingCount();
+      var badges = document.querySelectorAll("[data-bind='request-count']");
+      for (var i = 0; i < badges.length; i++) {
+        badges[i].hidden = n === 0;
+        badges[i].textContent = String(n);
+      }
+      var tabs = document.querySelectorAll(".bottom-nav button");
+      var view = state.view;
+      var tabView = "home";
+      if (view === "consents" || view === "log") tabView = "consents";
+      if (view === "settings") tabView = "settings";
+      if (view === "home" || view === "sector" || view === "org" || view === "requests") tabView = "home";
+      for (var t = 0; t < tabs.length; t++) {
+        tabs[t].classList.toggle("active", tabs[t].getAttribute("data-view") === tabView);
+      }
+    }
+
+    function render() {
+      var root = document.getElementById("app");
+      var html = "";
+      var desktop = isDesktop();
+      var view = state.view || "home";
+      if (desktop) {
+        if (view === "log") html += renderOverlayChrome("Logboek", renderLog());
+        else if (view === "settings") html += renderOverlayChrome("Instellingen", renderSettings());
+        else if (view === "requests") html += renderOverlayChrome("Openstaande aanvragen", renderRequestsBlock(true) + renderSimulate());
+        else {
+          html += renderIntro();
+          html += renderRequestsBlock(false);
+          html += renderSimulate();
+          html += renderShell();
+        }
+      } else {
+        if (view === "home") html += renderMobileHome();
+        else if (view === "sector") html += renderMobileSector();
+        else if (view === "org") html += renderMobileOrg();
+        else if (view === "consents") html += renderMobileConsents();
+        else if (view === "log") html += '<div class="backbar"><button type="button" class="btn btn-ghost" data-action="nav" data-view="consents">← Toestemmingen</button></div>' + renderLog();
+        else if (view === "settings") html += renderSettings();
+        else if (view === "requests") html += '<div class="backbar"><button type="button" class="btn btn-ghost" data-action="nav" data-view="home">← Home</button></div>' + renderRequestsBlock(true) + renderSimulate();
+        else html += renderMobileHome();
+      }
+      root.innerHTML = html;
+      updateChrome();
+    }
+
+    function onClick(e) {
+      var t = e.target.closest("[data-action]");
+      if (!t) return;
+      var action = t.getAttribute("data-action");
+      if (t.tagName === "INPUT" && t.type === "checkbox") return;
+      if (action === "select-sector") {
+        state.selectedSector = t.getAttribute("data-id");
+        var first = orgsInSector(state.selectedSector)[0];
+        if (first) state.selectedOrg = first.id;
+        state.view = isDesktop() ? "home" : "sector";
+        saveState(); render();
+      } else if (action === "select-org") {
+        state.selectedOrg = t.getAttribute("data-id");
+        state.selectedSector = orgById(state.selectedOrg).sector;
+        state.view = isDesktop() ? "home" : "org";
+        saveState(); render();
+      } else if (action === "toggle-field") {
+        toggleField(t.getAttribute("data-org"), t.getAttribute("data-field"));
+      } else if (action === "set-pref") {
+        setPref(t.getAttribute("data-org"), t.getAttribute("data-pref"));
+      } else if (action === "revoke") {
+        setActive(t.getAttribute("data-id"), false);
+      } else if (action === "link") {
+        setActive(t.getAttribute("data-id"), true);
+      } else if (action === "simulate") {
+        simulate(t.getAttribute("data-id"));
+      } else if (action === "approve") {
+        approveRequest(t.getAttribute("data-id"));
+      } else if (action === "decline") {
+        declineRequest(t.getAttribute("data-id"));
+      } else if (action === "nav") {
+        state.view = t.getAttribute("data-view");
+        saveState(); render();
+      } else if (action === "go-home") {
+        state.view = "home";
+        saveState(); render();
+      } else if (action === "dismiss-intro") {
+        state.introDismissed = true;
+        saveState(); render();
+      } else if (action === "reset") {
+        resetSim();
+      }
+    }
+
+    function onChange(e) {
+      var t = e.target.closest("[data-action='toggle-req-field']");
+      if (!t) return;
+      toggleRequestField(t.getAttribute("data-req"), t.getAttribute("data-field"));
+    }
+
+    document.addEventListener("click", onClick);
+    document.addEventListener("change", onChange);
+    window.addEventListener("resize", function () { render(); });
+
+    state = loadState();
+    render();
+  })();
+  </script>
+</body>
+</html>
