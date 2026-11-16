@@ -453,6 +453,106 @@
       .bottom-nav button { font-size: 10px; padding: 8px 2px 6px; }
     }
 
+    .tp-card.clickable { cursor: pointer; text-align: left; width: 100%; font: inherit; color: inherit; display: block; }
+    .tp-card.clickable:hover { border-color: var(--brand-mid); box-shadow: var(--shadow-soft); }
+    .tp-card.clickable:focus-visible { outline: none; box-shadow: var(--focus); }
+    .tp-card.violation, .tp-card.yes.violation { background: var(--danger-bg); border-color: var(--danger-line); }
+    .tp-card.blocked { background: var(--off-bg); border-color: var(--line); }
+    .tp-card .tp-cta { margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--brand); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .tp-card.violation .tp-cta { color: var(--danger); }
+    .tp-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .crumbbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-bottom: 12px; }
+    .crumbbar .crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-size: 13px; }
+    .crumbbar .crumbs button, .crumbbar .crumbs span { background: none; border: 0; padding: 0; font: inherit; color: var(--brand); font-weight: 650; }
+    .crumbbar .crumbs button:hover { text-decoration: underline; }
+    .crumbbar .crumbs .here { color: var(--ink); font-weight: 700; }
+    .crumbbar .crumbs .sep { color: var(--muted); font-weight: 500; }
+    .chain-summary {
+      background: var(--brand-soft); border: 1px solid #c5ddec; border-radius: 12px;
+      padding: 12px 14px; margin-bottom: 12px; font-size: 14px;
+    }
+    .chain-summary strong { color: var(--brand-ink); }
+    .chain-tree { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 13px; }
+    .chain-tree .row { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .chain-tree button.n {
+      background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 4px 8px;
+      font-size: 12px; font-weight: 650; color: var(--ink); max-width: 100%;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .chain-tree button.n:hover { border-color: var(--brand-mid); }
+    .chain-tree button.n.cur { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-ink); }
+    .chain-tree button.n.bad { border-color: var(--danger-line); background: var(--danger-bg); }
+    .chain-tree button.n.off { opacity: 0.6; }
+    .chain-tree .indent { display: inline-block; color: var(--muted); font-family: var(--mono); }
+    .end-note {
+      background: var(--off-bg); border: 1px dashed var(--line-strong); border-radius: 12px;
+      padding: 12px 14px; font-size: 14px; color: var(--ink-soft);
+    }
+    .legal-box {
+      margin-top: 10px; background: #fff; border: 1px solid var(--danger-line); border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .legal-box h5 { margin: 0 0 6px; font-size: 13px; color: var(--danger); }
+    .legal-box p { margin: 0 0 8px; font-size: 13px; color: var(--ink-soft); }
+    .art-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .art-list li { font-size: 13px; color: var(--ink-soft); padding: 8px; background: var(--danger-bg); border-radius: 8px; }
+    .art-list a { font-weight: 700; }
+    .art-code { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--danger); }
+    .remedy-box, .repu-box, .real-box {
+      margin-top: 10px; border-radius: 10px; padding: 10px 12px; border: 1px solid var(--line); background: #fff;
+    }
+    .remedy-box h5, .repu-box h5, .real-box h5 { margin: 0 0 6px; font-size: 13px; color: var(--brand-ink); }
+    .remedy-box ol { margin: 0; padding-left: 18px; }
+    .remedy-box li { font-size: 13px; color: var(--ink-soft); margin: 6px 0; }
+    .remedy-box .expect { display: block; margin-top: 2px; font-size: 12px; color: var(--muted); }
+    .repu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 13px; }
+    @media (max-width: 700px) { .repu-grid { grid-template-columns: 1fr; } }
+    .repu-score { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .repu-score small { display: block; font-size: 11px; font-weight: 650; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 2px; }
+    .repu-box ul { margin: 0; padding-left: 18px; }
+    .repu-box li { font-size: 13px; color: var(--ink-soft); margin: 4px 0; }
+    .action-card {
+      border: 1px solid var(--warn-line); background: var(--warn-bg); border-radius: 10px;
+      padding: 10px 12px; margin-top: 8px;
+    }
+    .action-card h6 { margin: 0 0 4px; font-size: 14px; }
+    .action-card p { margin: 0 0 6px; font-size: 13px; color: var(--ink-soft); }
+    .real-box p, .real-box li { font-size: 13px; color: var(--ink-soft); }
+    .real-box ul { margin: 6px 0 0; padding-left: 18px; }
+    .tl-wrap { display: grid; gap: 12px; }
+    .tl-toolbar {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: end;
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 12px 14px;
+    }
+    .tl-toolbar label { display: grid; gap: 4px; font-size: 12px; font-weight: 700; color: var(--muted); }
+    .tl-toolbar select, .tl-toolbar button.yr {
+      font: inherit; font-size: 14px; font-weight: 600; border: 1px solid var(--line);
+      border-radius: 8px; padding: 6px 8px; background: #fff; color: var(--ink);
+    }
+    .tl-years { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tl-years button.yr.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .tl-scroll { max-height: min(70vh, 820px); overflow: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+    .tl-year { border-bottom: 1px solid var(--line); }
+    .tl-year > button {
+      width: 100%; text-align: left; background: var(--bg); border: 0; border-bottom: 1px solid var(--line);
+      padding: 10px 16px; font-weight: 700; font-size: 14px; color: var(--ink); display: flex; justify-content: space-between;
+    }
+    .tl-year > button:hover { background: var(--bg-tint); }
+    .tl-month { padding: 8px 16px 0; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+    .tl-item.violation { background: var(--danger-bg); }
+    .tl-item .arts { display: block; margin-top: 4px; font-size: 12px; font-family: var(--mono); color: var(--danger); }
+    .dot.violation, .dot.block { background: var(--danger); }
+    .dot.share, .dot.onward { background: var(--brand-mid); }
+    .dot.reputation, .dot.action { background: var(--warn); }
+    .dot.info { background: var(--ink-soft); }
+
+    @media (max-width: 900px) {
+      .tp-actions, .repu-box, .action-card, .remedy-box, .real-box, .legal-box, .crumbbar {
+        scroll-margin-bottom: calc(var(--nav-h) + 20px + env(safe-area-inset-bottom, 0px));
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -473,7 +573,7 @@
         Aanvragen
         <span class="badge-count" data-bind="request-count" hidden>0</span>
       </button>
-      <button type="button" class="btn btn-ghost desktop-only" data-action="nav" data-view="log" data-testid="nav-log">Logboek</button>
+      <button type="button" class="btn btn-ghost desktop-only" data-action="nav" data-view="log" data-testid="nav-log">Tijdlijn</button>
       <button type="button" class="btn btn-ghost desktop-only" data-action="nav" data-view="terms" data-testid="nav-terms">Waar heb ik voor getekend?</button>
       <button type="button" class="btn btn-ghost desktop-only" data-action="nav" data-view="settings" data-testid="nav-settings">Instellingen</button>
       <button type="button" class="btn btn-ghost icon-btn mobile-only" data-action="nav" data-view="requests" aria-label="Openstaande aanvragen" data-testid="nav-requests-mobile">
@@ -513,7 +613,7 @@
   (function () {
     "use strict";
 
-    var STORAGE_KEY = "hoe-het-wel-makkelijker-kan-v1";
+    var STORAGE_KEY = "hoe-het-wel-makkelijker-kan-v2";
     var CITIZEN = "Sam Jansen";
 
     var ICONS = {
@@ -1110,6 +1210,782 @@
       ]
     };
 
+
+    var AVG_SRC = "https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32016R0679";
+    var LEGAL = {
+      "avg-5-1-a": {
+        code: "AVG art. 5 lid 1 onder a",
+        title: "Rechtmatigheid, behoorlijkheid en transparantie",
+        plain: "Persoonsgegevens moeten op een wijze worden verwerkt die ten aanzien van jou rechtmatig, behoorlijk en transparant is. Delen zonder een geldige grondslag, of stiekem, botst hiermee.",
+        href: AVG_SRC
+      },
+      "avg-5-1-b": {
+        code: "AVG art. 5 lid 1 onder b",
+        title: "Doelbinding",
+        plain: "Gegevens mogen alleen voor welbepaalde, uitdrukkelijk omschreven en gerechtvaardigde doelen worden verzameld, en daarna niet verder op een daarmee onverenigbare wijze worden verwerkt. Een adressenbestand dat later voor reclame of profilering wordt doorverkocht, is typisch een schending van dit beginsel.",
+        href: AVG_SRC
+      },
+      "avg-6-1": {
+        code: "AVG art. 6 lid 1",
+        title: "Rechtmatigheid van de verwerking",
+        plain: "Verwerking is alleen rechtmatig als minstens één voorwaarde klopt: toestemming, een overeenkomst, een wettelijke plicht, vitaal belang, een taak van algemeen belang, of een gerechtvaardigd belang dat jouw rechten niet overstijgt. Zonder zo’n grondslag is delen onrechtmatig.",
+        href: AVG_SRC
+      },
+      "avg-7": {
+        code: "AVG art. 7",
+        title: "Voorwaarden voor toestemming",
+        plain: "Wie zich op toestemming beroept, moet die kunnen aantonen. Toestemming moet vrij, specifiek en geïnformeerd zijn, en even eenvoudig in te trekken als te geven (lid 3). Een vinkje verstopt in voorwaarden, of doorgaan ná intrekking, voldoet daar niet aan.",
+        href: AVG_SRC
+      },
+      "avg-9": {
+        code: "AVG art. 9",
+        title: "Bijzondere categorieën van persoonsgegevens",
+        plain: "Gegevens over gezondheid (en onder meer ras, geloof, genetische of biometrische gegevens, of seksueel leven) zijn in beginsel verboden te verwerken. Dat mag alleen als een uitdrukkelijke uitzondering geldt, bijvoorbeeld uitdrukkelijke toestemming of een wettelijke zorggrondslag. Een commercieel analysebedrijf dat zorggegevens krijgt zonder zo’n uitzondering, overtreedt dit artikel.",
+        href: AVG_SRC
+      },
+      "avg-13": {
+        code: "AVG art. 13 en 14",
+        title: "Informatieplicht",
+        plain: "Je moet worden geïnformeerd over onder meer de doelen, de ontvangers of categorieën van ontvangers, en een eventuele doorgifte buiten de EU — of de gegevens nu bij jou zijn verzameld (art. 13) of bij een andere bron (art. 14). Verborgen subverwerkers of doorverkoop zonder die informatie schendt deze plicht.",
+        href: AVG_SRC
+      },
+      "avg-28": {
+        code: "AVG art. 28",
+        title: "Verwerker",
+        plain: "Een verwerker mag geen andere verwerker inschakelen zonder voorafgaande specifieke of algemene schriftelijke toestemming van de verwerkingsverantwoordelijke (lid 2). Gebeurt dat toch, dan is de keten niet in overeenstemming met dit artikel.",
+        href: AVG_SRC
+      },
+      "avg-44": {
+        code: "AVG art. 44 tot en met 49",
+        title: "Doorgifte buiten de EU",
+        plain: "Doorgifte naar een land buiten de EU of naar een internationale organisatie mag alleen als de voorwaarden van hoofdstuk V worden nageleefd: een adequaatheidsbesluit (art. 45), passende waarborgen zoals standaardbepalingen (art. 46), of een beperkte uitzondering (art. 49). Zonder zo’n grondslag is de doorgifte onrechtmatig (art. 44).",
+        href: AVG_SRC
+      },
+      "avg-77": {
+        code: "AVG art. 77",
+        title: "Recht een klacht in te dienen",
+        plain: "Je hebt het recht een klacht in te dienen bij een toezichthoudende autoriteit, in Nederland de Autoriteit Persoonsgegevens, als je vindt dat de verwerking van jouw gegevens de AVG schendt.",
+        href: AVG_SRC
+      },
+      "avg-79": {
+        code: "AVG art. 79",
+        title: "Doeltreffende voorziening in rechte",
+        plain: "Onverminderd een klacht bij de AP heb je het recht een doeltreffende voorziening in rechte in te stellen tegen een verwerkingsverantwoordelijke of een verwerker.",
+        href: AVG_SRC
+      },
+      "avg-82": {
+        code: "AVG art. 82",
+        title: "Recht op schadevergoeding",
+        plain: "Wie materiële of immateriële schade lijdt als gevolg van een inbreuk op de AVG, heeft recht op schadevergoeding van de verwerkingsverantwoordelijke of de verwerker. Dit is een mogelijk gevolg, geen ‘overtreden verbod’ op zich.",
+        href: AVG_SRC,
+        consequence: true
+      },
+      "avg-83": {
+        code: "AVG art. 83",
+        title: "Algemene voorwaarden voor het opleggen van administratieve geldboetes",
+        plain: "Toezichthouders kunnen administratieve geldboetes opleggen. Voor onder meer inbreuken op de beginselen, de grondslagen, toestemming, bijzondere gegevens en doorgifte kan dat oplopen tot 20 miljoen euro of, voor een onderneming, 4% van de wereldwijde jaaromzet (lid 5). Dit is een mogelijk gevolg van een inbreuk.",
+        href: AVG_SRC,
+        consequence: true
+      },
+      "avg-12-3": {
+        code: "AVG art. 12 lid 3",
+        title: "Termijn voor een verzoek",
+        plain: "Op een verzoek (inzage, wissing, bezwaar, enzovoort) moet de organisatie je onverwijld en in ieder geval binnen een maand informeren over het gevolg. Die termijn kan, gezien de complexiteit of het aantal verzoeken, met nog twee maanden worden verlengd; dan moet je daarvan binnen een maand op de hoogte worden gebracht.",
+        href: AVG_SRC
+      },
+      "uavg-46": {
+        code: "UAVG art. 46",
+        title: "Verwerking nationaal identificatienummer",
+        plain: "Een nummer dat ter identificatie van een persoon bij wet is voorgeschreven (zoals het BSN) mag bij de verwerking van persoonsgegevens slechts worden gebruikt ter uitvoering van die wet, of voor doeleinden die bij de wet zijn bepaald. Een marketing- of analysepartij die een BSN krijgt zonder zo’n wettelijk doel, handelt in strijd met dit artikel.",
+        href: "https://wetten.overheid.nl/jci1.3:c:BWBR0040940&artikel=46"
+      },
+      "tw-11-7": {
+        code: "Telecommunicatiewet art. 11.7 lid 1",
+        title: "Ongevraagde communicatie (spam)",
+        plain: "Het gebruik van onder meer elektronische berichten voor ongevraagde communicatie voor commerciële, ideële of charitatieve doeleinden is verboden, tenzij de verzender kan aantonen dat de eindgebruiker daarvoor voorafgaand toestemming heeft verleend. Er gelden beperkte uitzonderingen, onder meer voor bestaande klanten bij eigen gelijksoortige producten, met een duidelijk recht van verzet (lid 4).",
+        href: "https://wetten.overheid.nl/BWBR0009950/2026-08-15/#Hoofdstuk11_Paragraaf11.1_Artikel11.7"
+      },
+      "tw-11-7a": {
+        code: "Telecommunicatiewet art. 11.7a lid 1",
+        title: "Informatie in randapparatuur (cookies en vergelijkbaar)",
+        plain: "Via een elektronisch communicatienetwerk informatie opslaan in, of toegang krijgen tot, jouw telefoon of computer mag alleen als je duidelijke en volledige informatie hebt gekregen én toestemming hebt gegeven. Dat geldt niet voor opslag of toegang die uitsluitend de communicatie over het netwerk uitvoert, of die strikt noodzakelijk is voor de dienst die jij hebt gevraagd (lid 3).",
+        href: "https://wetten.overheid.nl/BWBR0009950/2026-08-15/#Hoofdstuk11_Paragraaf11.1_Artikel11.7a"
+      }
+    };
+
+    var REAL_SOURCES = [
+      { name: "Centraal register voor collectieve vorderingen (Rechtspraak)", href: "https://www.rechtspraak.nl/registers/centraal-register-voor-collectieve-vorderingen", note: "Hier staan ingestelde en afgeronde collectieve vorderingen, waaronder WAMCA-zaken: uittreksels van dagvaardingen, de aanwijzing van een exclusieve belangenbehartiger, schikkingen en schadeafwikkeling." },
+      { name: "Collectieve vordering — uitleg Rechtspraak", href: "https://www.rechtspraak.nl/onderwerpen/collectieve-vordering", note: "Uitleg in gewone taal over het verloop van een collectieve vordering, inclusief dat een tussenbeslissing vaak een jaar of langer kan duren." },
+      { name: "Autoriteit Persoonsgegevens — boetes en andere sancties", href: "https://autoriteitpersoonsgegevens.nl/boetes-en-andere-sancties", note: "Officiële besluiten en toelichting van de Nederlandse toezichthouder." },
+      { name: "Autoriteit Persoonsgegevens — actueel", href: "https://autoriteitpersoonsgegevens.nl/actueel", note: "Nieuws van de AP, waaronder handhavingsberichten." },
+      { name: "Autoriteit Persoonsgegevens — tip of klacht indienen", href: "https://autoriteitpersoonsgegevens.nl/een-tip-of-klacht-indienen-bij-de-ap", note: "Het officiële meldpunt. De AP vraagt je eerst contact te zoeken met de organisatie zelf, en bewijsstukken mee te sturen." },
+      { name: "Autoriteit Persoonsgegevens — hoe een klacht wordt afgehandeld", href: "https://autoriteitpersoonsgegevens.nl/hoe-wij-uw-klacht-afhandelen", note: "Termijnen en mogelijke maatregelen: gesprek, berisping, last, verwerkingsverbod of boete." },
+      { name: "EDPB — register van definitieve één-loketbesluiten", href: "https://www.edpb.europa.eu/registers/register-of-final-one-stop-shop-decisions_nl", note: "Europese registratie van definitieve besluiten van nationale privacytoezichthouders in grensoverschrijdende zaken." },
+      { name: "Consumentenbond — acties en claims", href: "https://www.consumentenbond.nl/acties-claims", note: "Overzicht van collectieve acties en claims waar consumentenorganisaties bij betrokken zijn." }
+    ];
+
+    function tp(id, name, purpose, retention, location, sale, profiling, dataFlows, extra) {
+      var o = { id: id, name: name, purpose: purpose, retention: retention, location: location, sale: !!sale, profiling: !!profiling, dataFlows: dataFlows };
+      if (extra) for (var k in extra) o[k] = extra[k];
+      return o;
+    }
+
+    var ONWARD = {
+      "sa-ads": [
+        tp("sa-ads-dsp", "Programmatic Biddesk Inc.", "Realtime veiling van advertentieruimte op basis van jouw profiel.", "18 maanden", "VS", true, true, "E-mailadres, apparaatkenmerk, interessesignalen", { violation: { articles: ["avg-5-1-a", "avg-5-1-b", "avg-6-1", "avg-44"], fact: "Deze partij zette e-mail en apparaatgegevens door in een veiling, zonder aparte, specifieke toestemming en zonder passende waarborgen voor doorgifte naar de VS." } }),
+        tp("sa-ads-meas", "Conversiemeting Partners B.V.", "Meting of een advertentie tot een klik of aankoop leidde, via een tracker in de browser.", "13 maanden", "EU (Nederland) en VS", false, true, "Apparaatkenmerk, bezoekgedrag", { violation: { articles: ["tw-11-7a", "avg-6-1", "avg-7"], fact: "Er werd een tracker in de randapparatuur geplaatst zonder voorafgaande, specifieke toestemming. Dat is geen strikt noodzakelijke cookie." } })
+      ],
+      "sa-ads-dsp": [
+        tp("sa-ads-broker", "AudienceBroker Global Ltd.", "Opbouwen en doorverkopen van doelgroepsegmenten aan andere adverteerders.", "24 maanden", "VS en Singapore", true, true, "E-mailhash, profielsegmenten", { violation: { articles: ["avg-5-1-b", "avg-6-1", "avg-13", "avg-44"], fact: "Jouw gegevens gingen een stap verder de keten in, naar een datahandelaar, zonder dat jij daarover bent geïnformeerd en zonder geldige doorgiftegrondslag." } })
+      ],
+      "sa-ana": [
+        tp("sa-ana-lab", "Productlab Insights Inc.", "Gedrag op de tijdlijn analyseren om de dienst te ‘personaliseren’.", "24 maanden", "VS", false, true, "Social-ID, weergavenaam, klikgedrag")
+      ],
+      "sa-ana-lab": [
+        tp("sa-ana-hub", "Profileringshub APAC Pte. Ltd.", "Samenvoegen van gedragssignalen met profielen uit andere diensten.", "36 maanden", "Singapore", true, true, "Social-ID, gedragssignalen", { violation: { articles: ["avg-5-1-b", "avg-6-1", "avg-44"], fact: "Gedragssignalen zijn samengevoegd met andere datasets in Singapore, zonder toestemming en zonder passend doorgiftekader." } })
+      ],
+      "sa-cdn": [
+        tp("sa-cdn-us", "MirrorNodes Americas Inc.", "Spiegelen van profiel- en mediabestanden op servers in de VS.", "zolang het account bestaat", "VS", false, false, "Social-ID, mediabestanden", { violation: { articles: ["avg-28", "avg-44"], fact: "Deze onderverwerker is ingeschakeld zonder voorafgaande schriftelijke toestemming van de verwerkingsverantwoordelijke, en de doorgifte naar de VS miste passende waarborgen." } })
+      ],
+      "sa-cdn-us": [
+        tp("sa-cdn-cold", "Coldstore Archive Ltd.", "Langetermijnarchief van mediabestanden.", "7 jaar na einde account", "VS", false, false, "Social-ID, mediabestanden")
+      ],
+      "sa-mail": [
+        tp("sa-mail-partner", "Partnermail Outreach Ltd.", "Verzenden van ‘aanbevolen voor jou’ en partneraanbiedingen per e-mail.", "12 maanden", "EU (Ierland) en VS", false, true, "E-mailadres, weergavenaam", { violation: { articles: ["tw-11-7", "avg-6-1", "avg-7"], fact: "Er gingen commerciële berichten uit naar jouw e-mailadres zonder dat de verzender voorafgaande toestemming kon aantonen." } })
+      ],
+      "ea-cloud": [
+        tp("ea-cloud-sub", "Ketenhosting Utilities Ltd.", "Onderverwerking van de factuuradministratie in een extra cloudomgeving.", "7 jaar", "EU (Ierland) en VS", false, false, "Nuts-ID, factuurgegevens", { violation: { articles: ["avg-28", "avg-13"], fact: "Deze onderverwerker is ingeschakeld zonder voorafgaande schriftelijke toestemming, en jij bent niet geïnformeerd over deze ontvanger." } })
+      ],
+      "ea-cloud-sub": [
+        tp("ea-cloud-us", "LedgerBackup Inc.", "Back-ups van factuurdata op servers buiten de EU.", "7 jaar", "VS", false, false, "Nuts-ID, factuurgegevens", { violation: { articles: ["avg-44", "avg-5-1-a"], fact: "Factuurgegevens zijn zonder adequaatheidsbesluit of passende waarborgen naar de VS doorgezet." } })
+      ],
+      "ea-ads": [
+        tp("ea-ads-hub", "Huishoudprofiel Marketplace B.V.", "Samenstellen van huishoudprofielen voor energie- en apparaatreclame.", "18 maanden", "EU (Nederland)", true, true, "Naam, verbruiksgegevens", { violation: { articles: ["avg-5-1-a", "avg-5-1-b", "avg-6-1"], fact: "Naam en verbruik zijn in een profielenmarkt gezet zonder toestemming en voor een doel dat niet met de levering van energie te verenigen is." } })
+      ],
+      "ea-ads-hub": [
+        tp("ea-ads-xsell", "Cross-sell Data-exchange Ltd.", "Doorverkoop van energieprofielen aan andere adverteerders.", "24 maanden", "EU en VS", true, true, "Naam, verbruikssegment", { violation: { articles: ["avg-5-1-b", "avg-6-1", "avg-44"], fact: "Het profiel is doorverkocht, deels naar de VS, zonder grondslag en zonder passende waarborgen." } })
+      ],
+      "ea-net": [
+        tp("ea-net-storing", "Storingsapp Ondersteuning B.V.", "Planning van monteurs bij een storing.", "2 jaar na de melding", "EU (Nederland)", false, false, "Adres")
+      ],
+      "gem-it": [
+        tp("gem-it-host", "Overheidscloud Randstad B.V.", "Hosting van burgerzaken-systemen.", "wettelijke termijnen", "EU (Nederland)", false, false, "overheids-pseudoniem")
+      ],
+      "gem-stat": [
+        tp("gem-stat-research", "Wijkbeeld Onderzoek C.V.", "Beleidsrapportages op wijkniveau.", "5 jaar", "EU (Nederland)", false, true, "Adres (gepseudonimiseerd)")
+      ],
+      "gem-id": [
+        tp("gem-id-markt", "Adreshandel Voorbeeld B.V.", "Koppelen van identiteitsgegevens aan commerciële adressenbestanden.", "onbepaald", "EU (Nederland)", true, true, "BSN, naam, adres", { violation: { articles: ["uavg-46", "avg-5-1-a", "avg-6-1", "avg-9"], fact: "Een BSN is gebruikt buiten een wettelijk bepaald doel en gekoppeld aan een commercieel adressenbestand. Dat is in strijd met UAVG artikel 46." }, blockable: true })
+      ],
+      "ha-epd": [
+        tp("ha-epd-host", "Dossierhost Zorgcloud B.V.", "Technische hosting van het huisartsinformatiesysteem.", "20 jaar", "EU (Nederland)", false, false, "Zorg-ID, dossierverwijzingen")
+      ],
+      "ha-lab": [
+        tp("ha-lab-comm", "Indicatie-analyse Commercieel B.V.", "Commerciële analyse van labuitslagen voor ‘gezondheidstips’ en verzekeringsproducten.", "15 jaar", "EU en VS", true, true, "Zorggegevens, naam, geboortedatum", { violation: { articles: ["avg-9", "avg-5-1-a", "avg-5-1-b", "avg-6-1", "avg-44"], fact: "Gezondheidsgegevens zijn zonder uitdrukkelijke toestemming of andere uitzondering van artikel 9 doorgezet naar een commercieel analysebedrijf, deels buiten de EU." } })
+      ],
+      "ba-fraud": [
+        tp("ba-fraud-net", "FraudeSignaal Internationaal Ltd.", "Delen van transactiesignalen in een internationaal netwerk.", "7 jaar", "EU en VS", false, true, "Rekeningnummer, naam")
+      ],
+      "ba-fraud-net": [
+        tp("ba-fraud-mkt", "Betaalprofiel Advertising Ltd.", "Hergebruik van transactiesignalen voor gerichte aanbiedingen.", "24 maanden", "VS", true, true, "Rekeningnummer (hash), naam", { violation: { articles: ["avg-5-1-b", "avg-6-1", "avg-44"], fact: "Gegevens die voor fraudedetectie waren bedoeld, zijn hergebruikt voor reclame en doorgezet naar de VS zonder geldige grondslag." } })
+      ],
+      "ba-trans": [
+        tp("ba-trans-clear", "Clearinghuis Betaalverkeer B.V.", "Afwikkeling van overboekingen tussen banken.", "7 jaar", "EU (Nederland)", false, false, "Rekeningnummer, naam", { blockable: false, blockNote: "Deze schakel hoort bij de uitvoering van de betaling zelf. Blokkeren in deze simulatie zou de overboeking stoppen; daarvoor is geen aparte ‘toestemming voor een ad-tech-keten’ nodig, maar een andere keuze (bijvoorbeeld de rekening sluiten)." })
+      ],
+      "wg-payroll": [
+        tp("wg-payroll-tax", "Aangifteverwerking Loon B.V.", "Ondersteuning bij de loonaangifte.", "7 jaar", "EU (Nederland)", false, false, "Naam, loongegevens", { blockable: false, blockNote: "Dit type verwerking kan op een wettelijke verplichting berusten. In deze simulatie is blokkeren van deze schakel daarom niet mogelijk." })
+      ],
+      "wg-ana": [
+        tp("wg-ana-us", "Workforce Benchmark Inc.", "Vergelijken van personeelsgegevens met een internationale set.", "3 jaar", "VS", false, true, "Contractgegevens", { violation: { articles: ["avg-6-1", "avg-13", "avg-44"], fact: "Contractgegevens zijn naar een Amerikaanse benchmarkdienst gegaan zonder dat jij daarover bent geïnformeerd en zonder passende waarborgen." } })
+      ],
+      "vb-ads": [
+        tp("vb-ads-dsp", "Video-veiling Exchange Ltd.", "Veiling van pre-roll-advertenties.", "12 maanden", "EU en VS", true, true, "E-mailadres, kijkgedrag", { violation: { articles: ["avg-6-1", "tw-11-7a", "avg-44"], fact: "Kijk- en contactgegevens zijn in een advertentieveiling gezet, met tracking in de speler, zonder specifieke toestemming." } })
+      ],
+      "sc-lms": [
+        tp("sc-lms-profile", "StudyPath Insights Inc.", "Voorspellen van studiegedrag en commerciële ‘leeraanbiedingen’.", "24 maanden", "VS", true, true, "Naam, voortgangssignalen", { violation: { articles: ["avg-5-1-b", "avg-6-1", "avg-44"], fact: "Voortgangsdata uit de leeromgeving zijn voor een commercieel doel buiten de EU gebruikt, zonder toestemming." } })
+      ]
+    };
+
+    var REPUTATION = {
+      "sa-ads": { score: 28, label: "zwak", leaks: ["2023: klantdatabase met e-mailadressen en interesses openbaar na een fout bij een onderverwerker (voorbeeld)."], fines: ["2024: voorbeeldboete van een Europese toezichthouder wegens onrechtmatige profilering, hoogte niet in deze demo herhaald als echt besluit."], news: ["Herhaalde klachten over trackers die blijven staan na het uitzetten van cookies."], actions: ["sa-ads-claim"] },
+      "sa-ads-dsp": { score: 22, label: "zwak", leaks: ["2022: veilinglogs met apparaatkenmerken lagen korte tijd open (voorbeeld)."], fines: ["Geen afgerond besluit in deze voorbeelddata; er loopt wel een onderzoek in de voorbeeldtijdlijn."], news: ["Brancheberichten over doorverkoop van veilingdata."], actions: ["sa-ads-claim"] },
+      "sa-ads-broker": { score: 15, label: "zeer zwak", leaks: ["2021 en 2024: twee gemelde datalekken van profielsegmenten (voorbeeld)."], fines: ["2024: voorbeeldboete wegens doorgifte buiten de EU zonder waarborgen."], news: ["Onderzoeksjournalistiek over een ‘data-broker’-keten."], actions: ["sa-ads-claim"] },
+      "sa-ads-meas": { score: 41, label: "matig", leaks: [], fines: [], news: ["Klachten over trackers zonder toestemming."], actions: [] },
+      "sa-ana": { score: 36, label: "matig", leaks: ["2020: interne onderzoekstool per abuis bereikbaar (voorbeeld)."], fines: [], news: [" Kritiek op ondoorzichtige personalisatie."], actions: ["sa-ana-claim"] },
+      "sa-ana-hub": { score: 18, label: "zeer zwak", leaks: ["2022: koppelbestand met Social-ID’s gelekt (voorbeeld)."], fines: ["Voorbeeldboete wegens onrechtmatige doorgifte."], news: ["Berichten over samenvoegen van profielen over landsgrenzen."], actions: ["sa-ana-claim"] },
+      "sa-cdn": { score: 62, label: "redelijk", leaks: [], fines: [], news: ["Technische storingen, geen grote publieke boete in deze voorbeelddata."], actions: [] },
+      "sa-cdn-us": { score: 48, label: "matig", leaks: [], fines: [], news: ["Vragen over onderverwerkers zonder contractuele toestemming."], actions: [] },
+      "sa-mail": { score: 44, label: "matig", leaks: [], fines: [], news: ["Klachten over commerciële mail naast accountberichten."], actions: [] },
+      "sa-mail-partner": { score: 25, label: "zwak", leaks: ["2023: mailinglijst bij een partner gelekt (voorbeeld)."], fines: [], news: ["Meldingen van spam na het uitzetten van marketing."], actions: ["sa-mail-claim"] },
+      "ea-cloud-sub": { score: 39, label: "matig", leaks: [], fines: [], news: ["Vragen over onderverwerking zonder voorafgaande toestemming."], actions: [] },
+      "ea-cloud-us": { score: 31, label: "zwak", leaks: ["2024: back-upmedium zoekgeraakt in een keten van onderverwerkers (voorbeeld)."], fines: [], news: ["Berichten over back-ups buiten de EU."], actions: ["ea-cloud-claim"] },
+      "ea-ads": { score: 27, label: "zwak", leaks: [], fines: [], news: ["Klachten over energieverbruik in reclameprofielen."], actions: ["ea-ads-claim"] },
+      "ea-ads-hub": { score: 24, label: "zwak", leaks: ["2021: huishoudprofielen op een onbeveiligde server (voorbeeld)."], fines: [], news: [], actions: ["ea-ads-claim"] },
+      "ea-ads-xsell": { score: 16, label: "zeer zwak", leaks: ["2022: datalek bij een data-exchange (voorbeeld)."], fines: ["Voorbeeldboete wegens verkoop zonder grondslag."], news: ["Negatieve berichtgeving over doorverkoop van nutsdata."], actions: ["ea-ads-claim"] },
+      "gem-id-markt": { score: 12, label: "zeer zwak", leaks: ["2023: bestand met identificerende nummers in omloop (voorbeeld)."], fines: ["Voorbeeldboete wegens gebruik van een wettelijk identificatienummer buiten de wet."], news: ["Politieke en journalistieke aandacht voor handel in adres- en identiteitsgegevens."], actions: ["gem-bsn-claim"] },
+      "ha-lab-comm": { score: 14, label: "zeer zwak", leaks: ["2024: labuitslagen in een testdataset (voorbeeld)."], fines: ["Voorbeeldboete wegens verwerking van gezondheidsgegevens zonder uitzondering."], news: ["Zorgverleners waarschuwen voor commerciële ‘inzichten’ op basis van labdata."], actions: ["ha-zorg-claim"] },
+      "ba-fraud-mkt": { score: 19, label: "zeer zwak", leaks: [], fines: [], news: ["Berichten over hergebruik van fraudedata voor reclame."], actions: ["ba-fraud-claim"] },
+      "wg-ana-us": { score: 33, label: "zwak", leaks: [], fines: [], news: ["Vakbonden bekritiseren people analytics buiten de EU (voorbeeldbericht)."], actions: [] },
+      "sc-lms-profile": { score: 29, label: "zwak", leaks: [], fines: [], news: ["Onderwijsorganisaties waarschuwen voor commerciële edtech-profilering."], actions: ["sc-lms-claim"] }
+    };
+
+    var CLASS_ACTIONS = {
+      "sa-ads-claim": {
+        id: "sa-ads-claim",
+        title: "Voorbeeldclaim: onrechtmatige advertentieketen (BereikNet en opvolgers)",
+        against: "BereikNet Advertising Ltd. en opvolgende partijen",
+        status: "Lopend — na aanwijzing van een exclusieve belangenbehartiger, fase van schikkingspoging (voorbeeld).",
+        kosten: "Geen verplichte bijdrage in deze voorbeeldzaak. De stichting publiceert haar financiering, zoals art. 3:305a lid 2 BW dat vraagt.",
+        wamca: "opt-out-nl",
+        duur: "Vaak jaren. Alleen de tussenbeslissing (aanwijzing van de exclusieve belangenbehartiger) kan volgens de Rechtspraak een jaar of langer duren.",
+        uitkomst: "Mogelijk een schikking, een collectieve schadeafwikkeling, of afwijzing. Niets is zeker totdat de rechter oordeelt of een schikking goedkeurt.",
+        how: "In het echt: kijk in het Centraal register voor collectieve vorderingen en op de site van de belangenorganisatie. In deze simulatie sluit je met één tik aan; dat is geen echte aanmelding."
+      },
+      "sa-ana-claim": {
+        id: "sa-ana-claim",
+        title: "Voorbeeldclaim: profilering en doorgifte door analyseketen",
+        against: "Gedragssignaal Analytics Inc. en Profileringshub APAC Pte. Ltd.",
+        status: "Lopend — dagvaarding ingeschreven (voorbeeld).",
+        kosten: "Optionele steunbijdrage van € 0 in deze voorbeeldzaak; in het echt kan een organisatie een bijdrage vragen, die zij dan inzichtelijk moet maken.",
+        wamca: "opt-out-nl",
+        duur: "Reken op meerdere jaren, met eerst een tussenbeslissing.",
+        uitkomst: "Verklaring voor recht, mogelijke schadevergoeding in categorieën, of een schikking. Of helemaal niets, als de vordering faalt.",
+        how: "Zie het Centraal register en de pagina van de organisatie. Hier is aansluiten alleen een oefening."
+      },
+      "sa-mail-claim": {
+        id: "sa-mail-claim",
+        title: "Voorbeeldclaim: ongevraagde commerciële e-mail",
+        against: "Partnermail Outreach Ltd.",
+        status: "In voorbereiding (voorbeeld).",
+        kosten: "Geen bijdrage in deze voorbeeldzaak.",
+        wamca: "opt-out-nl",
+        duur: "Onzeker; eerst moet een belangenorganisatie ontvankelijk zijn en een exclusieve belangenbehartiger worden aangewezen.",
+        uitkomst: "Stopzetting, schadevergoeding of een schikking — of de zaak komt niet van de grond.",
+        how: "Volg het register en de organisatie. In de simulatie is ‘Aansluiten’ een oefenknop."
+      },
+      "ea-ads-claim": {
+        id: "ea-ads-claim",
+        title: "Voorbeeldclaim: doorverkoop van energieverbruik",
+        against: "ReclameNet Energie C.V. en opvolgers",
+        status: "Lopend (voorbeeld).",
+        kosten: "Geen verplichte bijdrage in deze voorbeeldzaak.",
+        wamca: "opt-out-nl",
+        duur: "Vaak jaren.",
+        uitkomst: "Mogelijke schadevergoeding of een schikking, geen garantie.",
+        how: "Centraal register en de site van de belangenorganisatie. Hier alleen simulatie."
+      },
+      "ea-cloud-claim": {
+        id: "ea-cloud-claim",
+        title: "Voorbeeldclaim: onrechtmatige onderverwerking en doorgifte van factuurdata",
+        against: "Ketenhosting Utilities Ltd. en LedgerBackup Inc.",
+        status: "Lopend — tussenbeslissing volgt nog (voorbeeld).",
+        kosten: "Geen bijdrage in deze voorbeeldzaak.",
+        wamca: "opt-out-nl",
+        duur: "Een jaar of langer tot de tussenbeslissing is gebruikelijk volgens de Rechtspraak; de hele zaak duurt vaak langer.",
+        uitkomst: "Schikking, schadeafwikkeling of afwijzing.",
+        how: "Bekijk het officiële register. Hier is aansluiten een oefening."
+      },
+      "gem-bsn-claim": {
+        id: "gem-bsn-claim",
+        title: "Voorbeeldclaim: gebruik van BSN buiten de wet",
+        against: "Adreshandel Voorbeeld B.V.",
+        status: "Lopend (voorbeeld).",
+        kosten: "Geen bijdrage in deze voorbeeldzaak.",
+        wamca: "opt-out-nl",
+        duur: "Vaak jaren.",
+        uitkomst: "Mogelijke verklaring voor recht en schadevergoeding, of afwijzing.",
+        how: "Centraal register. Simulatie-aansluiting is geen echte melding."
+      },
+      "ha-zorg-claim": {
+        id: "ha-zorg-claim",
+        title: "Voorbeeldclaim: commerciële verwerking van gezondheidsgegevens",
+        against: "Indicatie-analyse Commercieel B.V.",
+        status: "Lopend (voorbeeld).",
+        kosten: "Geen bijdrage in deze voorbeeldzaak.",
+        wamca: "opt-out-nl",
+        duur: "Vaak jaren.",
+        uitkomst: "Mogelijke schadevergoeding (AVG art. 82) of een schikking. Geen garantie.",
+        how: "Centraal register en de belangenorganisatie. Hier alleen oefenen."
+      },
+      "ba-fraud-claim": {
+        id: "ba-fraud-claim",
+        title: "Voorbeeldclaim: hergebruik van transactiesignalen voor reclame",
+        against: "Betaalprofiel Advertising Ltd.",
+        status: "Lopend (voorbeeld).",
+        kosten: "Geen bijdrage in deze voorbeeldzaak.",
+        wamca: "opt-out-nl",
+        duur: "Vaak jaren.",
+        uitkomst: "Schikking, schadeafwikkeling of afwijzing.",
+        how: "Centraal register. Hier is aansluiten een simulatie."
+      },
+      "sc-lms-claim": {
+        id: "sc-lms-claim",
+        title: "Voorbeeldclaim: commerciële profilering in een leeromgeving",
+        against: "StudyPath Insights Inc.",
+        status: "In voorbereiding (voorbeeld).",
+        kosten: "Nog niet bekend in deze voorbeeldzaak; als er een bijdrage komt, hoort die op de site van de organisatie te staan.",
+        wamca: "opt-out-nl",
+        duur: "Onzeker.",
+        uitkomst: "Onzeker.",
+        how: "Volg het register. Hier alleen oefenen."
+      }
+    };
+
+    var PARTY_INDEX = null;
+    function rebuildPartyIndex() {
+      PARTY_INDEX = {};
+      for (var orgId in ORG_THIRD_PARTIES) {
+        var list = ORG_THIRD_PARTIES[orgId];
+        for (var i = 0; i < list.length; i++) {
+          PARTY_INDEX[list[i].id] = { party: list[i], orgId: orgId, firstLevel: true };
+        }
+      }
+      for (var pid in ONWARD) {
+        var kids = ONWARD[pid];
+        for (var j = 0; j < kids.length; j++) {
+          PARTY_INDEX[kids[j].id] = { party: kids[j], orgId: null, firstLevel: false, parentId: pid };
+        }
+      }
+      function resolveOrg(id, guard) {
+        var hit = PARTY_INDEX[id];
+        if (!hit) return null;
+        if (hit.orgId) return hit.orgId;
+        if (!hit.parentId || (guard || 0) > 8) return null;
+        hit.orgId = resolveOrg(hit.parentId, (guard || 0) + 1);
+        return hit.orgId;
+      }
+      for (var id in PARTY_INDEX) resolveOrg(id, 0);
+    }
+    function partyById(id) {
+      if (!PARTY_INDEX) rebuildPartyIndex();
+      var hit = PARTY_INDEX[id];
+      return hit ? hit.party : null;
+    }
+    function partyOrgOf(id) {
+      if (!PARTY_INDEX) rebuildPartyIndex();
+      var hit = PARTY_INDEX[id];
+      return hit ? hit.orgId : null;
+    }
+    function childrenOf(id) { return ONWARD[id] || []; }
+    function hasOnward(id) { return childrenOf(id).length > 0; }
+
+    function dataFlowsOf(tp) {
+      if (tp.dataFlows) return tp.dataFlows;
+      if (tp.requiresLabel) return tp.requiresLabel;
+      return "sector-specifieke identifier en de velden die jij aan hebt staan";
+    }
+
+    function isBlocked(orgId, partyId) {
+      return !!(state.blocked && state.blocked[orgId + "::" + partyId]);
+    }
+
+    function isUnauthorized(tp) { return !!(tp && tp.violation); }
+
+    function isFirstLevelShared(orgId, tp) {
+      if (isUnauthorized(tp)) return !isBlocked(orgId, tp.id);
+      return isThirdPartyShared(orgId, tp) && !isBlocked(orgId, tp.id);
+    }
+
+    function isOnwardShared(orgId, tp, parentShared) {
+      if (isBlocked(orgId, tp.id)) return false;
+      if (isUnauthorized(tp)) return true;
+      return !!parentShared;
+    }
+
+    function currentChain(orgId) {
+      if (state.chain && state.chain.orgId === orgId && state.chain.path && state.chain.path.length) return state.chain.path;
+      return [];
+    }
+
+    function defaultRepFor(party) {
+      if (REPUTATION[party.id]) return REPUTATION[party.id];
+      var n = 0;
+      for (var i = 0; i < party.id.length; i++) n = (n + party.id.charCodeAt(i) * (i + 3)) % 40;
+      var score = 58 + (n % 28);
+      return {
+        score: score,
+        label: score >= 75 ? "ruim voldoende" : score >= 60 ? "redelijk" : "matig",
+        leaks: [],
+        fines: [],
+        news: ["In deze voorbeelddata zijn geen opvallende publieke boetes of datalekken bij deze partij opgenomen."],
+        actions: []
+      };
+    }
+
+    function countTree(orgId) {
+      var first = ORG_THIRD_PARTIES[orgId] || [];
+      var ids = {};
+      var maxDepth = 1;
+      var sharedCount = 0, unauth = 0, blocked = 0;
+      function walk(list, depth, parentShared) {
+        for (var i = 0; i < list.length; i++) {
+          if (depth > maxDepth) maxDepth = depth;
+          var tp0 = list[i];
+          ids[tp0.id] = true;
+          var blockedHere = isBlocked(orgId, tp0.id);
+          var shared = depth === 1 ? isFirstLevelShared(orgId, tp0) : isOnwardShared(orgId, tp0, parentShared);
+          if (blockedHere) blocked++;
+          else if (shared) {
+            sharedCount++;
+            if (isUnauthorized(tp0)) unauth++;
+          }
+          walk(childrenOf(tp0.id), depth + 1, shared && !blockedHere);
+        }
+      }
+      walk(first, 1, false);
+      return { parties: Object.keys(ids).length, layers: first.length ? maxDepth : 0, shared: sharedCount, unauth: unauth, blocked: blocked };
+    }
+
+    function flattenTree(orgId) {
+      var rows = [];
+      function walk(list, depth, parentShared) {
+        for (var i = 0; i < list.length; i++) {
+          var tp0 = list[i];
+          var blockedHere = isBlocked(orgId, tp0.id);
+          var shared = depth === 1 ? isFirstLevelShared(orgId, tp0) : isOnwardShared(orgId, tp0, parentShared);
+          rows.push({ party: tp0, depth: depth, shared: shared, blocked: blockedHere });
+          walk(childrenOf(tp0.id), depth + 1, shared && !blockedHere);
+        }
+      }
+      walk(ORG_THIRD_PARTIES[orgId] || [], 1, false);
+      return rows;
+    }
+
+    function articlesHtml(ids, showConseq) {
+      var html = '<ul class="art-list">';
+      for (var i = 0; i < ids.length; i++) {
+        var a = LEGAL[ids[i]];
+        if (!a) continue;
+        if (a.consequence && !showConseq) continue;
+        html += '<li><span class="art-code">' + esc(a.code) + '</span> — <strong>' + esc(a.title) + '</strong>. ';
+        html += esc(a.plain) + ' <a href="' + esc(a.href) + '" target="_blank" rel="noopener noreferrer">Officiële tekst</a></li>';
+      }
+      html += '</ul>';
+      return html;
+    }
+
+    function consequenceHtml() {
+      var html = '<p style="margin-top:8px;font-size:13px">Mogelijke gevolgen, geen aparte ‘overtreding’ van het delen zelf:</p>';
+      html += articlesHtml(["avg-82", "avg-83"], true);
+      return html;
+    }
+
+    function remedyHtml(org, party) {
+      var orgName = org ? org.name : "de organisatie";
+      var html = '<div class="remedy-box" data-testid="remedy">';
+      html += '<h5>Waar kun je dit melden — en wat kun je verwachten</h5>';
+      html += '<p>Alle stappen hieronder zijn de echte route. De namen van deze partijen zijn voorbeelddata.</p><ol>';
+      html += '<li><strong>Eerst de organisatie zelf</strong> (' + esc(orgName) + (party ? ", en zo nodig " + esc(party.name) : "") + '). Dien een klacht in of doe een verzoek om inzage of wissing.';
+      html += '<span class="expect">Verwachting: volgens ' + esc(LEGAL["avg-12-3"].code) + ' krijg je onverwijld en in ieder geval binnen een maand een reactie. Die termijn kan met nog twee maanden worden verlengd; daarvan moet je binnen een maand bericht krijgen. Bewaar de correspondentie. <a href="' + esc(LEGAL["avg-12-3"].href) + '" target="_blank" rel="noopener noreferrer">Officiële tekst</a></span></li>';
+      html += '<li><strong>Autoriteit Persoonsgegevens</strong> — tip of klacht, op grond van ' + esc(LEGAL["avg-77"].code) + '.';
+      html += '<span class="expect">Verwachting: de AP vraagt je eerst contact te zoeken met de organisatie en bewijs mee te sturen (zoals deze tijdlijn). Het duurt volgens de AP gemiddeld 6 maanden voordat een klacht in behandeling kan worden genomen. Je krijgt in ieder geval binnen 3 maanden bericht over de voortgang, en anders uiterlijk binnen 6 maanden na dat bericht opnieuw bericht. Mogelijke uitkomsten: gesprek, berisping, last onder dwangsom, verwerkingsverbod of boete — of de conclusie dat de wet niet is overtreden. <a href="https://autoriteitpersoonsgegevens.nl/een-tip-of-klacht-indienen-bij-de-ap" target="_blank" rel="noopener noreferrer">Klacht indienen</a> · <a href="https://autoriteitpersoonsgegevens.nl/hoe-wij-uw-klacht-afhandelen" target="_blank" rel="noopener noreferrer">Afhandeling</a></span></li>';
+      html += '<li><strong>De rechter</strong>, onverminderd de klacht bij de AP (' + esc(LEGAL["avg-79"].code) + '), eventueel met een vordering tot schadevergoeding (' + esc(LEGAL["avg-82"].code) + ').';
+      html += '<span class="expect">Verwachting: dit is een civiele procedure. Reken op kosten (vaak een advocaat), een doorlooptijd van maanden tot jaren, en een onzekere uitkomst. Soms is een geschillencommissie een kortere route, als de sector er een heeft.</span></li>';
+      html += '<li><strong>Een lopende collectieve actie</strong>, als die er is. Zie de reputatiecheck hieronder en het <a href="https://www.rechtspraak.nl/registers/centraal-register-voor-collectieve-vorderingen" target="_blank" rel="noopener noreferrer">Centraal register voor collectieve vorderingen</a>.</li>';
+      html += '</ol>';
+      html += '<button type="button" class="btn btn-ghost" data-action="download-timeline" data-testid="download-timeline">Bewijs uit de tijdlijn downloaden</button>';
+      html += '</div>';
+      return html;
+    }
+
+    function wamcaBox() {
+      var html = '<div class="real-box" data-testid="wamca-uitleg">';
+      html += '<h5>Hoe een collectieve actie in Nederland werkt (WAMCA)</h5>';
+      html += '<p>Een stichting of vereniging kan opkomen voor een groep, als zij voldoet aan <a href="https://wetten.overheid.nl/BWBR0005291/2025-07-01/#Boek3_Titeldeel11_Artikel305a" target="_blank" rel="noopener noreferrer">artikel 3:305a van het Burgerlijk Wetboek</a>. De procedure staat in <a href="https://wetten.overheid.nl/BWBR0001827/2026-07-14/#BoekDerde_Titeldeel14a_Artikel1018b" target="_blank" rel="noopener noreferrer">artikel 1018b en volgende van het Wetboek van Burgerlijke Rechtsvordering</a>.</p>';
+      html += '<ul>';
+      html += '<li><strong>Wonen of verblijven in Nederland:</strong> na de tussenbeslissing (aanwijzing van de exclusieve belangenbehartiger) krijg je de kans om je binnen een door de rechter te bepalen termijn van minstens een maand af te melden. Doe je dat niet, dan ben je in beginsel gebonden. Dat is de opt-out van <a href="https://wetten.overheid.nl/BWBR0001827/2026-07-14/#BoekDerde_Titeldeel14a_Artikel1018f" target="_blank" rel="noopener noreferrer">art. 1018f lid 1 Rv</a>.</li>';
+      html += '<li><strong>Geen woonplaats of verblijf in Nederland:</strong> je bent alleen gebonden als je binnen diezelfde termijn schriftelijk aan de griffie laat weten dat je instemt (opt-in, art. 1018f lid 5 Rv). De rechter kán op verzoek van een partij voor die groep alsnog opt-out toepassen, behalve bij representatieve vorderingen onder de Europese richtlijn: dan blijft opt-in verplicht (lid 6).</li>';
+      html += '<li><strong>Kosten en duur:</strong> of je een bijdrage betaalt, moet de organisatie op haar site zetten (art. 3:305a lid 2 BW). De Rechtspraak waarschuwt dat alleen de tussenbeslissing al een jaar of langer kan duren. Daarna volgt een schikking of een collectieve schadeafwikkeling — of de zaak stopt.</li>';
+      html += '</ul></div>';
+      return html;
+    }
+
+    function realSourcesHtml() {
+      var html = '<div class="real-box" data-testid="echte-bronnen">';
+      html += '<h5>Hoe dit in het echt getoetst wordt</h5>';
+      html += '<p>De scores, datalekken, boetes en claims per partij hierboven zijn <strong>voorbeelddata</strong>. In het echt toets je een partij onder meer via deze officiële of algemeen toegankelijke bronnen:</p><ul>';
+      for (var i = 0; i < REAL_SOURCES.length; i++) {
+        var s = REAL_SOURCES[i];
+        html += '<li><a href="' + esc(s.href) + '" target="_blank" rel="noopener noreferrer">' + esc(s.name) + '</a> — ' + esc(s.note) + '</li>';
+      }
+      html += '</ul>';
+      html += wamcaBox();
+      html += '</div>';
+      return html;
+    }
+
+    function repuHtml(org, party, open) {
+      var rep = defaultRepFor(party);
+      var html = '<div class="repu-box" data-testid="repu-' + esc(party.id) + '">';
+      html += '<div class="tp-top"><h5>Reputatiecheck</h5><span class="voorbeeld-tag">Voorbeelddata</span></div>';
+      if (!open) {
+        html += '<p>Score, bekende datalekken, boetes, berichten en lopende collectieve acties — allemaal voorbeelddata, geen echte feiten over deze (fictieve) partij.</p>';
+        html += '<button type="button" class="btn btn-ghost" data-action="repu-open" data-org="' + esc(org.id) + '" data-party="' + esc(party.id) + '" data-testid="repu-open-' + esc(party.id) + '">Reputatiecheck uitvoeren</button>';
+        html += '</div>';
+        return html;
+      }
+      html += '<div class="repu-grid">';
+      html += '<div><div class="repu-score">' + esc(String(rep.score)) + '<small>score · ' + esc(rep.label) + '</small></div></div>';
+      html += '<div><strong>Toelichting.</strong> Dit is een oefenscore in de simulatie, geen keurmerk en geen oordeel van een toezichthouder.</div>';
+      html += '</div>';
+      function blk(title, items, empty) {
+        var h = '<p style="margin:10px 0 4px"><strong>' + title + '</strong></p><ul>';
+        if (!items.length) h += '<li>' + empty + '</li>';
+        else for (var i = 0; i < items.length; i++) h += '<li>' + esc(items[i]) + '</li>';
+        return h + '</ul>';
+      }
+      html += blk("Bekende datalekken (voorbeeld)", rep.leaks, "Geen datalek opgenomen in deze voorbeelddata.");
+      html += blk("Toezichthouder-boetes (voorbeeld)", rep.fines, "Geen boete opgenomen in deze voorbeelddata.");
+      html += blk("Klachten of negatief nieuws (voorbeeld)", rep.news, "Geen berichten opgenomen in deze voorbeelddata.");
+      html += '<p style="margin:10px 0 4px"><strong>Lopende collectieve acties / class actions</strong></p>';
+      if (!rep.actions.length) {
+        html += '<p>In deze voorbeelddata loopt er geen collectieve actie tegen deze partij. In het echt kijk je in het Centraal register.</p>';
+      } else {
+        for (var a = 0; a < rep.actions.length; a++) {
+          var act = CLASS_ACTIONS[rep.actions[a]];
+          if (!act) continue;
+          var joined = !!(state.joinedActions && state.joinedActions[act.id]);
+          html += '<div class="action-card" data-testid="action-' + esc(act.id) + '">';
+          html += '<h6>' + esc(act.title) + '</h6>';
+          html += '<p><strong>Tegen:</strong> ' + esc(act.against) + '<br><strong>Status:</strong> ' + esc(act.status) + '</p>';
+          html += '<p><strong>Kosten:</strong> ' + esc(act.kosten) + '<br><strong>Doorlooptijd:</strong> ' + esc(act.duur) + '<br><strong>Mogelijke uitkomst:</strong> ' + esc(act.uitkomst) + '</p>';
+          html += '<p><strong>Aansluiten:</strong> ' + esc(act.how) + '</p>';
+          if (joined) html += '<p><span class="badge badge-ok">In deze simulatie aangesloten</span></p>';
+          else html += '<button type="button" class="btn btn-primary" data-action="join-action" data-id="' + esc(act.id) + '" data-org="' + esc(org.id) + '" data-party="' + esc(party.id) + '" data-testid="join-action-' + esc(act.id) + '">Aansluiten (simulatie)</button>';
+          html += '</div>';
+        }
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function violationBlock(org, tp) {
+      if (!isUnauthorized(tp)) return "";
+      var html = '<div class="legal-box" data-testid="violation-' + esc(tp.id) + '">';
+      html += '<h5>Gedeeld zonder akkoord — voorbeeldovertreding</h5>';
+      html += '<p>' + esc(tp.violation.fact) + ' Dit is voorbeelddata, geen echte beschuldiging.</p>';
+      html += '<p><strong>Wetsartikelen die in dit voorbeeld in het geding zijn</strong></p>';
+      html += articlesHtml(tp.violation.articles, false);
+      html += consequenceHtml();
+      html += remedyHtml(org, tp);
+      html += '</div>';
+      return html;
+    }
+
+    function renderTree(orgId, currentId) {
+      var stats = countTree(orgId);
+      var html = '<div class="chain-summary" data-testid="chain-tree">';
+      html += '<strong>Je data zit bij ' + stats.shared + ' partij' + (stats.shared === 1 ? '' : 'en') + ' in ' + stats.layers + (stats.layers === 1 ? ' laag' : ' lagen') + '.</strong> ';
+      html += 'In de hele voorbeeldketen staan ' + stats.parties + ' partijen.';
+      if (stats.unauth) html += ' Daarvan ' + (stats.unauth === 1 ? "is er één markering" : "zijn er " + stats.unauth + " markeringen") + " ‘gedeeld zonder akkoord’.";
+      if (stats.blocked) html += ' Jij hebt ' + stats.blocked + ' doorgegeven geblokkeerd.';
+      html += '<div class="chain-tree">';
+      var rows = flattenTree(orgId);
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i];
+        var cls = "n";
+        if (r.party.id === currentId) cls += " cur";
+        if (isUnauthorized(r.party) && r.shared) cls += " bad";
+        if (r.blocked || !r.shared) cls += " off";
+        var indent = "";
+        for (var d = 1; d < r.depth; d++) indent += "— ";
+        html += '<div class="row"><span class="indent">' + indent + "L" + r.depth + "</span>";
+        html += '<button type="button" class="' + cls + '" data-action="chain-jump" data-org="' + esc(orgId) + '" data-party="' + esc(r.party.id) + '">' + esc(r.party.name) + "</button></div>";
+      }
+      html += "</div></div>";
+      return html;
+    }
+
+    function blockButton(org, tp) {
+      var blocked = isBlocked(org.id, tp.id);
+      if (tp.blockable === false) {
+        return '<p style="font-size:13px;color:var(--muted);margin-top:8px">' + esc(tp.blockNote || "Deze schakel is in deze simulatie niet te blokkeren.") + "</p>";
+      }
+      if (blocked) {
+        return '<button type="button" class="btn btn-ghost" data-action="unblock-onward" data-org="' + esc(org.id) + '" data-party="' + esc(tp.id) + '" data-testid="unblock-onward-' + esc(tp.id) + '">Blokkade opheffen</button>';
+      }
+      return '<button type="button" class="btn btn-danger" data-action="block-onward" data-org="' + esc(org.id) + '" data-party="' + esc(tp.id) + '" data-testid="block-onward-' + esc(tp.id) + '">Doorgifte naar deze partij blokkeren</button>';
+    }
+
+    function tpMeta(tp) {
+      var html = '<p>' + esc(tp.purpose) + '</p><div class="tp-meta">';
+      html += '<div><strong>Bewaartermijn:</strong> ' + esc(tp.retention) + '</div>';
+      html += '<div><strong>Locatie:</strong> ' + esc(tp.location) + '</div>';
+      html += '<div><strong>Verkoop van data:</strong> ' + yesNo(tp.sale) + '</div>';
+      html += '<div><strong>Profilering:</strong> ' + yesNo(tp.profiling) + '</div>';
+      html += '<div style="grid-column:1/-1"><strong>Welke data stroomt door:</strong> ' + esc(dataFlowsOf(tp)) + '</div>';
+      if (tp.requiresLabel) html += '<div style="grid-column:1/-1"><strong>Voorwaarde in deze simulatie:</strong> ' + esc(tp.requiresLabel) + '</div>';
+      html += '</div>';
+      return html;
+    }
+
+    function tpCard(org, tp, shared, clickable) {
+      var blocked = isBlocked(org.id, tp.id);
+      var unauth = isUnauthorized(tp) && shared && !blocked;
+      var cls = "tp-card";
+      if (blocked) cls += " blocked";
+      else if (unauth) cls += " violation yes";
+      else if (shared) cls += " yes";
+      else cls += " no";
+      if (clickable) cls += " clickable";
+      var tag = blocked
+        ? '<span class="badge badge-off">Geblokkeerd</span>'
+        : unauth
+          ? '<span class="badge badge-warn">Gedeeld zonder akkoord</span>'
+          : shared
+            ? '<span class="badge badge-ok">Wél data gedeeld</span>'
+            : '<span class="badge badge-off">Niet gedeeld</span>';
+      var start = clickable
+        ? '<button type="button" class="' + cls + '" data-action="chain-open" data-org="' + esc(org.id) + '" data-party="' + esc(tp.id) + '" data-testid="tp-card-' + esc(tp.id) + '">'
+        : '<article class="' + cls + '" data-testid="tp-card-' + esc(tp.id) + '">';
+      var card = start;
+      card += '<div class="tp-top"><span class="tp-name">' + esc(tp.name) + '</span>' + tag + '<span class="voorbeeld-tag">Voorbeelddata</span></div>';
+      card += tpMeta(tp);
+      if (clickable) {
+        var nxt = childrenOf(tp.id);
+        card += '<div class="tp-cta">' + (nxt.length ? ("Bekijk " + nxt.length + " volgende partij" + (nxt.length === 1 ? "" : "en") + " →") : "Open details: deelt niet verder →") + "</div>";
+        card += "</button>";
+      } else card += "</article>";
+      return card;
+    }
+
+    function atLocal(y, m, d, h, min) {
+      return new Date(y, m - 1, d, h || 9, min || 0, 0, 0).getTime();
+    }
+
+    function seedTimeline() {
+      var ev = [];
+      function evAdd(y, m, d, h, min, kind, orgId, text, articles) {
+        ev.push({
+          id: "seed-" + ev.length,
+          at: atLocal(y, m, d, h, min),
+          kind: kind,
+          orgId: orgId || null,
+          text: text,
+          articles: articles || null,
+          example: true
+        });
+      }
+      evAdd(2016, 11, 18, 10, 15, "give", "energie-a", "Voorbeelddata · Je koppelde Energieleverancier A. Naam en adres werden gedeeld voor de levering.");
+      evAdd(2016, 12, 2, 9, 30, "pref", "energie-a", "Voorbeelddata · Communicatievoorkeur voor Energieleverancier A: e-mail.");
+      evAdd(2017, 1, 9, 11, 0, "give", "gas-b", "Voorbeelddata · Je koppelde Gasbedrijf B.");
+      evAdd(2017, 2, 14, 16, 20, "give", "water-c", "Voorbeelddata · Je koppelde Waterbedrijf C.");
+      evAdd(2017, 3, 3, 10, 5, "share", "energie-a", "Voorbeelddata · Adres gedeeld met Netkoppelpunt Randstad B.V. voor storingen en aansluiting.");
+      evAdd(2017, 5, 22, 13, 40, "give", "gemeente", "Voorbeelddata · Je koppelde de Gemeente. Naam en adres aan, BSN uit.");
+      evAdd(2017, 6, 8, 9, 10, "give", "bank-a", "Voorbeelddata · Je koppelde Bank A. Naam en rekeningnummer werden gedeeld voor de betaaldienst.");
+      evAdd(2017, 8, 19, 15, 0, "give", "huisarts", "Voorbeelddata · Je koppelde de Huisartsenpraktijk. Naam en geboortedatum aan, zorggegevens en BSN uit.");
+      evAdd(2017, 9, 1, 8, 45, "give", "werkgever", "Voorbeelddata · Je koppelde Werkgever. Alleen naam stond aan.");
+      evAdd(2017, 11, 27, 12, 0, "pref", "gemeente", "Voorbeelddata · Communicatievoorkeur voor de Gemeente: post en e-mail, later e-mail.");
+      evAdd(2018, 2, 6, 10, 20, "share", "bank-a", "Voorbeelddata · Overboekingen lopen via Clearinghuis Betaalverkeer B.V.");
+      evAdd(2018, 4, 12, 17, 5, "info", null, "Voorbeelddata · Je ontving voorwaarden-updates van twee nutsbedrijven. In deze periode gold nog de Wet bescherming persoonsgegevens.");
+      evAdd(2018, 5, 25, 0, 1, "info", null, "Voorbeelddata · De Algemene verordening gegevensbescherming (AVG) en de UAVG zijn van toepassing geworden.");
+      evAdd(2018, 6, 14, 11, 30, "give", "energie-a", "Voorbeelddata · Je bevestigde de koppeling met Energieleverancier A onder de AVG. Verbruiksgegevens bleven uit.");
+      evAdd(2018, 7, 3, 9, 15, "onward", "energie-a", "Voorbeelddata · Factuurdata gingen naar CloudFactuur Noord-Europa AB (EU, Zweden).");
+      evAdd(2018, 9, 19, 14, 50, "violation", "energie-a", "Voorbeelddata · CloudFactuur schakelde Ketenhosting Utilities Ltd. in zonder voorafgaande schriftelijke toestemming, en factuurdata gingen later naar LedgerBackup Inc. in de VS.", ["avg-28", "avg-44", "avg-13"]);
+      evAdd(2018, 10, 2, 10, 0, "info", "energie-a", "Voorbeelddata · Je vroeg Energieleverancier A om uitleg over de factuurcloud. Reactie kwam binnen een maand.");
+      evAdd(2018, 12, 11, 16, 40, "pref", "huisarts", "Voorbeelddata · Communicatievoorkeur voor de Huisartsenpraktijk: telefoon.");
+      evAdd(2019, 1, 21, 9, 25, "share", "gemeente", "Voorbeelddata · Adres gebruikt door Adreslaag Nederland B.V. voor verificatie.");
+      evAdd(2019, 3, 8, 13, 10, "request", "gemeente", "Voorbeelddata · Aanvraag van de Gemeente verscheen na een terugbelverzoek: extra adrescontrole. Je willigde die later in zonder BSN.");
+      evAdd(2019, 4, 16, 11, 0, "give", "gemeente", "Voorbeelddata · Je willigde de gemeentelijke aanvraag in; BSN bleef uit.");
+      evAdd(2019, 6, 4, 15, 30, "violation", "energie-a", "Voorbeelddata · ReclameNet Energie C.V. verwerkte naam en later een verbruikssegment zonder toestemming, en zette dat door naar Huishoudprofiel Marketplace B.V.", ["avg-5-1-a", "avg-5-1-b", "avg-6-1"]);
+      evAdd(2019, 8, 29, 10, 45, "revoke", "energie-a", "Voorbeelddata · Je liet Energieleverancier A weten dat je geen verbruiksgegevens voor advies wilde delen. Verbruik bleef uit.");
+      evAdd(2019, 10, 7, 12, 20, "share", "werkgever", "Voorbeelddata · Naam doorgegeven aan Salarisstraat Verwerking B.V. voor de loonstrook.");
+      evAdd(2019, 12, 18, 18, 0, "pref", "energie-a", "Voorbeelddata · Communicatievoorkeur voor Energieleverancier A: geen contact, behalve storingen via de app. In de simulatie staat de voorkeur nu op e-mail, tenzij jij die later hebt gewijzigd.");
+      evAdd(2020, 1, 15, 9, 0, "info", null, "Voorbeelddata · De Wet afwikkeling massaschade in collectieve actie (WAMCA) is in werking getreden. Collectieve vorderingen worden ingeschreven in het Centraal register.");
+      evAdd(2020, 2, 27, 14, 15, "give", "gas-b", "Voorbeelddata · Je bevestigde adresdeling met Regionaal Gasnet Beheer B.V.");
+      evAdd(2020, 5, 11, 11, 40, "violation", "gemeente", "Voorbeelddata · Adreshandel Voorbeeld B.V. ontving een wettelijk identificatienummer buiten een wettelijk doel. BSN stond bij jou uit.", ["uavg-46", "avg-6-1", "avg-5-1-a"]);
+      evAdd(2020, 7, 6, 16, 5, "request", "zorgverz-a", "Voorbeelddata · Na een belletje met de zorgverzekeraar verscheen een aanvraag in het portaal. Je weigerde extra zorggegevens.");
+      evAdd(2020, 7, 8, 9, 30, "revoke", "zorgverz-a", "Voorbeelddata · Je weigerde de aanvraag van Zorgverzekeraar A. Er is niets extra gedeeld.");
+      evAdd(2020, 9, 23, 13, 55, "share", "huisarts", "Voorbeelddata · Dossierhosting bij Dossierhost Zorgcloud B.V. (EU).");
+      evAdd(2020, 11, 2, 10, 10, "violation", "huisarts", "Voorbeelddata · Indicatie-analyse Commercieel B.V. ontving lab- en gezondheidsgegevens zonder uitdrukkelijke toestemming of andere uitzondering van AVG artikel 9. Jouw schakelaar zorggegevens stond uit.", ["avg-9", "avg-5-1-a", "avg-5-1-b", "avg-6-1", "avg-44"]);
+      evAdd(2021, 1, 14, 15, 20, "info", "huisarts", "Voorbeelddata · Je diende een inzageverzoek in bij de huisartsenpraktijk over mogelijke doorzetting van labdata.");
+      evAdd(2021, 2, 9, 11, 0, "info", "huisarts", "Voorbeelddata · De praktijk reageerde binnen een maand (AVG art. 12 lid 3) en ontkende een actieve koppeling; de voorbeeldketen markeert de doorzetting desondanks als delen zonder akkoord.");
+      evAdd(2021, 4, 20, 9, 45, "give", "water-c", "Voorbeelddata · Je bevestigde adresdeling met Leidingnet Beheer C B.V.");
+      evAdd(2021, 6, 30, 17, 10, "violation", "bank-a", "Voorbeelddata · FraudeSignaal Internationaal Ltd. zette transactiesignalen door naar Betaalprofiel Advertising Ltd. voor reclame, deels naar de VS.", ["avg-5-1-b", "avg-6-1", "avg-44"]);
+      evAdd(2021, 8, 16, 12, 0, "pref", "bank-a", "Voorbeelddata · Communicatievoorkeur voor Bank A: app.");
+      evAdd(2021, 10, 5, 10, 30, "share", "gemeente", "Voorbeelddata · Adres, gepseudonimiseerd, gebruikt door Statistiekbureau Stedelijk B.V.");
+      evAdd(2021, 12, 13, 14, 25, "info", null, "Voorbeelddata · Je bekeek het logboek van deze omgeving — het begin van wat later de tijdlijn werd.");
+      evAdd(2022, 2, 3, 9, 15, "give", "sociaal-a", "Voorbeelddata · Je koppelde Sociaal platform A tijdelijk. Weergavenaam aan, e-mail later ook.");
+      evAdd(2022, 2, 18, 20, 5, "give", "sociaal-a", "Voorbeelddata · Je zette het e-mailadres aan bij Sociaal platform A.");
+      evAdd(2022, 3, 1, 8, 40, "share", "sociaal-a", "Voorbeelddata · E-mail gedeeld met BereikNet Advertising Ltd. en Transactiemail Europa B.V.");
+      evAdd(2022, 3, 4, 11, 15, "onward", "sociaal-a", "Voorbeelddata · BereikNet zette gegevens door naar Programmatic Biddesk Inc.");
+      evAdd(2022, 3, 7, 16, 50, "violation", "sociaal-a", "Voorbeelddata · Programmatic Biddesk Inc. en AudienceBroker Global Ltd. veilden en verkochten profielsegmenten door, met doorgifte naar de VS en Singapore, zonder specifieke toestemming.", ["avg-5-1-a", "avg-5-1-b", "avg-6-1", "avg-13", "avg-44"]);
+      evAdd(2022, 3, 9, 9, 20, "violation", "sociaal-a", "Voorbeelddata · Conversiemeting Partners B.V. plaatste een tracker in je browser zonder voorafgaande toestemming (geen strikt noodzakelijke cookie).", ["tw-11-7a", "avg-6-1", "avg-7"]);
+      evAdd(2022, 3, 11, 13, 0, "violation", "sociaal-a", "Voorbeelddata · Partnermail Outreach Ltd. verstuurde commerciële berichten zonder aantoonbare voorafgaande toestemming.", ["tw-11-7", "avg-6-1", "avg-7"]);
+      evAdd(2022, 4, 22, 19, 30, "revoke", "sociaal-a", "Voorbeelddata · Je trok de koppeling met Sociaal platform A in en zette het e-mailadres uit. In de voorbeelddata bleef een deel van de keten desondanks doorlopen — gemarkeerd als delen zonder akkoord.");
+      evAdd(2022, 5, 3, 10, 10, "violation", "sociaal-a", "Voorbeelddata · Na intrekking gingen gedragssignalen alsnog naar Profileringshub APAC Pte. Ltd. in Singapore.", ["avg-5-1-b", "avg-6-1", "avg-7", "avg-44"]);
+      evAdd(2022, 7, 19, 11, 45, "violation", "sociaal-a", "Voorbeelddata · Edgecache Global Ltd. schakelde MirrorNodes Americas Inc. in zonder voorafgaande schriftelijke toestemming; mediabestanden gingen naar de VS.", ["avg-28", "avg-44"]);
+      evAdd(2022, 9, 8, 15, 0, "info", "sociaal-a", "Voorbeelddata · Je stuurde Sociaal platform A een verzoek tot wissing van het e-mailadres bij adverteerders.");
+      evAdd(2022, 10, 5, 9, 40, "info", "sociaal-a", "Voorbeelddata · Het platform verlengde de reactietermijn met twee maanden en berichtte je daarvan binnen een maand (AVG art. 12 lid 3).");
+      evAdd(2022, 12, 1, 14, 20, "info", "sociaal-a", "Voorbeelddata · In deze voorbeelddossier bleef een deel van de ad-tech-keten staan tot jij een schakel blokkeert.");
+      evAdd(2023, 1, 16, 10, 0, "give", "bank-a", "Voorbeelddata · Je bevestigde dat het BSN bij Bank A uit bleef.");
+      evAdd(2023, 3, 28, 13, 25, "request", "energie-a", "Voorbeelddata · Aanvraag van Energieleverancier A na een contractgesprek: verbruiksgegevens voor een ‘slim’ advies. Je weigerde.");
+      evAdd(2023, 3, 29, 9, 5, "revoke", "energie-a", "Voorbeelddata · Je weigerde verbruiksgegevens te delen met Energieleverancier A.");
+      evAdd(2023, 5, 17, 16, 40, "reputation", "sociaal-a", "Voorbeelddata · Reputatiecheck uitgevoerd voor BereikNet Advertising Ltd.");
+      evAdd(2023, 6, 2, 11, 15, "action", "sociaal-a", "Voorbeelddata · In een eerdere oefening is gekeken naar de voorbeeldclaim over de advertentieketen. Aansluiten in deze simulatie is nooit een echte aanmelding.");
+      evAdd(2023, 8, 21, 10, 50, "share", "water-c", "Voorbeelddata · Naam en adres gebruikt door Postprint Overheid & Nuts B.V. voor een jaarafrekening op papier.");
+      evAdd(2023, 10, 12, 9, 0, "pref", "water-c", "Voorbeelddata · Communicatievoorkeur voor Waterbedrijf C: e-mail, geen papier meer.");
+      evAdd(2023, 12, 7, 15, 30, "info", null, "Voorbeelddata · Jaaroverzicht: zeven actieve koppelingen, BSN overal uit, twee openstaande voorbeeldovertredingen in de keten.");
+      evAdd(2024, 2, 14, 11, 20, "violation", "werkgever", "Voorbeelddata · Workforce Benchmark Inc. ontving contractgegevens via People Insights C.V. — die schakelaar stond bij jou uit — zonder informatieplicht en zonder passende waarborgen voor de VS.", ["avg-6-1", "avg-13", "avg-44"]);
+      evAdd(2024, 4, 3, 13, 10, "give", "pensioen", "Voorbeelddata · Je koppelde kort het Pensioenfonds om een overzicht te bekijken, en trok de extra velden niet verder open.");
+      evAdd(2024, 4, 18, 16, 0, "revoke", "pensioen", "Voorbeelddata · Je trok de koppeling met het Pensioenfonds in.");
+      evAdd(2024, 6, 25, 10, 35, "info", "energie-a", "Voorbeelddata · Voorbeelddatalek gemeld bij LedgerBackup Inc.: een back-upmedium in de keten. Dit is geen echt incident.");
+      evAdd(2024, 8, 9, 9, 20, "request", "huisarts", "Voorbeelddata · Aanvraag van de huisartsenpraktijk voor het delen van zorggegevens met het laboratorium. Je liet zorggegevens uit.");
+      evAdd(2024, 8, 9, 9, 40, "revoke", "huisarts", "Voorbeelddata · Je weigerde zorggegevens te delen; de voorbeeldmarkering ‘zonder akkoord’ bij de commerciële analysepartij bleef zichtbaar tot je die blokkeert.");
+      evAdd(2024, 10, 29, 14, 5, "pref", "werkgever", "Voorbeelddata · Communicatievoorkeur voor Werkgever: e-mail.");
+      evAdd(2024, 12, 16, 11, 50, "share", "gas-b", "Voorbeelddata · Koppeling (Nuts-ID) gedeeld met KetenCloud Utilities GmbH voor de administratie.");
+      evAdd(2025, 1, 20, 10, 0, "info", null, "Voorbeelddata · Je keek in het Centraal register voor collectieve vorderingen of er een zaak liep die op jouw ketens leek. De claims in deze simulatie blijven voorbeelddata.");
+      evAdd(2025, 3, 11, 15, 25, "reputation", "huisarts", "Voorbeelddata · Reputatiecheck uitgevoerd voor Indicatie-analyse Commercieel B.V.");
+      evAdd(2025, 5, 6, 9, 40, "give", "video-b", "Voorbeelddata · Je koppelde Videodienst B kort, weergavenaam aan, e-mail uit, en keek naar de aanbevelingsketen.");
+      evAdd(2025, 5, 27, 20, 15, "revoke", "video-b", "Voorbeelddata · Je trok de koppeling met Videodienst B in.");
+      evAdd(2025, 7, 14, 13, 0, "block", "energie-a", "Voorbeelddata · In een eerdere oefening is doorgifte naar LedgerBackup Inc. geblokkeerd en later weer opengezet. De beginsituatie van deze versie heeft geen blokkades, totdat jij er een zet.");
+      evAdd(2025, 9, 2, 11, 10, "pref", "bank-a", "Voorbeelddata · Communicatievoorkeur voor Bank A: e-mail.");
+      evAdd(2025, 10, 21, 16, 45, "info", "sociaal-a", "Voorbeelddata · Herinnering: na het intrekken in 2022 markeert de keten van BereikNet en opvolgers nog steeds voorbeeldovertredingen, totdat jij een schakel blokkeert of de data bij de bron laat wissen.");
+      evAdd(2025, 12, 8, 10, 20, "share", "huisarts", "Voorbeelddata · Naam en geboortedatum beschikbaar voor Waarneemdienst Regio B.V.");
+      evAdd(2026, 1, 13, 9, 30, "info", null, "Voorbeelddata · Jaaroverzicht 2025 afgesloten. BSN bleef overal uit.");
+      evAdd(2026, 3, 4, 14, 10, "request", "gemeente", "Voorbeelddata · Een terugbelverzoek leidde tot een aanvraag in het portaal; die is in deze beginsituatie niet open blijven staan.");
+      evAdd(2026, 5, 19, 11, 5, "reputation", "energie-a", "Voorbeelddata · Reputatiecheck uitgevoerd voor ReclameNet Energie C.V.");
+      evAdd(2026, 7, 8, 15, 40, "violation", "sociaal-a", "Voorbeelddata · Controle: AudienceBroker Global Ltd. stond in de voorbeelddata nog altijd als ontvanger zonder akkoord.", ["avg-5-1-b", "avg-6-1", "avg-13", "avg-44"]);
+      evAdd(2026, 9, 15, 10, 15, "info", null, "Voorbeelddata · De UAVG, artikel 46, geldt in de geconsolideerde tekst sinds 1 september 2026 als één bepaling: een wettelijk identificatienummer mag alleen voor de wet of voor doeleinden bij de wet bepaald.");
+      evAdd(2026, 10, 28, 13, 50, "pref", "gemeente", "Voorbeelddata · Communicatievoorkeur voor de Gemeente: e-mail.");
+      evAdd(2026, 11, 10, 9, 0, "info", null, "Voorbeelddata · Tijdlijn bijgewerkt tot tien jaar terug. Nieuwe acties van jou komen bovenaan, zonder voorbeeldlabel.");
+      ev.sort(function (a, b) { return b.at - a.at; });
+      return ev;
+    }
+
+    var KIND_LABELS = {
+      give: "Toestemming gegeven",
+      revoke: "Toestemming ingetrokken",
+      share: "Delen",
+      onward: "Doorgifte",
+      block: "Doorgifte geblokkeerd",
+      unblock: "Blokkade opgeheven",
+      violation: "Delen zonder akkoord",
+      request: "Aanvraag",
+      pref: "Communicatievoorkeur",
+      info: "Overig",
+      reputation: "Reputatiecheck",
+      action: "Collectieve actie"
+    };
+
+    function formatDay(ts) {
+      try {
+        return new Intl.DateTimeFormat("nl-NL", { timeZone: "Europe/Amsterdam", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(ts));
+      } catch (e) { return formatTime(ts); }
+    }
+
+    function formatMonthLabel(ts) {
+      try {
+        return new Intl.DateTimeFormat("nl-NL", { timeZone: "Europe/Amsterdam", month: "long", year: "numeric" }).format(new Date(ts));
+      } catch (e) { return ""; }
+    }
+
+    function eventYear(ts) {
+      try {
+        return Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Amsterdam", year: "numeric" }).format(new Date(ts)));
+      } catch (e) { return new Date(ts).getFullYear(); }
+    }
+
     function isThirdPartyShared(orgId, tp) {
       var st = state.orgs[orgId];
       if (!st || !st.active) return false;
@@ -1147,10 +2023,11 @@
       html += '<div class="lead-row"><span class="voorbeeld-tag" data-testid="voorbeelddata">Voorbeelddata</span>';
       html += '<span style="font-size:13px;color:var(--muted)">Fictieve organisaties, derden en voorwaarden. De risico’s zijn echt, de namen niet.</span></div>';
       html += '<h3>In échte ID-apps zit dit verstopt in veertig pagina’s kleine letters.</h3>';
-      html += '<p>MyCheck, itsme, de NL Wallet, nóg een DigiD-variant: overal teken je, bijna nergens zie je in één oogopslag waarvoor. Hier is het één druk op de knop. Je leest wat je deelt, met welke derden, wat er in de voorwaarden staat, en wat de voordelen, nadelen en gevaren zijn. En je trekt het hier net zo direct in als je het afgeeft.</p>';
+      html += '<p>MyCheck, itsme, de NL Wallet, nóg een DigiD-variant: overal teken je, bijna nergens zie je in één oogopslag waarvoor. Hier is het één druk op de knop. Je leest wat je deelt, met welke derden — en klikt door naar de volgende partij in de keten. Waar zonder akkoord is gedeeld, staan de wetsartikelen, een meldroute en een reputatiecheck. Alles komt in de tijdlijn, tot tien jaar terug. En je trekt het hier net zo direct in als je het afgeeft.</p>';
       html += '<p class="principle" style="margin:0">De burger trekt altijd alles in, of geeft het af. Direct. <span>Ook vanuit dit overzicht. Geen drempel, geen “neem contact op”.</span></p>';
       html += '</section>';
       html += '<button type="button" class="btn btn-xl" data-action="terms-focus" data-id="all" data-testid="terms-all">Alles in één overzicht</button>';
+      html += '<p><button type="button" class="btn btn-ghost" data-action="nav" data-view="log" data-testid="terms-to-timeline">Open de tijdlijn (tot 10 jaar terug)</button></p>';
       for (var s = 0; s < SECTORS.length; s++) {
         var sec = SECTORS[s];
         var list = orgsInSector(sec.id);
@@ -1171,49 +2048,140 @@
       return html;
     }
 
+
     function renderThirdParties(orgId) {
+      var org = orgById(orgId);
+      var path = currentChain(orgId);
+      if (path.length) return renderChainView(org, path);
       var list = ORG_THIRD_PARTIES[orgId] || [];
-      var yes = [], no = [];
+      var yes = [], no = [], bad = [];
       for (var i = 0; i < list.length; i++) {
-        if (isThirdPartyShared(orgId, list[i])) yes.push(list[i]);
-        else no.push(list[i]);
+        var tp0 = list[i];
+        var unauth = isUnauthorized(tp0) && !isBlocked(orgId, tp0.id);
+        var consented = isThirdPartyShared(orgId, tp0) && !isBlocked(orgId, tp0.id) && !isUnauthorized(tp0);
+        if (unauth) bad.push(tp0);
+        else if (consented) yes.push(tp0);
+        else no.push(tp0);
       }
       var html = '<div class="terms-block" data-testid="third-parties-' + esc(orgId) + '">';
       html += '<h3>Derden: met wie data wél of niet is gedeeld</h3>';
-      html += '<p>Dit volgt jouw huidige toestemmingen. Zet een veld of de koppeling uit, en de doorstroming naar de betreffende partij stopt in deze simulatie meteen. Alle namen hieronder zijn voorbeelddata.</p>';
-      function tpCard(tp, shared) {
-        var card = '<article class="tp-card ' + (shared ? "yes" : "no") + '">';
-        card += '<div class="tp-top"><span class="tp-name">' + esc(tp.name) + '</span>';
-        card += shared
-          ? '<span class="badge badge-ok">Wél data gedeeld</span>'
-          : '<span class="badge badge-off">Niet gedeeld</span>';
-        card += '</div>';
-        card += '<p>' + esc(tp.purpose) + '</p>';
-        card += '<div class="tp-meta">';
-        card += '<div><strong>Bewaartermijn:</strong> ' + esc(tp.retention) + '</div>';
-        card += '<div><strong>Locatie:</strong> ' + esc(tp.location) + '</div>';
-        card += '<div><strong>Verkoop van data:</strong> ' + yesNo(tp.sale) + '</div>';
-        card += '<div><strong>Profilering:</strong> ' + yesNo(tp.profiling) + '</div>';
-        card += '<div style="grid-column:1/-1"><strong>Voorwaarde in deze simulatie:</strong> ' + esc(tp.requiresLabel) + '</div>';
-        card += '</div></article>';
-        return card;
+      html += '<p>Dit volgt jouw huidige toestemmingen, plus voorbeeldmarkeringen van delen zonder akkoord. Tik op een partij onder “Wél gedeeld” of “Gedeeld zonder akkoord” om te zien aan wie zij de data vervolgens doorgeven. Zet een veld uit, of blokkeer een schakel: het is meteen van kracht en komt in de tijdlijn. Alle namen hieronder zijn voorbeelddata.</p>';
+      html += renderTree(orgId, null);
+      function listBlock(title, testid, arr, empty, clickable) {
+        var h = '<h4>' + title + ' (' + arr.length + ')</h4>';
+        if (!arr.length) h += '<p>' + empty + '</p>';
+        else {
+          h += '<div class="tp-list" data-testid="' + testid + '">';
+          for (var y = 0; y < arr.length; y++) h += tpCard(org, arr[y], testid !== "tp-no", clickable);
+          h += '</div>';
+        }
+        return h;
       }
-      html += '<h4>Wél gedeeld (' + yes.length + ')</h4>';
-      if (!yes.length) html += '<p>Op dit moment krijgt geen van de genoemde derden data van jou via deze organisatie.</p>';
-      else {
-        html += '<div class="tp-list">';
-        for (var y = 0; y < yes.length; y++) html += tpCard(yes[y], true);
-        html += '</div>';
-      }
-      html += '<h4>Niet gedeeld (' + no.length + ')</h4>';
-      if (!no.length) html += '<p>Alle genoemde derden krijgen nu data, volgens de velden die jij aan hebt staan.</p>';
-      else {
-        html += '<div class="tp-list">';
-        for (var n = 0; n < no.length; n++) html += tpCard(no[n], false);
-        html += '</div>';
-      }
+      html += listBlock("Wél gedeeld", "tp-yes", yes, "Op dit moment krijgt geen van de genoemde derden data van jou via deze organisatie, op grond van jouw toestemming.", true);
+      html += listBlock("Gedeeld zonder akkoord", "tp-unauth", bad, "In deze voorbeelddata is bij deze organisatie geen deling zonder akkoord opgenomen.", true);
+      html += listBlock("Niet gedeeld", "tp-no", no, "Alle genoemde derden krijgen nu data, volgens de velden die jij aan hebt staan, of staan onder “zonder akkoord”.", true);
+      html += '<p style="margin-top:12px;font-size:13px;color:var(--muted)">Ook bij “Niet gedeeld” kun je doorklikken: je ziet dan aan wie die partij zou doorgeven als er wél data stroomde. Er wordt in die stand niets van jou doorgegeven, tenzij een voorbeeldovertreding is gemarkeerd.</p>';
       html += '</div>';
       return html;
+    }
+
+    function pathForParty(orgId, partyId) {
+      var parentOf = {};
+      var first = ORG_THIRD_PARTIES[orgId] || [];
+      function walk(list, parent) {
+        for (var i = 0; i < list.length; i++) {
+          parentOf[list[i].id] = parent;
+          walk(childrenOf(list[i].id), list[i].id);
+        }
+      }
+      walk(first, null);
+      var path = [];
+      var cur = partyId;
+      var guard = 0;
+      while (cur && guard++ < 8) {
+        path.unshift(cur);
+        cur = parentOf[cur];
+      }
+      return path;
+    }
+
+    function renderChainView(org, path) {
+      var currentId = path[path.length - 1];
+      var current = partyById(currentId);
+      if (!current) return renderThirdPartiesReset(org.id);
+      var parentShared = true;
+      if (path.length === 1) {
+        parentShared = isUnauthorized(current) ? !isBlocked(org.id, current.id) : (isThirdPartyShared(org.id, current) && !isBlocked(org.id, current.id));
+      } else {
+        var walkShared = isFirstLevelShared(org.id, partyById(path[0]));
+        for (var i = 1; i < path.length; i++) {
+          walkShared = isOnwardShared(org.id, partyById(path[i]), walkShared);
+        }
+        parentShared = walkShared;
+      }
+      var blocked = isBlocked(org.id, current.id);
+      var shared = parentShared && !blocked;
+      var kids = childrenOf(currentId);
+      var html = '<div class="terms-block" data-testid="chain-view">';
+      html += '<div class="crumbbar">';
+      html += '<button type="button" class="btn btn-ghost" data-action="chain-back" data-org="' + esc(org.id) + '" data-testid="chain-back">← Terug</button>';
+      html += '<nav class="crumbs" aria-label="Keten" data-testid="chain-crumb">';
+      html += '<button type="button" data-action="chain-root" data-org="' + esc(org.id) + '">' + esc(org.name) + '</button>';
+      for (var c = 0; c < path.length; c++) {
+        var p = partyById(path[c]);
+        html += '<span class="sep">›</span>';
+        if (c === path.length - 1) html += '<span class="here">' + esc(p ? p.name : path[c]) + '</span>';
+        else html += '<button type="button" data-action="chain-goto" data-org="' + esc(org.id) + '" data-depth="' + (c + 1) + '">' + esc(p ? p.name : path[c]) + '</button>';
+      }
+      html += '</nav></div>';
+      html += renderTree(org.id, currentId);
+      var cls = "tp-card " + (blocked ? "blocked" : (isUnauthorized(current) && shared ? "violation yes" : (shared ? "yes" : "no")));
+      html += '<article class="' + cls + '" data-testid="chain-current">';
+      html += '<div class="tp-top"><span class="tp-name">' + esc(current.name) + '</span>';
+      html += blocked ? '<span class="badge badge-off">Geblokkeerd</span>' : (isUnauthorized(current) && shared ? '<span class="badge badge-warn">Gedeeld zonder akkoord</span>' : (shared ? '<span class="badge badge-ok">Wél data gedeeld</span>' : '<span class="badge badge-off">Niet gedeeld</span>'));
+      html += '<span class="voorbeeld-tag">Voorbeelddata</span></div>';
+      html += tpMeta(current);
+      html += '<div class="tp-actions">' + blockButton(org, current) + '</div>';
+      html += violationBlock(org, current);
+      html += repuHtml(org, current, !!(state.repuOpen && state.repuOpen[current.id]));
+      html += '</article>';
+      html += '<h4 style="margin-top:16px">Volgende partijen waar deze partij data mee deelt</h4>';
+      if (!kids.length) {
+        html += '<div class="end-note" data-testid="deelt-niet-verder">Deze partij <strong>deelt niet verder</strong> volgens de voorbeelddata. Hier stopt deze tak van de keten.</div>';
+      } else {
+        var yes = [], no = [], bad = [];
+        for (var k = 0; k < kids.length; k++) {
+          var kid = kids[k];
+          var kBlocked = isBlocked(org.id, kid.id);
+          var kShared = isOnwardShared(org.id, kid, shared);
+          if (isUnauthorized(kid) && kShared && !kBlocked) bad.push(kid);
+          else if (kShared && !kBlocked) yes.push(kid);
+          else no.push(kid);
+        }
+        if (yes.length) {
+          html += '<h4>Wél gedeeld (' + yes.length + ')</h4><div class="tp-list">';
+          for (var y = 0; y < yes.length; y++) html += tpCard(org, yes[y], true, true);
+          html += '</div>';
+        }
+        if (bad.length) {
+          html += '<h4>Gedeeld zonder akkoord (' + bad.length + ')</h4><div class="tp-list">';
+          for (var b = 0; b < bad.length; b++) html += tpCard(org, bad[b], true, true);
+          html += '</div>';
+        }
+        if (no.length) {
+          html += '<h4>Niet gedeeld of geblokkeerd (' + no.length + ')</h4><div class="tp-list">';
+          for (var n = 0; n < no.length; n++) html += tpCard(org, no[n], false, true);
+          html += '</div>';
+        }
+      }
+      html += realSourcesHtml();
+      html += '</div>';
+      return html;
+    }
+
+    function renderThirdPartiesReset(orgId) {
+      if (state.chain && state.chain.orgId === orgId) state.chain = null;
+      return renderThirdParties(orgId);
     }
 
     function renderTermsConsent(orgId) {
@@ -1397,30 +2365,51 @@
         var sec = sectorById(o.sector);
         orgs[o.id] = { active: !!o.defaultActive, fields: defaultFields(sec), pref: "email" };
       }
+      var log = seedTimeline();
+      log.unshift({
+        id: "start",
+        at: Date.now(),
+        kind: "info",
+        text: "Simulatie gestart voor " + CITIZEN + ". Bestaande koppelingen staan klaar; jij kunt ze meteen intrekken. De geschiedenis tot tien jaar terug is voorbeelddata."
+      });
+      var yearNow = eventYear(Date.now());
+      var open = {};
+      open[yearNow] = true;
       return {
-        version: 1,
+        version: 2,
         introDismissed: false,
         selectedSector: "nuts",
         selectedOrg: "energie-a",
         view: "home",
         termsFocus: null,
+        chain: null,
+        repuOpen: {},
+        blocked: {},
+        joinedActions: {},
+        tlFilterKind: "all",
+        tlFilterOrg: "all",
+        tlOpenYears: open,
         orgs: orgs,
         requests: [],
-        log: [{
-          id: "start",
-          at: Date.now(),
-          kind: "info",
-          text: "Simulatie gestart voor " + CITIZEN + ". Bestaande koppelingen staan klaar; jij kunt ze meteen intrekken."
-        }]
+        log: log
       };
     }
 
     function loadState() {
       try {
         var raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return defaultState();
-        var data = JSON.parse(raw);
-        if (!data || data.version !== 1 || !data.orgs) return defaultState();
+        var migrated = false;
+        var data = null;
+        if (raw) {
+          data = JSON.parse(raw);
+        } else {
+          var old = localStorage.getItem("hoe-het-wel-makkelijker-kan-v1");
+          if (old) {
+            data = JSON.parse(old);
+            migrated = true;
+          }
+        }
+        if (!data || !data.orgs) return defaultState();
         var base = defaultState();
         base.introDismissed = !!data.introDismissed;
         base.selectedSector = data.selectedSector || "nuts";
@@ -1428,18 +2417,23 @@
         base.view = data.view || "home";
         base.termsFocus = data.termsFocus || null;
         base.requests = Array.isArray(data.requests) ? data.requests : [];
-        base.log = Array.isArray(data.log) ? data.log : base.log;
-        for (var id in base.orgs) {
-          if (data.orgs[id]) {
-            base.orgs[id].active = !!data.orgs[id].active;
-            base.orgs[id].pref = data.orgs[id].pref || "email";
-            var fields = data.orgs[id].fields || {};
-            for (var k in base.orgs[id].fields) {
-              if (Object.prototype.hasOwnProperty.call(fields, k)) base.orgs[id].fields[k] = !!fields[k];
-            }
-            var sec = sectorById(orgById(id).sector);
-            if (sec.bsnPolicy === "never") base.orgs[id].fields.bsn = false;
+        mergeOrgsFrom(data, base);
+        if (data.version === 2 && Array.isArray(data.log) && data.log.length) {
+          base.log = data.log;
+        } else if (Array.isArray(data.log) && data.log.length) {
+          var live = [];
+          for (var i = 0; i < data.log.length; i++) {
+            if (data.log[i] && data.log[i].id !== "start") live.push(data.log[i]);
           }
+          base.log = live.concat(base.log);
+        }
+        if (data.blocked && typeof data.blocked === "object") base.blocked = data.blocked;
+        if (data.joinedActions && typeof data.joinedActions === "object") base.joinedActions = data.joinedActions;
+        if (data.tlFilterKind) base.tlFilterKind = data.tlFilterKind;
+        if (data.tlFilterOrg) base.tlFilterOrg = data.tlFilterOrg;
+        if (data.tlOpenYears && typeof data.tlOpenYears === "object") base.tlOpenYears = data.tlOpenYears;
+        if (migrated) {
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(base)); } catch (e1) {}
         }
         return base;
       } catch (e) {
@@ -1467,14 +2461,21 @@
       }
     }
 
-    function addLog(kind, text) {
-      state.log.unshift({
+    function addLog(kind, text, extra) {
+      var item = {
         id: "l" + Date.now() + Math.random().toString(16).slice(2),
         at: Date.now(),
         kind: kind,
-        text: text
-      });
-      if (state.log.length > 200) state.log.length = 200;
+        text: text,
+        example: false
+      };
+      if (extra) {
+        if (extra.orgId) item.orgId = extra.orgId;
+        if (extra.partyId) item.partyId = extra.partyId;
+        if (extra.articles) item.articles = extra.articles;
+        if (extra.example) item.example = true;
+      }
+      state.log.unshift(item);
     }
 
     function showToast(msg) {
@@ -1522,13 +2523,13 @@
       var field = fieldById(sec, fieldId);
       if (next && !st.active) {
         st.active = true;
-        addLog("give", "Je koppelde " + org.name + " en gaf toestemming voor " + field.label.toLowerCase() + ".");
+        addLog("give", "Je koppelde " + org.name + " en gaf toestemming voor " + field.label.toLowerCase() + ".", { orgId: orgId });
         showToast("Gekoppeld en toestemming gegeven voor " + field.label.toLowerCase() + " — direct van kracht.");
       } else if (next) {
-        addLog("give", "Je gaf " + org.name + " toestemming voor " + field.label.toLowerCase() + ".");
+        addLog("give", "Je gaf " + org.name + " toestemming voor " + field.label.toLowerCase() + ".", { orgId: orgId });
         showToast("Toestemming voor " + field.label.toLowerCase() + " gegeven — direct van kracht.");
       } else {
-        addLog("revoke", "Je trok bij " + org.name + " de toestemming voor " + field.label.toLowerCase() + " in.");
+        addLog("revoke", "Je trok bij " + org.name + " de toestemming voor " + field.label.toLowerCase() + " in.", { orgId: orgId });
         showToast("Toestemming voor " + field.label.toLowerCase() + " ingetrokken — direct van kracht.");
       }
       saveState();
@@ -1538,7 +2539,7 @@
     function setPref(orgId, pref) {
       var org = orgById(orgId);
       state.orgs[orgId].pref = pref;
-      addLog("pref", "Communicatievoorkeur voor " + org.name + ": " + prefLabel(pref).toLowerCase() + ".");
+      addLog("pref", "Communicatievoorkeur voor " + org.name + ": " + prefLabel(pref).toLowerCase() + ".", { orgId: orgId });
       showToast("Voorkeur ingesteld: " + prefLabel(pref).toLowerCase() + " — direct van kracht.");
       saveState();
       render();
@@ -1548,10 +2549,10 @@
       var org = orgById(orgId);
       state.orgs[orgId].active = active;
       if (active) {
-        addLog("give", "Je koppelde " + org.name + ". De sector-specifieke identifier wordt gedeeld; verdere velden alleen als jij ze aanzet.");
+        addLog("give", "Je koppelde " + org.name + ". De sector-specifieke identifier wordt gedeeld; verdere velden alleen als jij ze aanzet.", { orgId: orgId });
         showToast("Koppeling met " + org.name + " actief — direct van kracht.");
       } else {
-        addLog("revoke", "Je trok de koppeling met " + org.name + " in. Er wordt niets meer gedeeld.");
+        addLog("revoke", "Je trok de koppeling met " + org.name + " in. Er wordt niets meer gedeeld.", { orgId: orgId });
         showToast("Koppeling met " + org.name + " ingetrokken — direct van kracht.");
       }
       saveState();
@@ -1587,7 +2588,7 @@
         at: Date.now(),
         selected: selected
       });
-      addLog("info", "Nieuwe aanvraag van " + org.name + " verschenen onder Openstaande aanvragen.");
+      addLog("request", "Nieuwe aanvraag van " + org.name + " verschenen onder Openstaande aanvragen.", { orgId: sc.orgId });
       showToast("Aanvraag van " + org.name + " staat klaar onder Openstaande aanvragen.");
       state.view = "requests";
       saveState();
@@ -1624,7 +2625,7 @@
       }
       state.requests.splice(idx, 1);
       var what = given.length ? given.join(", ") : "alleen de sector-specifieke identifier";
-      addLog("give", "Je willigde de aanvraag van " + org.name + " in en deelde: " + what + ".");
+      addLog("give", "Je willigde de aanvraag van " + org.name + " in en deelde: " + what + ".", { orgId: req.orgId });
       showToast("Aanvraag ingewilligd — direct van kracht.");
       state.selectedSector = org.sector;
       state.selectedOrg = org.id;
@@ -1639,7 +2640,7 @@
       if (!req) return;
       var org = orgById(req.orgId);
       state.requests.splice(idx, 1);
-      addLog("revoke", "Je weigerde de aanvraag van " + org.name + ". Er is niets extra gedeeld.");
+      addLog("revoke", "Je weigerde de aanvraag van " + org.name + ". Er is niets extra gedeeld.", { orgId: req.orgId });
       showToast("Aanvraag geweigerd — er is niets extra gedeeld.");
       saveState();
       render();
@@ -1857,21 +2858,98 @@
     }
 
     function renderLog() {
-      var html = '<section class="panel" data-testid="consent-log">';
-      html += '<div class="panel-h"><div class="title-row"><h2 style="text-transform:none;font-size:18px;color:var(--ink)">Toestemmingenlogboek</h2></div>';
-      html += '<p>Elke keer dat je iets deelt of intrekt, staat het hier, met tijdstip. Geen verborgen actie, geen vertraging.</p></div>';
-      html += '<div class="log-list">';
-      if (!state.log.length) {
-        html += '<p class="empty-note" style="margin:16px">Nog geen acties.</p>';
+      var items = filteredLog();
+      var html = '<section class="tl-wrap" data-testid="timeline">';
+      html += '<div class="panel-h" style="padding:0 0 8px;border:0"><div class="title-row"><h2 style="text-transform:none;font-size:18px;color:var(--ink)">Tijdlijn</h2></div>';
+      html += '<p>Alles wat gedeeld, ingetrokken, doorgegeven, geblokkeerd of zonder akkoord is doorgezet — tot tien jaar terug. De oude geschiedenis is <span class="voorbeeld-tag">Voorbeelddata</span>. Nieuwe acties van jou komen bovenaan.</p></div>';
+      html += '<div class="tl-toolbar">';
+      html += '<label>Type <select data-action="tl-kind" data-testid="tl-kind">';
+      html += '<option value="all"' + (state.tlFilterKind === "all" ? " selected" : "") + '>Alle types</option>';
+      var kinds = ["give", "revoke", "share", "onward", "block", "unblock", "violation", "request", "pref", "reputation", "action", "info"];
+      for (var k = 0; k < kinds.length; k++) {
+        html += '<option value="' + kinds[k] + '"' + (state.tlFilterKind === kinds[k] ? " selected" : "") + '>' + esc(KIND_LABELS[kinds[k]]) + '</option>';
+      }
+      html += '</select></label>';
+      html += '<label>Organisatie <select data-action="tl-org" data-testid="tl-org">';
+      html += '<option value="all"' + (state.tlFilterOrg === "all" ? " selected" : "") + '>Alle organisaties</option>';
+      for (var o = 0; o < ORGS.length; o++) {
+        html += '<option value="' + esc(ORGS[o].id) + '"' + (state.tlFilterOrg === ORGS[o].id ? " selected" : "") + '>' + esc(ORGS[o].name) + '</option>';
+      }
+      html += '</select></label>';
+      html += '<button type="button" class="btn btn-ghost" data-action="download-timeline" data-testid="download-timeline">Bewijs downloaden</button>';
+      html += '</div>';
+      var yearsPresent = [];
+      var seenY = {};
+      for (var i = 0; i < state.log.length; i++) {
+        var y0 = eventYear(state.log[i].at);
+        if (!seenY[y0]) { seenY[y0] = true; yearsPresent.push(y0); }
+      }
+      yearsPresent.sort(function (a, b) { return b - a; });
+      html += '<div class="tl-years" data-testid="tl-years">';
+      for (var y = 0; y < yearsPresent.length; y++) {
+        var yr = yearsPresent[y];
+        html += '<button type="button" class="yr' + (state.tlOpenYears && state.tlOpenYears[yr] ? " active" : "") + '" data-action="tl-jump" data-year="' + yr + '" data-testid="tl-year-' + yr + '">' + yr + '</button>';
+      }
+      html += '</div>';
+      html += '<div class="tl-scroll" data-testid="timeline-scroll">';
+      if (!items.length) {
+        html += '<p class="empty-note" style="margin:16px">Geen gebeurtenissen voor deze filters.</p>';
       } else {
-        for (var i = 0; i < state.log.length; i++) {
-          var item = state.log[i];
-          var cls = item.kind === "revoke" ? "revoke" : item.kind === "give" ? "give" : item.kind === "pref" ? "pref" : "";
-          html += '<div class="log-item"><span class="dot ' + cls + '"></span><div><time datetime="' +
-            esc(new Date(item.at).toISOString()) + '">' + esc(formatTime(item.at)) + '</time>' + esc(item.text) + '</div></div>';
+        var groups = [];
+        var lastYear = null, lastMonth = null, curYear = null, curMonthItems = null;
+        for (var n = 0; n < items.length; n++) {
+          var it = items[n];
+          var yy = eventYear(it.at);
+          var mm = formatMonthLabel(it.at);
+          if (yy !== lastYear) {
+            curYear = { year: yy, months: [] };
+            groups.push(curYear);
+            lastYear = yy;
+            lastMonth = null;
+          }
+          if (mm !== lastMonth) {
+            curMonthItems = { label: mm, items: [] };
+            curYear.months.push(curMonthItems);
+            lastMonth = mm;
+          }
+          curMonthItems.items.push(it);
+        }
+        for (var g = 0; g < groups.length; g++) {
+          var grp = groups[g];
+          var open = !!(state.tlOpenYears && state.tlOpenYears[grp.year]);
+          var count = 0;
+          for (var m = 0; m < grp.months.length; m++) count += grp.months[m].items.length;
+          html += '<div class="tl-year" id="jaar-' + grp.year + '">';
+          html += '<button type="button" data-action="tl-toggle" data-year="' + grp.year + '" aria-expanded="' + (open ? "true" : "false") + '">' + grp.year + '<span>' + count + ' gebeurtenis' + (count === 1 ? "" : "sen") + (open ? " · inklappen" : " · openen") + '</span></button>';
+          if (open) {
+            html += '<div class="log-list">';
+            for (var mo = 0; mo < grp.months.length; mo++) {
+              html += '<div class="tl-month">' + esc(grp.months[mo].label) + '</div>';
+              for (var z = 0; z < grp.months[mo].items.length; z++) {
+                var item = grp.months[mo].items[z];
+                var cls = item.kind || "";
+                html += '<div class="log-item tl-item ' + esc(cls) + '"><span class="dot ' + esc(cls) + '"></span><div>';
+                html += '<time datetime="' + esc(new Date(item.at).toISOString()) + '">' + esc(formatDay(item.at)) + (item.example ? " · voorbeelddata" : "") + " · " + esc(KIND_LABELS[item.kind] || item.kind) + '</time>';
+                html += esc(item.text);
+                if (item.articles && item.articles.length) {
+                  var codes = [];
+                  for (var a = 0; a < item.articles.length; a++) {
+                    var art = LEGAL[item.articles[a]];
+                    codes.push(art ? art.code : item.articles[a]);
+                  }
+                  html += '<span class="arts">' + esc(codes.join(" · ")) + '</span>';
+                }
+                html += '</div></div>';
+              }
+            }
+            html += '</div>';
+          }
+          html += '</div>';
         }
       }
-      html += '</div></section>';
+      html += '</div>';
+      html += '<p style="font-size:13px;color:var(--muted)">Jaren blijven dicht, behalve het jaar dat je opent. Zo blijft scrollen licht, ook met tien jaar geschiedenis.</p>';
+      html += '</section>';
       return html;
     }
 
@@ -1964,7 +3042,7 @@
     }
 
     function renderMobileConsents() {
-      var html = '<div class="section-title"><h2>Toestemmingen</h2><button type="button" class="btn-text" data-action="nav" data-view="log">Logboek</button></div>';
+      var html = '<div class="section-title"><h2>Toestemmingen</h2><button type="button" class="btn-text" data-action="nav" data-view="log">Tijdlijn</button></div>';
       html += '<p style="font-size:14px;color:var(--ink-soft);margin-bottom:12px">Alles wat nu gedeeld wordt, per organisatie. Intrekken is één tik.</p>';
       var any = false;
       for (var s = 0; s < SECTORS.length; s++) {
@@ -2027,7 +3105,7 @@
       var desktop = isDesktop();
       var view = state.view || "home";
       if (desktop) {
-        if (view === "log") html += renderOverlayChrome("Logboek", renderLog());
+        if (view === "log") html += renderOverlayChrome("Tijdlijn", renderLog());
         else if (view === "settings") html += renderOverlayChrome("Instellingen", renderSettings());
         else if (view === "requests") html += renderOverlayChrome("Openstaande aanvragen", renderRequestsBlock(true) + renderSimulate());
         else if (view === "terms") html += renderOverlayChrome("Waar heb ik voor getekend?", renderTerms());
@@ -2050,11 +3128,128 @@
       }
       var keepScroll = lastRenderedView === view;
       var y = keepScroll ? window.scrollY : 0;
+      var tlEl = document.querySelector("[data-testid='timeline-scroll']");
+      var tlY = tlEl ? tlEl.scrollTop : 0;
       root.innerHTML = html;
       lastRenderedView = view;
       updateChrome();
       if (keepScroll) window.scrollTo(0, y);
       else window.scrollTo(0, 0);
+      if (keepScroll && tlY) {
+        var tlNew = document.querySelector("[data-testid='timeline-scroll']");
+        if (tlNew) tlNew.scrollTop = tlY;
+      }
+    }
+
+    function filteredLog() {
+      var kind = state.tlFilterKind || "all";
+      var org = state.tlFilterOrg || "all";
+      var out = [];
+      for (var i = 0; i < state.log.length; i++) {
+        var item = state.log[i];
+        if (kind !== "all" && item.kind !== kind) continue;
+        if (org !== "all" && item.orgId !== org) continue;
+        out.push(item);
+      }
+      return out;
+    }
+    function downloadTimeline() {
+      var items = filteredLog();
+      var lines = [];
+      lines.push("Tijdlijn — Hoe het wél makkelijker kan");
+      lines.push("Simulatieburger: " + CITIZEN);
+      lines.push("Opgesteld: " + formatDay(Date.now()) + " (Europe/Amsterdam)");
+      lines.push("Let op: gebeurtenissen met ‘Voorbeelddata’ zijn fictief. Dit bestand is bedoeld als oefenbewijs bij een melding, geen authentieke akte.");
+      lines.push("");
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        lines.push("— " + formatDay(item.at) + (item.example ? " [voorbeelddata]" : ""));
+        lines.push("  Type: " + (KIND_LABELS[item.kind] || item.kind));
+        if (item.orgId) {
+          var og = null;
+          try { og = orgById(item.orgId); } catch (e) {}
+          lines.push("  Organisatie: " + (og ? og.name : item.orgId));
+        }
+        lines.push("  " + item.text);
+        if (item.articles && item.articles.length) {
+          for (var a = 0; a < item.articles.length; a++) {
+            var art = LEGAL[item.articles[a]];
+            if (art) lines.push("  Artikel: " + art.code + " — " + art.title + " (" + art.href + ")");
+          }
+        }
+        lines.push("");
+      }
+      var blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "tijdlijn-hoe-het-wel-makkelijker-kan.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      showToast("Tijdlijn gedownload — ter onderbouwing van een melding.");
+    }
+    function setChain(orgId, path) {
+      state.chain = path && path.length ? { orgId: orgId, path: path } : null;
+      saveState();
+      render();
+    }
+    function openChain(orgId, partyId) {
+      var path = currentChain(orgId).slice();
+      if (!path.length) path = pathForParty(orgId, partyId);
+      else {
+        var kids = childrenOf(path[path.length - 1]);
+        var ok = false;
+        for (var i = 0; i < kids.length; i++) if (kids[i].id === partyId) ok = true;
+        if (ok) path.push(partyId);
+        else path = pathForParty(orgId, partyId);
+      }
+      if (state.view !== "terms") {
+        state.view = "terms";
+        state.termsFocus = orgId;
+      } else if (!state.termsFocus || state.termsFocus === "all") {
+        /* keep all-overview, chain is per org */
+      }
+      setChain(orgId, path);
+    }
+    function blockOnward(orgId, partyId, on) {
+      var org = orgById(orgId);
+      var p = partyById(partyId);
+      if (!p || p.blockable === false) return;
+      if (!state.blocked) state.blocked = {};
+      var key = orgId + "::" + partyId;
+      if (on) {
+        state.blocked[key] = true;
+        addLog("block", "Je blokkeerde doorgifte naar " + p.name + " (via " + org.name + "). Direct van kracht.", { orgId: orgId, partyId: partyId });
+        showToast("Doorgifte naar " + p.name + " geblokkeerd — direct van kracht.");
+      } else {
+        delete state.blocked[key];
+        addLog("unblock", "Je hief de blokkade op voor " + p.name + " (via " + org.name + ").", { orgId: orgId, partyId: partyId });
+        showToast("Blokkade voor " + p.name + " opgeheven — direct van kracht.");
+      }
+      saveState();
+      render();
+    }
+    function openRepu(orgId, partyId) {
+      if (!state.repuOpen) state.repuOpen = {};
+      state.repuOpen[partyId] = true;
+      var p = partyById(partyId);
+      var org = orgById(orgId);
+      addLog("reputation", "Reputatiecheck uitgevoerd voor " + (p ? p.name : partyId) + " (via " + org.name + ").", { orgId: orgId, partyId: partyId });
+      showToast("Reputatiecheck uitgevoerd — voorbeelddata.");
+      saveState();
+      render();
+    }
+    function joinAction(actionId, orgId, partyId) {
+      var act = CLASS_ACTIONS[actionId];
+      if (!act) return;
+      if (!state.joinedActions) state.joinedActions = {};
+      state.joinedActions[actionId] = true;
+      addLog("action", "Aangesloten bij collectieve actie (simulatie): " + act.title + ". Dit is geen echte aanmelding.", { orgId: orgId, partyId: partyId });
+      showToast("In de simulatie aangesloten. In het echt gaat dat via de belangenorganisatie en het register.");
+      saveState();
+      render();
     }
 
     function onClick(e) {
@@ -2089,15 +3284,18 @@
         declineRequest(t.getAttribute("data-id"));
       } else if (action === "nav") {
         state.view = t.getAttribute("data-view");
-        if (state.view === "terms") state.termsFocus = null;
+        if (state.view === "terms") { state.termsFocus = null; state.chain = null; }
         saveState(); render();
       } else if (action === "terms-focus") {
         state.view = "terms";
-        state.termsFocus = t.getAttribute("data-id");
+        var focusId = t.getAttribute("data-id");
+        if (state.chain && focusId !== "all" && state.chain.orgId !== focusId) state.chain = null;
+        state.termsFocus = focusId;
         saveState(); render();
       } else if (action === "terms-back") {
         state.view = "terms";
         state.termsFocus = null;
+        state.chain = null;
         saveState(); render();
       } else if (action === "open-terms") {
         state.view = "terms";
@@ -2111,10 +3309,63 @@
         saveState(); render();
       } else if (action === "reset") {
         resetSim();
+      } else if (action === "chain-open") {
+        openChain(t.getAttribute("data-org"), t.getAttribute("data-party"));
+      } else if (action === "chain-back") {
+        var orgB = t.getAttribute("data-org");
+        var pathB = currentChain(orgB).slice();
+        pathB.pop();
+        setChain(orgB, pathB);
+      } else if (action === "chain-root") {
+        setChain(t.getAttribute("data-org"), []);
+      } else if (action === "chain-goto") {
+        var orgG = t.getAttribute("data-org");
+        var depth = Number(t.getAttribute("data-depth") || "0");
+        setChain(orgG, currentChain(orgG).slice(0, depth));
+      } else if (action === "chain-jump") {
+        var orgJ = t.getAttribute("data-org");
+        setChain(orgJ, pathForParty(orgJ, t.getAttribute("data-party")));
+      } else if (action === "block-onward") {
+        blockOnward(t.getAttribute("data-org"), t.getAttribute("data-party"), true);
+      } else if (action === "unblock-onward") {
+        blockOnward(t.getAttribute("data-org"), t.getAttribute("data-party"), false);
+      } else if (action === "repu-open") {
+        openRepu(t.getAttribute("data-org"), t.getAttribute("data-party"));
+      } else if (action === "join-action") {
+        joinAction(t.getAttribute("data-id"), t.getAttribute("data-org"), t.getAttribute("data-party"));
+      } else if (action === "download-timeline") {
+        downloadTimeline();
+      } else if (action === "tl-jump") {
+        var yearJ = Number(t.getAttribute("data-year"));
+        if (!state.tlOpenYears) state.tlOpenYears = {};
+        state.tlOpenYears[yearJ] = true;
+        state.view = "log";
+        saveState();
+        render();
+        var elY = document.getElementById("jaar-" + yearJ);
+        if (elY) elY.scrollIntoView({ block: "start" });
+      } else if (action === "tl-toggle") {
+        var yearT = Number(t.getAttribute("data-year"));
+        if (!state.tlOpenYears) state.tlOpenYears = {};
+        state.tlOpenYears[yearT] = !state.tlOpenYears[yearT];
+        saveState();
+        render();
       }
     }
 
     function onChange(e) {
+      var kindSel = e.target.closest("[data-action='tl-kind']");
+      if (kindSel) {
+        state.tlFilterKind = kindSel.value || "all";
+        saveState(); render();
+        return;
+      }
+      var orgSel = e.target.closest("[data-action='tl-org']");
+      if (orgSel) {
+        state.tlFilterOrg = orgSel.value || "all";
+        saveState(); render();
+        return;
+      }
       var t = e.target.closest("[data-action='toggle-req-field']");
       if (!t) return;
       toggleRequestField(t.getAttribute("data-req"), t.getAttribute("data-field"));
